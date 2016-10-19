@@ -1,0 +1,4 @@
+Par sort irok ide:
+Mondanam, hogy ez az elso sor
+De nem lenne igaz, mert az mar a masodik volt
+Aztan meg a harmadik, ez pedig a negyedik
