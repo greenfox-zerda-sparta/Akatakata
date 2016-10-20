@@ -1,0 +1,34 @@
+.maindiv {
+  box-sizing: border-box;
+  background-color: #008000;
+  margin-bottom: 10px;
+  padding: 20px;
+  width: 288px;
+  height: 274px;
+}
+
+.fruits, .vegs {
+  box-sizing: border-box;
+  border: solid black 4px;
+  font-size: 30px;
+  height: 78px;
+  padding-left: 25px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  width: 248px;
+  margin: 0;
+}
+
+.fruits {
+  background-color: #FFFF00;
+  color: blue;
+}
+
+.vegs {
+  background-color: #00FFFF;
+  color: darkred;
+}
+p {
+  margin: 0;
+  padding: 0;
+}

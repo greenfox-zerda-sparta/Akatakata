@@ -1,0 +1,17 @@
+h1, h2 {
+  color: green;
+}
+
+p::first-letter {
+  color: darkred;
+}
+
+em {
+  color: blue;
+  font-style: italic;
+  font-size: smaller;
+}
+
+pre {
+padding: 0;
+}

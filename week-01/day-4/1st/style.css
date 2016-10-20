@@ -1,0 +1,17 @@
+div {
+  box-sizing: border-box;
+  background-color: #FFFF00;
+  border: solid black 4px;
+  color: #DE2502;
+  font-size: 30px;
+  height: 78px;
+  margin-bottom: 10px;
+  padding-left: 25px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  width: 248px;
+}
+p {
+  margin: 0;
+  padding: 0;
+}
