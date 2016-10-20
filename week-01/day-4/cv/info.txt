@@ -1,0 +1,3 @@
+image: rairni a szoveget IMagemagick (resize, szoveg)
+blockquote is igy, lehet vmi alap betutipus
+li square tul nagy
