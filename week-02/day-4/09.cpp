@@ -1,9 +1,14 @@
-
 #include <iostream>
 
 using namespace std;
 
-void triangle();
+void print_characters(int count, char c) {
+  for (int i = 0; i < count; ++i) {
+    cout << c;
+  }
+}
+
+void diamond();
 
 int main() {
   // Create a function that takes a number and prints a diamond like this:
@@ -21,31 +26,28 @@ int main() {
   //      *
   //
   // The diamond should have as many lines as the value in the argument
-  triangle();
+  diamond();
   return 0;
 }
 
-void triangle() {
-  int num = 0;
-  string print = "";
+void diamond() {
+  int number = 0;
   cout << "Give me a positive number!" << endl;
-  cin >> num;
-  for (int i = 1; i <= num; i++) {
-    for (int x = 0; x <= num - 1- i; x++) {
-      cout << " ";
-    }
-    for (int n = 1; n <= i * 2 - 1; n++) {
-      cout << '*';
-    }
+  cin >> number;
+  char mark = '*';
+  for (int i = 1; i <= number; i++) {
+    print_characters(number - i, ' ');
+    print_characters(i * 2 - 1, mark);
     cout << endl;
   }
-  for (int i = num - 1; i >= 1; i--) {
-    for (int x = 1; x <= num - i; x++) {
-      cout << " ";
-    }
+  for (int i = number - 1; i >= 1; i--) {
+    print_characters(number - i, ' ');
     for (int n = i * 2 - 1; n >= 1; n--) {
-      cout << '*';
+      cout << mark;
     }
     cout << endl;
   }
 }
+
+
+

@@ -1,12 +1,7 @@
-
 #include <iostream>
 
 using namespace std;
-
-void triangle();
-
-int main() {
-  // Create a function that takes a number and prints a triangle like this:
+// Create a function that takes a number and prints a triangle like this:
   //
   //      *
   //     ***
@@ -16,22 +11,23 @@ int main() {
   // ***********
   //
   // The triangle should have as many lines as the value in the argument
-  triangle();
-  return 0;
+void draw_characters(int count, char c) {
+  for (int i = 0; i < count; ++i) {
+    cout << c;
+  }
 }
 
-void triangle() {
-  int num = 0;
-  string print = "";
-  cout << "Give me a positive number!" << endl;
-  cin >> num;
-  for (int i = 1; i <= num; i++) {
-    for (int x = 0; x <= num - 1 - i; x++) {
-      cout << " ";
-    }
-    for (int n = 1; n <= i * 2 - 1; n++) {
-      cout << '*';
-    }
+void christmas_tree(char main_character, int times) {
+  for (int row = 1; row <= times; ++row) {
+    draw_characters(times - row, ' ');
+    draw_characters(row * 2 - 1, main_character);
     cout << endl;
   }
 }
+
+int main() {
+  christmas_tree('*', 9);
+  return 0;
+}
+
+
