@@ -16,10 +16,12 @@ int* create_array(int size) {
 }
 
 int* resize(int* arr, int size, int new_size) {
-  int* pointer = new int[new_size];
-  for (int i = 0; i < new_size; i++) {
-    if (i < size) {
+  int* pointer = new int[size];
+  for (int i = 0; i < size; i++) {
+    if (i < new_size) {
       pointer[i] = arr[i];
+    } else {
+      pointer[i] = 0;
     }
   }
   return pointer;
@@ -45,10 +47,10 @@ int* filter_greater_than_5(int* arr, int size) {
 }
 
 int main() {
-  int* array = create_array(10);
-  int* new_array = filter_greater_than_5(array, 10);
-  // we don't know the new size
-  for (int i = 0; i < 10; i++) {
+  int length = 10;
+  int* array = create_array(length); // numbers 0 - 10
+  int* new_array = filter_greater_than_5(array, length);
+  for (int i = 0; i < length; i++) {
     cout << new_array[i] << " ";
   }
   delete[] array;

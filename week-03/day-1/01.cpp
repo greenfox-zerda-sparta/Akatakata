@@ -11,7 +11,7 @@ int main() {
     pointer[i] = i;
     cout << pointer[i] << " ";
   }
-  delete pointer;
+  delete[] pointer;
 
   return 0;
 }

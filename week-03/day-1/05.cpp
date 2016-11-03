@@ -19,10 +19,11 @@ int* create_array(int size, int filler) {
 
 int* resize(int* arr, int size, int new_size) {
   int* pointer = new int[new_size];
-  pointer = create_array(new_size, 0);
   for (int i = 0; i < new_size; i++) {
     if (i < size) {
       pointer[i] = arr[i];
+    } else {
+      pointer[i] = 0;
     }
   }
   return pointer;
@@ -30,9 +31,11 @@ int* resize(int* arr, int size, int new_size) {
 
 
 int main() {
-  int* array = create_array(10, 5);
-  array = resize(array, 10, 15);
-  for (int i = 0; i < 15; i++) {
+  int size = 10;
+  int* array = create_array(size, 5);
+  int newsize = 15;
+  array = resize(array, size, newsize);
+  for (int i = 0; i < newsize; i++) {
     cout << array[i] << " ";
   }
   delete[] array;

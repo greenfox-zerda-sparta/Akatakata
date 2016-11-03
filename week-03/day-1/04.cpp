@@ -20,21 +20,23 @@ using namespace std;
 int* range(int from, int to, int step) {
   int size = (to - from) / step;
   int *array = new int[size];
-  int index = 0;
-  for (int i = from; i < to; i += step) {
-    array[index] = i;
-    index++;
+  for (int i = 0; i < size; i++) {
+    array[i] = from;
+    from += step;
   }
   return array;
 }
 
-
 int main() {
-  int* array = range(0, 10, 2);
-  cout << array << endl;
-  for (int i = 0; i < 5; i++) {
-    cout << array[i] << " ";
+  int to = 10;
+  int from = 0;
+  int step = 2;
+  int size = (to - from) / step;
+  int* array = range(from, to, step);
+  for (int j = 0; j < size; j++) {
+    cout << array[j] << " ";
   }
+  cout << endl << array << endl;
   delete[] array;
   return 0;
 }
