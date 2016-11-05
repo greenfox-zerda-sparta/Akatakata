@@ -71,5 +71,6 @@ int main() {
               ", " << places_newprice[5].rooms << ", " << places_newprice[5].sqrm << endl;
 
   delete[] places_newprice;
+  places_newprice = nullptr;
   return 0;
 }

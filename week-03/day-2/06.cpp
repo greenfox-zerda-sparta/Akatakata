@@ -63,6 +63,7 @@ string worst_grade_in(Student& student) {
 void deconstruct_student(Student* student) {
   delete[] student->grades;
   delete student;
+  student = nullptr;
 }
 
 int main() {

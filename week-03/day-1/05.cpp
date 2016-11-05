@@ -26,7 +26,6 @@ int* resize(int* arr, int size, int new_size) {
   return new_arr;
 }
 
-
 int main() {
   int size = 10;
   int* array = create_array(size, 5);
@@ -36,5 +35,6 @@ int main() {
     cout << new_array[i] << " ";
   }
   delete[] new_array;
+  new_array = nullptr;
   return 0;
 }

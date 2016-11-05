@@ -5,8 +5,8 @@ using namespace std;
 
 struct Computer {
   string name;
-  float cpu_speed_hz;
-  float ram_size;
+  long int cpu_speed_hz;
+  long int ram_size;
 };
 
 int main() {

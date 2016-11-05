@@ -11,7 +11,7 @@ struct Car {
   double gas;
 };
 
-void show(Car car, string types[]) {
+void show(Car* car, string types[]) {
   cout << types[car->type] << " " << car->km << " ";
   if (car->type != TESLA) {
     cout << car->gas;
@@ -28,6 +28,8 @@ int main() {
   Verso.type = CarType::TOYOTA;
   Verso.km = 40000;
   Verso.gas = 7.3;
-  show(Verso, CarTypes_names);
+  show(&Verso, CarTypes_names);
+  Car Model_S = {TESLA, 11111, 0};
+  show(&Model_S, CarTypes_names);
   return 0;
 }

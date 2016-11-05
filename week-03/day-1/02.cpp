@@ -16,6 +16,7 @@ int main() {
     cout << pointer[i] << " ";
   }
   delete[] pointer;
-  cout << "and deleted: " << pointer;
+  pointer = nullptr;
+  cout << endl << "and deleted the allocated memory and resetting the pointer: " << pointer;
   return 0;
 }

@@ -12,6 +12,7 @@ int main() {
     cout << pointer[i] << " ";
   }
   delete[] pointer;
+  pointer = nullptr;
 
   return 0;
 }

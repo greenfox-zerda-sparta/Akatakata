@@ -21,6 +21,7 @@ int main() {
   }
   cout << "The average is: " << average / count;
   delete[] numbers;
+  numbers = nullptr;
   return 0;
 }
 

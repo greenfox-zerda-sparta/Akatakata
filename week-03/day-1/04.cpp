@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -18,13 +19,13 @@ using namespace std;
  */
 
 int* range(int from, int to, int step) {
-  int size = (to - from) / step;
-  int *array = new int[size];
+  int size = ceil((to - from) / step);
+  int *arr = new int[size];
   for (int i = 0; i < size; i++) {
-    array[i] = from;
+    arr[i] = from;
     from += step;
   }
-  return array;
+  return arr;
 }
 
 int main() {
@@ -36,7 +37,8 @@ int main() {
   for (int j = 0; j < size; j++) {
     cout << array[j] << " ";
   }
-  cout << endl << array << endl;
   delete[] array;
+  array = nullptr;
+  cout << endl << array << endl;
   return 0;
 }

@@ -54,5 +54,8 @@ int main() {
     cout << new_array[i] << " ";
   }
   delete[] array;
+  delete[] new_array;
+  array = nullptr;
+  new_array = nullptr;
   return 0;
 }
