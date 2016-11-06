@@ -19,7 +19,7 @@ unsigned int vector_find(Vector& v, double value);
 
 void vector_remove(Vector& v, unsigned int index);
 
-Vector* vector_concat(Vector& v1, Vector v2);
+Vector* vector_concat(Vector& v1, Vector& v2);
 
 int main() {
   double my_input[] = {2, 3, 4, 5, 6, 7};
@@ -31,15 +31,15 @@ int main() {
   Vector* sample_vector2 = vector_construct(my_input2, length2);
   print_vector(*sample_vector, length);
 
-  cout << "AT: 2. helyen: " << vector_at(*sample_vector, 3) << endl;
-  cout << "AT: nem letezo helyen: " << vector_at(*sample_vector, 18) << endl;
+  cout << "AT: at index 3: " << vector_at(*sample_vector, 3) << endl;
+  cout << "AT: at non-existing index: " << vector_at(*sample_vector, 18) << endl;
 
   vector_insert(*sample_vector, 3, 99);
   cout << "INSERT: See the new number at the 4th place?" << endl;
   print_vector(*sample_vector, length + 1);
 
-  cout << "FIND: 5 is at place (places 0 - 7): " << vector_find(*sample_vector, 5) << endl;
-  cout << "FIND: 19 is at place (places 0 -7): " << vector_find(*sample_vector, 19) << endl;
+  cout << "FIND: 5 is at index(0-7): " << vector_find(*sample_vector, 5) << endl;
+  cout << "FIND: 19, which is not in the vector, is at index(0-7): " << vector_find(*sample_vector, 19) << endl;
 
   vector_remove(*sample_vector, 3);
   cout << "REMOVE: removed 99 from 4th place:" << endl;
@@ -50,6 +50,12 @@ int main() {
   cout << "Concated: " << endl;
   print_vector(*thrid_vector, length3);
 
+  delete[] sample_vector;
+  delete[] sample_vector2;
+  delete[] third_vector;
+  sample_vector = nullptr;
+  sample_vector2 = nullptr;
+  third_vector = nullptr;
   return 0;
 }
 
@@ -105,8 +111,8 @@ unsigned int vector_find(Vector& v, double value) {
 }
 
 void vector_remove(Vector& v, unsigned int index) {
-  double* remaining_array = new double[v.size - 1];
-  for (int i = 0; i < v.size - 1 ; i++) {
+  double* remaining_array = new double[v.size--];
+  for (int i = 0; i < v.size; i++) {
     if (i >= index) {
       remaining_array[i] = v.array[i + 1];
     } else {
@@ -117,11 +123,11 @@ void vector_remove(Vector& v, unsigned int index) {
   v.array = remaining_array;
 }
 
-Vector* vector_concat(Vector& v1, Vector v2) {
+Vector* vector_concat(Vector& v1, Vector& v2) {
   int concat_size = v1.size + v2.size;
   double* array = new double[concat_size];
   for (int i = 0; i < concat_size; i++) {
-    array[i] = i < v1.size ? v1.array[i] : v2.array[i - v1.size + 1];
+      array[i] = i >= v1.size ? v2.array[i - v1.size] : v1.array[i];
   }
   Vector* concated = vector_construct(array, concat_size);
   return concated;
