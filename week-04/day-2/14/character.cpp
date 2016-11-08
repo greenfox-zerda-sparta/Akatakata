@@ -57,7 +57,7 @@ int Character::getDef() {
 void Character::decreaseHealth(int number) {
   health -= number;
 }
-void Character::fight(Character& player1, Character& player2) {
+void Character::fight(Character& player1, Character& player2) { // SHould not show negative health, only 0
   string winner = "";
   while (player1.getHealth() > 0 && player2.getHealth() > 0) {
     player1.attack(player2);
@@ -68,9 +68,9 @@ void Character::fight(Character& player1, Character& player2) {
     }
   }
   if (player2.getHealth() > 0) {
-    cout << player1.getName() << " wins!" << endl;
-  } else {
     cout << player2.getName() << " wins!" << endl;
+  } else {
+    cout << player1.getName() << " wins!" << endl;
   }
   cout << "Fight again? Press 'y'!" << endl;
   char input = ' ';
