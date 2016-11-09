@@ -11,7 +11,7 @@ class Shape {
 
 };
 
-string* Shape::getName() {
+virtual string* Shape::getName() {
   return new string("Generic Shape");
 }
 
