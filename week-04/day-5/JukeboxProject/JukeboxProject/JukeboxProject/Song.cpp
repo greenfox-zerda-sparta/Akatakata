@@ -1,5 +1,5 @@
 #include "Song.h"
-#include "Jukebox.h"
+//#include "Jukebox.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -23,9 +23,6 @@ string Song::getGenre() {
   return genre;
 }
 
-/*float Song::getRating() {
-  return rating;*/
-
 float Song::getAvgRating() {
   float rates_sum = 0;
   for (unsigned int i = 0; i < rating.size(); i++) {
@@ -37,4 +34,8 @@ float Song::getAvgRating() {
 
 string Song::getArtist() {
   return artist;
+}
+
+string Song::getTitle() {
+  return title;
 }
