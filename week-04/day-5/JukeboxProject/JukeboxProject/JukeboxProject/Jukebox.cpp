@@ -29,4 +29,6 @@ int Jukebox::getNumber_of_songs() {
   return number_of_songs;
 }
 
-
+void Jukebox::add_rate(Song& song, float _rating) {
+  song.rate(_rating);
+}

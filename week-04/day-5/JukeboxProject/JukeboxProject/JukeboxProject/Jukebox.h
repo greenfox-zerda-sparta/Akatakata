@@ -13,6 +13,7 @@ public:
   ~Jukebox();
   void add_song(Song& song);
   int getNumber_of_songs();
+  void add_rate(Song& song, float _rating);
 };
 
 #endif // JUKEBOX_H

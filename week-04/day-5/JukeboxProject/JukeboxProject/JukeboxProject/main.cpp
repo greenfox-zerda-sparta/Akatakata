@@ -18,7 +18,7 @@ int main() {
   song1.rate(4);
   cout << "Average rating: " << song1.getAvgRating() << endl;
   
-
+  
   ReggaeSong song2 = ReggaeSong("Bob Marley", "Buffalo Soldier");
   cout << song2.getSong_info();
   song2.rate(5);
@@ -28,10 +28,17 @@ int main() {
   cout << song3.getSong_info();
   song3.rate(4);
 
+  RockSong song4 = RockSong("Halestorm", "Mz Hyde");
+
   Jukebox my_Jukebox;
   my_Jukebox.add_song(song1);
   my_Jukebox.add_song(song2);
   my_Jukebox.add_song(song3);
+  my_Jukebox.add_song(song4);
+
+  my_Jukebox.add_rate(song1, 5);
+  my_Jukebox.add_rate(song1, 5);
+  cout << "Song1 has just got a new rating! Average rating now: " << song1.getAvgRating() << endl;
 
   cout << "Number of songs in the Jukebox: " << my_Jukebox.getNumber_of_songs() << endl;
   return 0;
