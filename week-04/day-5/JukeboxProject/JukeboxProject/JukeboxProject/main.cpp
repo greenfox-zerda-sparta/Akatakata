@@ -37,9 +37,13 @@ int main() {
   my_Jukebox.add_song(song4);
 
   my_Jukebox.add_rate(song1, 5);
-  my_Jukebox.add_rate(song1, 5);
+  my_Jukebox.add_rate(song4, 5);
+  my_Jukebox.add_rate(song4, 4);
   cout << "Song1 has just got a new rating! Average rating now: " << song1.getAvgRating() << endl;
 
   cout << "Number of songs in the Jukebox: " << my_Jukebox.getNumber_of_songs() << endl;
+
+  cout << "Halestorm songs overall rating: " << my_Jukebox.get_songrating_by_artist("Halestorm") << endl;
+  cout << "Bob Marley songs overall rating: " << my_Jukebox.get_songrating_by_artist("Bob Marley") << endl;
   return 0;
 }

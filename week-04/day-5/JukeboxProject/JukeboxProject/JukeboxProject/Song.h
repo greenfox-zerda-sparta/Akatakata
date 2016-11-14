@@ -19,6 +19,7 @@ public:
   //float getRating();
   virtual void rate(float _rating) = 0;
   float getAvgRating();
+  string getArtist();
 
 };
 

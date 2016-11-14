@@ -34,3 +34,7 @@ float Song::getAvgRating() {
   float avg_rating = rates_sum / rating.size();
   return avg_rating;
 }
+
+string Song::getArtist() {
+  return artist;
+}
