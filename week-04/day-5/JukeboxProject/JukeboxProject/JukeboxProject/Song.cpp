@@ -1,5 +1,4 @@
 #include "Song.h"
-//#include "Jukebox.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -9,7 +8,6 @@ using namespace std;
 Song::Song(string _artist, string _title) {
   artist = _artist;
   title = _title;
-
 }
 
 Song::~Song() {

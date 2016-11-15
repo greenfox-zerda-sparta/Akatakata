@@ -8,20 +8,19 @@ class Song {
 private:
   string artist;
   string title;
+  string* genres;
 protected:
   string genre;
-  vector<float> rating; // vector of ratings
+  vector<float> rating;
 public:
   Song(string _artist, string _title);
   ~Song();
   string getSong_info();
-  string getGenre();
-  //float getRating();
   virtual void rate(float _rating) = 0;
   float getAvgRating();
   string getArtist();
   string getTitle();
-
+  string getGenre();
 };
 
-#endif // !Song.h
+#endif

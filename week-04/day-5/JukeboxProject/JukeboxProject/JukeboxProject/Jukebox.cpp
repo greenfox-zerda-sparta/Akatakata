@@ -59,15 +59,20 @@ string Jukebox::get_top_rated_title() { // IF EQUAL RATES ?
       base = allsongs[i];
     }
   }
-  return "Top rated song is: " + base->getArtist() + ": " + base->getTitle() + '\n';
+  return "Top rated song is: " + base->getSong_info() + '\n';
 }
 
 string Jukebox::get_top_rated_genre() { // IF EQUAL RATES ?
-  Song* base = allsongs[0];
-  for (int i = 0; i < number_of_songs; ++i) {
-    if (allsongs[i]->getAvgRating() > base->getAvgRating()) {
-      base = allsongs[i];
+  string genres[3] = { "Rock", "Pop", "Reggae" };
+  int num_of_genres = 3;
+  float genre_rating[3] = { get_rating_by_genre("Rock"), get_rating_by_genre("Pop"), get_rating_by_genre("Reggae") };
+  float highest = genre_rating[0];
+  int highest_idx = 0;
+  for (int i = 0; i < num_of_genres; i++) {
+    if (genre_rating[i] > highest) {
+      highest = genre_rating[i];
+      highest_idx = i;
     }
   }
-  return "Top rated genre is: " + base->getGenre() + '\n';
+  return "Top rated genre is: " + genres[highest_idx] + '\n';
 }

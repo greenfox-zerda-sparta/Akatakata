@@ -1,7 +1,5 @@
 #include "PopSong.h"
 
-
-
 PopSong::PopSong(string _artist, string _title) : Song(_artist, _title) {
   genre = "Pop";
 }
@@ -19,6 +17,4 @@ void PopSong::rate(float _rating) {
   }
 }
 
-PopSong::~PopSong()
-{
-}
+PopSong::~PopSong() {}
