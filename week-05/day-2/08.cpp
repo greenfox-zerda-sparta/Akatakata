@@ -11,7 +11,6 @@ bool copy_file(string file_from, string file_to) {
   to_file.open(file_to);
   if (from_file.is_open() && to_file.is_open()) {
     string line;
-    string content;
     while (getline(from_file, line)) {
       to_file << line << "\n";
     }
