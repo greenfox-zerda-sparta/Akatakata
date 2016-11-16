@@ -3,12 +3,9 @@
 #include <vector>
 #include <iostream>
 
-
-
 Task::Task() {
   tasks = {};
 }
-
 
 Task::~Task() {
 }
@@ -22,8 +19,12 @@ void Task::remove_task(int number) {
 }
 
 void Task::print_tasks() {
-  for (unsigned int i = 0; i < tasks.size(); i++) {
-    cout << i + 1 << " - " << tasks[i] << endl;
+  if (tasks.empty()) {
+    cout << "No todos for today! :)" << endl;
+  } else {
+    for (unsigned int i = 0; i < tasks.size(); i++) {
+      cout << i + 1 << " - " << tasks[i] << endl;
+    }
   }
 }
 
