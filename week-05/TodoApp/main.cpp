@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "Task.h"
 
 using namespace std;
 
@@ -13,47 +14,31 @@ void show_main_menu(string filename) {
   }
 }
 
-void print_todos(string filename) {
-  ifstream my_file;
-  my_file.open(filename);
-  string line;
-  int count = 1;
-  while (getline(my_file, line)) {
-    cout << count << " - " << line << endl;
-    count++;
-  }
-  my_file.close();
-}
-
-void add_task(string task) {
-  ofstream my_file;
-  my_file.open("todolist.txt", ios::app);
-  my_file << endl << task;
-  cout << task << " is added to your todo list. Check it by entering todo -l." << endl;
-  my_file.close();
-}
-
-
 int main(int argc, char* argv[]) {
-  if (argc == 1) {
-  show_main_menu("main_menu.txt");
-  }
+  Task tasklist;
+  tasklist.read_from_file("todolist.txt");
 
-  if (argc == 2) {
+  if (argc == 1) {
+    show_main_menu("main_menu.txt");
+  } else if (argc > 1) {
+
     string selector = argv[1];
+
     if (selector == "-l") {
-      print_todos("todolist.txt");
+      tasklist.print_tasks();
+    }
+
+    if (selector == "-a") {
+      string newtask = argv[2];
+      tasklist.create_new_task(newtask);
+      tasklist.add_task_to_file(newtask, "todolist.txt");
+    }
+
+    if (selector == "-r") {
+      int to_remove = stoi(argv[2]);
+      tasklist.remove_task(to_remove);
+      tasklist.update_storage_file("todolist.txt");
     }
   }
-
-  
-  string selector = argv[1];
-  
-  if (selector == "-a") {
-    string newtask = argv[2];
-    add_task(newtask);
-  }
-
-
   return 0;
 }
