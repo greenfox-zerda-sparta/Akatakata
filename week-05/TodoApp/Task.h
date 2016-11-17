@@ -9,14 +9,17 @@ using namespace std;
 class Task {
 public:
   Task();
-  ~Task();
+  virtual ~Task();
   void create_new_task(string task_to_add);
-  void remove_task(int number);
+  void remove_task(int number, string filename);
   void add_task_to_file(string task, string filename);
   void print_tasks();
+  void print_tasks_checks();
+  void check_task(int number, string filename);
   void read_from_file(string filename);
   void update_storage_file(string filename);
-private:
+  int getLength();
+protected:
   vector<string> tasks;
 };
 
