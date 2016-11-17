@@ -4,7 +4,7 @@ using namespace std;
 
 struct Vector {
   double* array;
-  int size;
+  int size; // unsigned int
 };
 
 Vector* vector_construct(double input[], int size);
@@ -62,8 +62,8 @@ int main() {
 Vector* vector_construct(double input[], int size) {
   Vector* my_vector = new Vector;
   my_vector->size = size;
-  my_vector->array = new double[size];
-  for (int i = 0; i < size; i++) {
+  my_vector->array = new double[size]; // could use my_vector->array
+  for (int i = 0; i < size; i++) { // same
     my_vector->array[i] = input[i];
   }
   return my_vector;
@@ -78,7 +78,7 @@ void print_vector(Vector v, int size) {
 
 double vector_at(Vector& v, unsigned int index) {
   double value_at = -1;
-  if (0 < index && index < v.size) {
+  if (index < v.size) {
     value_at = v.array[index];
   }
   return value_at;
