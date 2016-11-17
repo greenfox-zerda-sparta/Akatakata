@@ -9,7 +9,7 @@ using namespace std;
 void show_main_menu(string filename);
 
 int main(int argc, char* argv[]) {
-  // create error handler in ErrorList
+  // BEING REFACTORED - error messages first.
   // do not use these if-s, find something else
 
   Task tasklist;
