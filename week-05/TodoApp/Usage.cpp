@@ -5,7 +5,12 @@
 #include "Usage.h"
 #include "Task.h"
 
-Usage::Usage() {}
+Usage::Usage(int argc, char* argv[], string filename, Task list) {
+  this->argc = argc;
+  this->argv = argv;
+  this->filename = filename;
+  this->list = list;
+}
 
 Usage::~Usage() {}
 
@@ -18,7 +23,7 @@ void Usage::show_main_menu(string filename) {
   }
 }
 
-bool Usage::is_valid_selector(int argc, char* argv[], string filename, Task list) {
+bool Usage::is_valid_selector() {
   string selector = argv[1];
   if (selector != "-l" && selector != "-a" && selector != "-r" && selector != "-c") {
     cerr << "Unsupported argument.\n";
@@ -28,11 +33,11 @@ bool Usage::is_valid_selector(int argc, char* argv[], string filename, Task list
   }
 }
 
-void Usage::print_list(int argc, char* argv[], string filename, Task list) {
+void Usage::print_list() {
   list.print_tasks();
 }
 
-void Usage::append(int argc, char* argv[], string filename, Task list) {
+void Usage::append() {
   if (argc == 2) {
     cerr << "Unable to add: No task is provided.\n";
   } else {
@@ -41,7 +46,7 @@ void Usage::append(int argc, char* argv[], string filename, Task list) {
   }
 }
 
-void Usage::remove(int argc, char* argv[], string filename, Task list) {
+void Usage::remove() {
   char* digittest = argv[2];
   if (atoi(argv[2]) > list.getLength()) {  
     cout << "Unable to remove : Index is out of bound.\n"; 
@@ -54,7 +59,7 @@ void Usage::remove(int argc, char* argv[], string filename, Task list) {
   }
 }
 
-void Usage::check(int argc, char* argv[], string filename, Task list) {
+void Usage::check() {
   char* digittest = argv[2];
   if (argc == 2) {
     cerr << "Unable to check: No index is provided.\n"; 

@@ -9,21 +9,21 @@ using namespace std;
 int main(int argc, char* argv[]) {
   Task tasklist;
   tasklist.read_from_file("todolist.txt");
-  Usage usage;
+  Usage usage(argc, argv, "todolist.txt", tasklist);
   
   if (argc == 1) {
     usage.show_main_menu("main_menu.txt");
   } else if (argc > 1) {
-    usage.is_valid_selector(argc, argv, "todolist.txt", tasklist);
+    usage.is_valid_selector();
     string selector = argv[1];
     if (selector == "-l") {
-      usage.print_list(argc, argv, "todolist.txt", tasklist);
+      usage.print_list();
     } else if (selector == "-a") {
-      usage.append(argc, argv, "todolist.txt", tasklist);
+      usage.append();
     } else if (selector == "-r") {
-      usage.remove(argc, argv, "todolist.txt", tasklist);
+      usage.remove();
     } else if (selector == "-c") {
-      usage.check(argc, argv, "todolist.txt", tasklist);
+      usage.check();
     }
   }
   return 0;
