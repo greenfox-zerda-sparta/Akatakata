@@ -14,7 +14,6 @@ public:
   void remove_task(int number, string filename);
   void add_task_to_file(string task, string filename);
   void print_tasks();
-  void print_tasks_checks();
   void check_task(int number, string filename);
   void read_from_file(string filename);
   void update_storage_file(string filename);

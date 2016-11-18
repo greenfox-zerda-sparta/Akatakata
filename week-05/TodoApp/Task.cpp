@@ -25,8 +25,7 @@ void Task::remove_task(int number, string filename) { // removes from vector, ne
 void Task::check_task(int number, string filename) {
   if (tasks[number - 1].at(1) == 'x') {
     tasks[number - 1].at(1) = ' ';
-  }
-  else {
+  } else {
     tasks[number - 1].at(1) = 'x';
   }
   update_storage_file(filename);
