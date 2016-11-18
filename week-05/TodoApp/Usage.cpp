@@ -23,6 +23,23 @@ void Usage::show_main_menu(string filename) {
   }
 }
 
+void Usage::select_usage() {
+  is_valid_selector();
+  string selector = argv[1];
+  if (selector == "-l") {
+    print_list();
+  }
+  else if (selector == "-a") {
+    append();
+  }
+  else if (selector == "-r") {
+    remove();
+  }
+  else if (selector == "-c") {
+    check();
+  }
+}
+
 bool Usage::is_valid_selector() {
   string selector = argv[1];
   if (selector != "-l" && selector != "-a" && selector != "-r" && selector != "-c") {
