@@ -14,6 +14,14 @@ Usage::Usage(int argc, char* argv[], string filename, Task list) {
 
 Usage::~Usage() {}
 
+void Usage::start() {
+  if (argc == 1) {
+    show_main_menu("main_menu.txt");
+  } else if (argc > 1) {
+    select_usage();
+  }
+}
+
 void Usage::show_main_menu(string filename) {
   ifstream my_file;
   my_file.open(filename);
