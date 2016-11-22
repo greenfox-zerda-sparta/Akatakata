@@ -12,11 +12,14 @@ public:
   void show_main_menu(string filename);
   void start();
   void select_usage();
-  bool is_valid_selector();
   void print_list();
   void append();
   void remove();
   void check();
+  bool is_valid_selector();
+  bool is_valid_append();
+  bool is_valid_remove();
+  bool is_valid_check();
 private:
   int argc;
   char** argv;

@@ -48,24 +48,12 @@ void Usage::select_usage() {
   }
 }
 
-bool Usage::is_valid_selector() {
-  string selector = argv[1];
-  if (selector != "-l" && selector != "-a" && selector != "-r" && selector != "-c") {
-    cerr << "Unsupported argument.\n";
-    return false;
-  } else {
-    return true;
-  }
-}
-
 void Usage::print_list() {
   list.print_tasks();
 }
 
 void Usage::append() {
-  if (argc == 2) {
-    cerr << "Unable to add: No task is provided.\n";
-  } else {
+  if (is_valid_append()) {
     string newtask = argv[2];
     list.add_task_to_file(newtask, filename);
   }
@@ -73,27 +61,73 @@ void Usage::append() {
 
 void Usage::remove() {
   char* digittest = argv[2];
-  if (atoi(argv[2]) > list.getLength()) {  
-    cout << "Unable to remove : Index is out of bound.\n"; 
-  } else if (argc == 2) {
-    cerr << "Unable to remove: No index is provided.\n";
-  } else if (argc > 2 && !isdigit(*digittest)) {
-    cerr << "Unable to remove: Index is not a number.\n";
-  } else {
+  if (is_valid_remove()) {
     list.remove_task(atoi(argv[2]), filename);
   }
 }
 
 void Usage::check() {
   char* digittest = argv[2];
-  if (argc == 2) {
-    cerr << "Unable to check: No index is provided.\n"; 
-  } else if (atoi(argv[2]) > list.getLength()) {
-    cerr << "Unable to check : Index is out of bound.\n"; 
-  } else if (argc > 2 && !isdigit(*digittest)) { 
-    cerr << "Unable to check: Index is not a number.\n";
+  if (is_valid_check()) {
+    list.check_task(atoi(argv[2]), filename);
+  }
+}
+
+bool Usage::is_valid_selector() {
+  string selector = argv[1];
+  if (selector != "-l" && selector != "-a" && selector != "-r" && selector != "-c") {
+    cerr << "Unsupported argument.\n";
+    return false;
   }
   else {
-    list.check_task(atoi(argv[2]), filename);
+    return true;
+  }
+}
+
+bool Usage::is_valid_append() {
+  if (argc == 2) {
+    cerr << "Unable to add: No task is provided.\n";
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
+bool Usage::is_valid_remove() {
+  char* digittest = argv[2];
+  if (atoi(argv[2]) > list.getLength()) {
+    cout << "Unable to remove : Index is out of bound.\n";
+    return false;
+  }
+  else if (argc == 2) {
+    cerr << "Unable to remove: No index is provided.\n";
+    return false;
+  }
+  else if (argc > 2 && !isdigit(*digittest)) {
+    cerr << "Unable to remove: Index is not a number.\n";
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
+bool Usage::is_valid_check() {
+  char* digittest = argv[2];
+  if (argc == 2) {
+    cerr << "Unable to check: No index is provided.\n";
+    return false;
+  }
+  else if (atoi(argv[2]) > list.getLength()) {
+    cerr << "Unable to check : Index is out of bound.\n";
+    return false;
+  }
+  else if (argc > 2 && !isdigit(*digittest)) {
+    cerr << "Unable to check: Index is not a number.\n";
+    return false;
+  }
+  else {
+    return true;
   }
 }
