@@ -3,11 +3,11 @@
 
 using namespace std;
 
-void fill_and_check(vector<char>& vect, const vector<char>& reference) {
-  cout << "Enter the letters one by one." << endl;
+void guess_chars(vector<char>& vect, const vector<char>& reference) {
+  cout << "Enter the letters one by one.\n";
   for (unsigned int i = 0; i < vect.size(); i++) {
     char input = ' ';
-    cout << "Enter letter " << i + 1 << ":" << endl;
+    cout << "Enter letter " << i + 1 << ":\n";
     cin >> input;
     try {
       if (input == reference[i]) {
@@ -19,10 +19,10 @@ void fill_and_check(vector<char>& vect, const vector<char>& reference) {
       }
     }
     catch (const char* expr) {
-      cout << "Error!" << expr << "You can try again.\n" << endl;
+      cout << "--- Error!" << expr << "You can try again.\n" << endl;
     }
   }
-  cout << "Correct!" << endl;
+  cout << "Correct!\n";
 }
 
 template<class T>
@@ -39,11 +39,9 @@ int main() {
   //ask the user to fill this vector with characters one by one
   //at the end make sure the vector holds the letters of "GREENFOX"
   //so correct the user if he/she gives a different letter from the one we want them to give :)
-  
-  vector<char> v_ref = {'g', 'r', 'e', 'e', 'n', 'f', 'o', 'x' };
-  vector<char> v(v_ref.size());
-  fill_and_check(v, v_ref);
-  print_vector(v);
-
+  vector<char> reference = { 'g', 'r', 'e', 'e', 'n', 'f', 'o', 'x' };
+  vector<char> guess(reference.size());
+  guess_chars(guess, reference);
+  print_vector(guess);
   return 0;
 }
