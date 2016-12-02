@@ -2,12 +2,6 @@
 #ifndef SECRETCODE_H
 #define SECRETCODE_H
 
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <algorithm> 
-#include <ctime>
-
 #include "Code.h"
 
 class SecretCode : public Code {

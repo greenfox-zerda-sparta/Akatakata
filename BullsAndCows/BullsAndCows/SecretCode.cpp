@@ -1,9 +1,13 @@
+#include <iostream>
+// #include <string>
+#include <cstdlib>
+#include <algorithm> 
+#include <ctime>
 #include "SecretCode.h"
 
 SecretCode::SecretCode() : Code() {
   generate_hidden_code(code_length);
 }
-
 
 SecretCode::~SecretCode(){
 }
