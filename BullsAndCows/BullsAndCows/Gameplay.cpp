@@ -1,7 +1,8 @@
 #include <iostream>
 #include "Gameplay.h"
+#include "Round.h"
 
-Gameplay::Gameplay() : bulls(0), cows(0), round(1) {
+Gameplay::Gameplay() : round_counter(1), is_winner(0) {
   MainMessage start;
   std::cout << start.get_welcome_text();
   std::cout << start.get_rules_text();
@@ -11,57 +12,34 @@ Gameplay::~Gameplay() {
 }
 
 void Gameplay::start_game() {
+  reset_round_counter();
+  set_is_winner(0);
   SecretCode code;
   gameflow(code);
 }
 
-void Gameplay::reset_bulls() {
-  bulls = 0;
-}
-void Gameplay::reset_cows() {
-  cows = 0;
-}
-void Gameplay::reset_round() {
-  round = 1;
-}
-
-void Gameplay::evaluate_guess_for_bulls(SecretCode hidden, GuessCode guess) {
-  reset_bulls();
-  for (unsigned int i = 0; i < hidden.get_code_length(); i++) {
-    if (guess.get_guess_code()[i] == hidden.get_hidden_code()[i]) {
-      bulls++;
+void Gameplay::gameflow(SecretCode hidden) {
+  while (is_winner == 0 && round_counter <= 10) {
+    Round gameround(round_counter, hidden);
+    if (check_winner(hidden, gameround.get_bulls())) {
+      set_is_winner(1);
     }
+    round_counter++;
   }
-  std::cout << "Bulls: " << bulls << std::endl;
+  end_game(hidden);
+  ask_for_new_game();
 }
 
-void Gameplay::evaluate_guess_for_cows(SecretCode hidden, GuessCode guess) {
-  reset_cows();
-  for (unsigned int i = 0; i < hidden.get_code_length(); i++) {
-    if (hidden.get_hidden_code().find(guess.get_guess_code()[i]) < hidden.get_code_length() 
-        && guess.get_guess_code()[i] != hidden.get_hidden_code()[i]) {
-      cows++;
-    }
-  }
-  std::cout << "Cows: " << cows << std::endl;
+bool Gameplay::check_winner(SecretCode hidden, unsigned int guessed_bulls) {
+  return guessed_bulls == hidden.get_code_length();
 }
 
-bool Gameplay::is_winner() {
-  return bulls == 4;
-}
-
-void Gameplay::play_one_round(SecretCode hidden) {
-  std::string user_input = "";
-  std::cout << "\nRound " << round << ". Enter your guess: ";
-  std::cin >> user_input;
-  GuessCode guess(user_input);
-  evaluate_guess_for_cows(hidden, guess);
-  evaluate_guess_for_bulls(hidden, guess);
-  round++;
+void Gameplay::set_is_winner(bool win_or_not) {
+  is_winner = win_or_not;
 }
 
 void Gameplay::end_game(SecretCode hidden) {
-  if (is_winner()) {
+  if (is_winner == 1) {
     std::cout << "Congratulations! You have found the secret code:\n";
   } else {
     std::cout << "\nGame Over!\n";
@@ -81,10 +59,6 @@ void Gameplay::ask_for_new_game() {
   }
 }
 
-void Gameplay::gameflow(SecretCode hidden) {
-  while (!(is_winner()) && round <= 10) {
-    play_one_round(hidden);
-  }
-  end_game(hidden);
-  ask_for_new_game();
+void Gameplay::reset_round_counter() {
+  round_counter = 1;
 }
