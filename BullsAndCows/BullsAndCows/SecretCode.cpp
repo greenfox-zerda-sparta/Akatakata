@@ -1,8 +1,6 @@
 #include "SecretCode.h"
 
-
-
-SecretCode::SecretCode() : container("0123456789"), code_length(4) {
+SecretCode::SecretCode() : Code() {
   generate_hidden_code(code_length);
 }
 
@@ -12,8 +10,9 @@ SecretCode::~SecretCode(){
 
 void SecretCode::generate_hidden_code(int code_length) {
   std::srand(unsigned(std::time(0)));
-  std::random_shuffle(container.begin(), container.end());
-  hidden_code = container.substr(0, code_length);
+  std::random_shuffle(possible_elements.begin(), possible_elements.end());
+  hidden_code = possible_elements.substr(0, code_length);
+  std::cout << "Secret Code generated!" << std::endl;
 }
 
 std::string SecretCode::get_hidden_code() {
@@ -25,4 +24,8 @@ void SecretCode::print_formatted_hidden_code() {
     std::cout << hidden_code[i] << " ";
   }
   std::cout << std::endl;
+}
+
+unsigned int SecretCode::get_code_length() {
+  return code_length;
 }

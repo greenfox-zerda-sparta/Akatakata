@@ -8,16 +8,17 @@
 #include <algorithm> 
 #include <ctime>
 
-class SecretCode {
+#include "Code.h"
+
+class SecretCode : public Code {
 private:
-  std::string container;
   std::string hidden_code;
-  unsigned int code_length;
 public:
   SecretCode();
   ~SecretCode();
   void generate_hidden_code(int code_length);
   std::string get_hidden_code();
   void print_formatted_hidden_code();
+  unsigned int get_code_length();
 };
 #endif
