@@ -49,5 +49,4 @@ void Round::play_one_round() {
   GuessCode guess(user_input);
   evaluate_guess_for_cows(guess);
   evaluate_guess_for_bulls(guess);
-  round_number++;
 }
