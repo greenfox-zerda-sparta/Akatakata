@@ -21,7 +21,7 @@ void Round::reset_cows() {
   cows = 0;
 }
 
-void Round::evaluate_guess_for_bulls(GuessCode guess) {
+void Round::evaluate_guess_for_bulls(GuessCode guess) { // Actually this evaluates AND prints...should do separately?
   reset_bulls();
   for (unsigned int i = 0; i < hidden.get_code_length(); i++) {
     if (guess.get_guess_code()[i] == hidden.get_hidden_code()[i]) {
@@ -31,7 +31,7 @@ void Round::evaluate_guess_for_bulls(GuessCode guess) {
   std::cout << "Bulls: " << bulls << std::endl;
 }
 
-void Round::evaluate_guess_for_cows(GuessCode guess) {
+void Round::evaluate_guess_for_cows(GuessCode guess) { // // Actually this evaluates AND prints...should do separately?
   reset_cows();
   for (unsigned int i = 0; i < hidden.get_code_length(); i++) {
     if (hidden.get_hidden_code().find(guess.get_guess_code()[i]) < hidden.get_code_length()
@@ -46,7 +46,12 @@ void Round::play_one_round() {
   std::string user_input = "";
   std::cout << "\nRound " << round_number << ". Enter your guess: ";
   std::cin >> user_input;
-  GuessCode guess(user_input);
-  evaluate_guess_for_cows(guess);
-  evaluate_guess_for_bulls(guess);
+  GuessCode guess;
+  guess.set_code(user_input);
+  if (guess.is_code_correct() == false) {
+    play_one_round();
+  } else {
+    evaluate_guess_for_cows(guess);
+    evaluate_guess_for_bulls(guess);
+  }
 }

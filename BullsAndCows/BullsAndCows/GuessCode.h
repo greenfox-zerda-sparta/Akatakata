@@ -1,16 +1,15 @@
 // #pragma once
 #ifndef GUESSCODE_H
 #define GUESSCODE_H
-#include <string>
 
+#include <string>
 #include "Code.h"
 
 class GuessCode :  public Code {
-private: 
-  std::string guess_code;
 public:
-  GuessCode(std::string input);
+  GuessCode();
   ~GuessCode();
+  void set_code(std::string code_text);
   std::string get_guess_code();
 };
 

@@ -5,8 +5,6 @@
 #include "Code.h"
 
 class SecretCode : public Code {
-private:
-  std::string hidden_code;
 public:
   SecretCode();
   ~SecretCode();

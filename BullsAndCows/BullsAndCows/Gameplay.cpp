@@ -54,8 +54,6 @@ void Gameplay::ask_for_new_game() {
   std::cin >> play_again;
   if (play_again == 'y' || play_again == 'Y') {
     start_game();
-  } else {
-    exit;
   }
 }
 
