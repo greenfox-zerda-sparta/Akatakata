@@ -12,6 +12,7 @@ public:
   ~MyGame();
   virtual void init(GameContext& context);
   virtual void render(GameContext& context);
+  std::vector<int> hero_location();
 };
 
 #endif
