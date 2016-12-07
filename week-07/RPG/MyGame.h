@@ -7,6 +7,7 @@
 class MyGame : public Game {
 protected:
   std::vector<int> hero_loc;
+  std::string hero_image;
 public:
   MyGame();
   ~MyGame();
@@ -15,6 +16,7 @@ public:
   void set_hero_loc(int x, int y);
   std::vector<int> get_hero_location();
   void move(GameContext& context);
+  void set_hero_image(std::string changed_image);
 };
 
 #endif

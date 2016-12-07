@@ -3,7 +3,7 @@
 
 int main(int argc, char* argv[]) {
   MyGame game;
-  GameEngine engine(&game, 720, 720);
+  GameEngine engine(&game, 720, 782);
   engine.run();
   return 0;
 }
