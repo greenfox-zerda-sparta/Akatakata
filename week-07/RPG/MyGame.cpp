@@ -3,7 +3,7 @@
 
 #include "MyGame.h"
 
-std::vector<std::vector <int>> tileMap = {
+std::vector<std::vector <bool>> tileMap = {
 {1,1,1,0,1,0,1,1,1,1},
 {1,1,1,0,1,0,1,0,0,1},
 {1,0,0,0,1,0,1,0,0,1},
@@ -13,8 +13,8 @@ std::vector<std::vector <int>> tileMap = {
 {1,0,1,0,1,0,0,1,0,1},
 {1,1,1,1,1,0,0,1,0,1},
 {1,0,0,0,1,1,1,1,0,1},
-{1,1,1,0,1,0,0,1,0,1},
-{1,0,1,0,1,0,1,1,1,1}
+{1,1,1,0,1,0,0,1,1,1}
+
 };
 
 MyGame::MyGame() {
@@ -55,25 +55,21 @@ void MyGame::render(GameContext& context) {
   }
   context.draw_sprite(hero_image, get_hero_location()[1] * 72, get_hero_location()[0] * 72);
   if (context.was_key_pressed(ARROW_DOWN)) {
-    std::cout << "arrow-down\n";
     set_hero_loc(get_hero_location()[0] + 1, get_hero_location()[1]);
     set_hero_image("img/hero-down.bmp");
     context.draw_sprite(hero_image, get_hero_location()[1] * 72, get_hero_location()[0] * 72);
   }
   if (context.was_key_pressed(ARROW_UP)) {
-    std::cout << "arrow-up\n";
     set_hero_loc(get_hero_location()[0] - 1, get_hero_location()[1]);
     set_hero_image("img/hero-up.bmp");
     context.draw_sprite(hero_image, get_hero_location()[1] * 72, get_hero_location()[0] * 72);
   }
   if (context.was_key_pressed(ARROW_RIGHT)) {
-    std::cout << "arrow-right\n";
     set_hero_loc(get_hero_location()[0], get_hero_location()[1] + 1);
     set_hero_image("img/hero-right.bmp");
     context.draw_sprite(hero_image, get_hero_location()[1] * 72, get_hero_location()[0] * 72);
   }
   if (context.was_key_pressed(ARROW_LEFT)) {
-    std::cout << "arrow-left\n";
     set_hero_loc(get_hero_location()[0], get_hero_location()[1] - 1);
     set_hero_image("img/hero-left.bmp");
     context.draw_sprite(hero_image, get_hero_location()[1] * 72, get_hero_location()[0] * 72);
