@@ -48,10 +48,22 @@ void MyGame::render(GameContext& context) {
   if (context.was_key_pressed(ARROW_DOWN)) {
     std::cout << "arrow-down\n";
     set_hero_loc(get_hero_location()[0] + 1, get_hero_location()[1]);
-   // context.render();
     context.draw_sprite("hero-down.bmp", get_hero_location()[1] * 72, get_hero_location()[0] * 72);
-   // context.reset_keys();
-    context.on_key_down(ARROW_DOWN);
+  }
+  if (context.was_key_pressed(ARROW_UP)) {
+    std::cout << "arrow-up\n";
+    set_hero_loc(get_hero_location()[0] - 1, get_hero_location()[1]);
+    context.draw_sprite("hero-down.bmp", get_hero_location()[1] * 72, get_hero_location()[0] * 72);
+  }
+  if (context.was_key_pressed(ARROW_RIGHT)) {
+    std::cout << "arrow-up\n";
+    set_hero_loc(get_hero_location()[0], get_hero_location()[1] + 1);
+    context.draw_sprite("hero-down.bmp", get_hero_location()[1] * 72, get_hero_location()[0] * 72);
+  }
+  if (context.was_key_pressed(ARROW_LEFT)) {
+    std::cout << "arrow-up\n";
+    set_hero_loc(get_hero_location()[0], get_hero_location()[1] - 1);
+    context.draw_sprite("hero-down.bmp", get_hero_location()[1] * 72, get_hero_location()[0] * 72);
   }
   context.render(); 
 }
