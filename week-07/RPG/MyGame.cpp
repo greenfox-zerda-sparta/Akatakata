@@ -20,6 +20,8 @@ std::vector<std::vector <bool>> tileMap = {
 MyGame::MyGame() {
   hero_loc = { 0, 0 };
   hero_image = "img/hero-down.bmp";
+  map_width = 10;
+  map_height = 10;
 }
 
 void MyGame::init(GameContext& context) {
@@ -32,6 +34,16 @@ void MyGame::init(GameContext& context) {
 }
 
 void MyGame::set_hero_loc(int x, int y) {
+  if (x > 9) { 
+    x = 9;
+  } else if (x < 0) {
+    x = 0;
+  } 
+  if (y > 9) {
+    y = 9;
+  } else if (y < 0) {
+    y = 0;
+  }
   hero_loc = { x, y };
 }
 

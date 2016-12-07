@@ -7,6 +7,8 @@
 class MyGame : public Game {
 protected:
   std::vector<int> hero_loc;
+  int map_width;
+  int map_height;
   std::string hero_image;
 public:
   MyGame();
