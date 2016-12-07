@@ -1,20 +1,42 @@
+#include <vector>
+
 #include "MyGame.h"
+
+std::vector<std::string> tiles = { "img/wall.bmp", "img/floor.bmp" };
+
+std::vector<std::vector <int>> tileMap = {
+{1,1,1,0,1,0,1,1,1,1},
+{1,1,1,0,1,0,1,0,0,1},
+{1,0,0,0,1,0,1,0,0,1},
+{1,1,1,1,1,0,1,1,1,1},
+{0,0,0,0,1,0,0,0,0,1},
+{1,0,1,0,1,1,1,1,0,1},
+{1,0,1,0,1,0,0,1,0,1},
+{1,1,1,1,1,0,0,1,0,1},
+{1,0,0,0,1,1,1,1,0,1},
+{1,1,1,0,1,0,0,1,0,1}
+};
 
 MyGame::MyGame() {
 }
 
 void MyGame::init(GameContext& context) {
   context.load_file("img/floor.bmp");
+  context.load_file("img/wall.bmp");
 }
 
 void MyGame::render(GameContext& context) {
-  for (int x = 0; x <= rows * 72; x += 72) {
-    for (int y = 0; y <= cols * 72; y += 72) {
-      context.draw_sprite("img/floor.bmp", x, y);
-    }
+  for (unsigned int i = 0; i < tileMap.size(); i++) {
+    for (unsigned int j = 0; j < tileMap[i].size(); j++)
+      if (tileMap[i][j] == 0) {
+        context.draw_sprite("img/wall.bmp", j * 72, i * 72);
+      } else {
+        context.draw_sprite("img/floor.bmp", j * 72, i * 72);
+      }
   }
-  context.render();
+  context.render(); 
 }
 
 MyGame::~MyGame() {
 }
+

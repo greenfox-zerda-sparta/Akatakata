@@ -5,8 +5,8 @@
 
 class MyGame : public Game {
 protected:
-  int rows = 10;
-  int cols = 10;
+  int tileMapWidth = 8;
+  int tileMapHeight = 8;
 public:
   MyGame();
   ~MyGame();
