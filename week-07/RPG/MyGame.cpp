@@ -14,7 +14,6 @@ std::vector<std::vector <bool>> tileMap = {
 {1,1,1,1,1,0,0,1,0,1},
 {1,0,0,0,1,1,1,1,0,1},
 {1,1,1,0,1,0,0,1,1,1}
-
 };
 
 MyGame::MyGame() {
@@ -34,17 +33,23 @@ void MyGame::init(GameContext& context) {
 }
 
 void MyGame::set_hero_loc(int x, int y) {
-  if (x > 9) { 
-    x = 9;
+  // checking for map boundaries
+  if (x > map_width - 1) { 
+    x = map_width - 1;
   } else if (x < 0) {
     x = 0;
   } 
-  if (y > 9) {
-    y = 9;
+  if (y > map_height - 1) {
+    y = map_height - 1;
   } else if (y < 0) {
     y = 0;
   }
-  hero_loc = { x, y };
+  // checking for walls
+  if (tileMap[x][y] == 0) {
+
+  } else {
+    hero_loc = { x, y };
+  }
 }
 
 std::vector<int> MyGame::get_hero_location() {
