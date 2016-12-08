@@ -6,9 +6,8 @@
 
 class Skeleton : public Character {
 private:
-  Area* area;
 public:
-  Skeleton(Area* area);
+  Skeleton(Area* _area);
   ~Skeleton();
   void set_skeleton_loc_random_for_map();
 };

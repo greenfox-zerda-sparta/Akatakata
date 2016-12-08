@@ -9,9 +9,9 @@ class Hero :public Character {
 private:
   std::string hero_image;
 public:
-  Hero();
+  Hero(Area* _area);
   ~Hero();
-  void set_hero_loc(Area* area, int x, int y);
+  void set_hero_loc(int x, int y);
   std::string get_hero_image();
   void set_hero_image(std::string changed_image);
 };

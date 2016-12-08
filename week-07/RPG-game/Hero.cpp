@@ -2,7 +2,8 @@
 #include "Hero.h"
 #include "Area.h"
 
-Hero::Hero() {
+Hero::Hero(Area* _area) {
+  area = _area;
   loc_x = 0;
   loc_y = 0;
   hero_image = "img/hero-down.bmp";
@@ -11,7 +12,7 @@ Hero::Hero() {
 Hero::~Hero() {
 }
 
-void Hero::set_hero_loc(Area* area, int x, int y) {
+void Hero::set_hero_loc(int x, int y) {
   // checking for map boundaries
   if (x > area->get_map_width() - 1) {
     x = area->get_map_width() - 1;

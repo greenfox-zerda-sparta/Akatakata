@@ -6,9 +6,8 @@
 
 class Boss : public Character {
 private:
-  Area* area;
 public:
-  Boss(Area* area);
+  Boss(Area* _area);
   ~Boss();
   void set_random_boss_loc();
 };
