@@ -1,16 +1,15 @@
 #include <cstdlib>
 #include <iostream>
-
 #include "MyGame.h"
 
 MyGame::MyGame() {
   area = new Area;
   hero = new Hero;
+  boss = new Boss(area);
   skeleton_count = 3;
   for (int i = 0; i < 3; i++) {
     skeletons.push_back(new Skeleton(area));
   }
-  set_random_boss_loc();
 }
 
 void MyGame::init(GameContext& context) {
@@ -22,17 +21,6 @@ void MyGame::init(GameContext& context) {
   context.load_file("img/hero-right.bmp");
   context.load_file("img/skeleton.bmp");
   context.load_file("img/boss.bmp");
-}
-
-void MyGame::set_random_boss_loc() {
-  int x_loc = rand() % 10;
-  int y_loc = rand() % 10;
-  if (area->get_tileMap()[y_loc][x_loc] == 1 && (x_loc != 0 && y_loc != 0)) {
-    boss_loc.push_back(x_loc);
-    boss_loc.push_back(y_loc);
-  } else {
-    set_random_boss_loc();
-  }
 }
 
 void MyGame::render(GameContext& context) {
@@ -52,7 +40,7 @@ void MyGame::render(GameContext& context) {
   }
  
   //Boss
-  context.draw_sprite("img/boss.bmp", boss_loc[0] * 72, boss_loc[1] * 72);
+  context.draw_sprite("img/boss.bmp", boss->get_loc_y() * 72, boss->get_loc_x() * 72);
 
   //Hero
   context.draw_sprite(hero->get_hero_image(), hero->get_loc_y() * 72, hero->get_loc_x() * 72);
@@ -87,7 +75,4 @@ MyGame::~MyGame() {
   for (int i = 0; i < 3; i++) {
     delete skeletons[i];
   }
-//delete skeleton1;
-//  delete skeleton2;
-//  delete skeleton3;
 }
