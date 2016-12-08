@@ -1,8 +1,10 @@
+#include <vector>
 #include "Hero.h"
 #include "Area.h"
 
 Hero::Hero() {
-  hero_loc = { 0, 0 };
+  loc_x = 0;
+  loc_y = 0;
   hero_image = "img/hero-down.bmp";
 }
 
@@ -25,12 +27,17 @@ void Hero::set_hero_loc(Area* area, int x, int y) {
   if (area->get_tileMap()[x][y] == 0) {
     // empty line for "do nothing"
   } else {
-    hero_loc = { x, y };
+    loc_x = x;
+    loc_y = y;
   }
 }
 
-std::vector<int> Hero::get_hero_location() {
-  return hero_loc;
+int Hero::get_loc_x() {
+  return loc_x;
+}
+
+int Hero::get_loc_y() {
+  return loc_y;
 }
 
 std::string Hero::get_hero_image() {
