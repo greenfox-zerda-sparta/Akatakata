@@ -1,7 +1,5 @@
 #include "Area.h"
 
-
-
 Area::Area() {
   tileMap = {
     { 1, 1, 1, 0, 1, 0, 1, 1, 1, 1 },
@@ -15,8 +13,8 @@ Area::Area() {
     { 1, 0, 0, 0, 1, 1, 1, 1, 0, 1 },
     { 1, 1, 1, 0, 1, 0, 0, 1, 1, 1 }
   };
-  map_width = tileMap.size();
-  map_height = tileMap[0].size();
+  map_width = 10;
+  map_height = 10;
 }
 
 Area::~Area() {

@@ -4,24 +4,20 @@
 #include <vector>
 #include "game-engine2.h"
 #include "Area.h"
+#include "Hero.h"
 
 class MyGame : public Game {
 protected:
   Area* area;
-  std::vector<int> hero_loc;
+  Hero* hero;
   std::vector<int> skeleton_loc;
   std::vector<int> boss_loc;
-  std::string hero_image;
   int skeleton_count;
 public:
   MyGame();
   ~MyGame();
   virtual void init(GameContext& context);
   virtual void render(GameContext& context);
-  void set_hero_loc(int x, int y);
-  std::vector<int> get_hero_location();
-  void move(GameContext& context);
-  void set_hero_image(std::string changed_image);
   void set_skeleton_loc_random();
   void set_random_boss_loc();
 };

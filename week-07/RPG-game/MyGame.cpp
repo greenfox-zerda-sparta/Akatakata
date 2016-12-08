@@ -1,4 +1,3 @@
-//#include <vector>
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
@@ -7,8 +6,7 @@
 
 MyGame::MyGame() {
   area = new Area;
-  hero_loc = { 0, 0 };
-  hero_image = "img/hero-down.bmp";
+  hero = new Hero;
   skeleton_count = 3;
   std::srand(std::time(0));
   set_skeleton_loc_random();
@@ -24,35 +22,6 @@ void MyGame::init(GameContext& context) {
   context.load_file("img/hero-right.bmp");
   context.load_file("img/skeleton.bmp");
   context.load_file("img/boss.bmp");
-}
-
-void MyGame::set_hero_loc(int x, int y) {
-  // checking for map boundaries
-  if (x > area->get_map_width() - 1) {
-    x = area->get_map_width() - 1;
-  } else if (x < 0) {
-    x = 0;
-  }
-  if (y > area->get_map_height() - 1) {
-    y = area->get_map_height() - 1;
-  } else if (y < 0) {
-    y = 0;
-  }
-
-  // checking for walls
-  if (area->get_tileMap()[x][y] == 0) {
-    // empty line for "do nothing"
-  } else {
-    hero_loc = { x, y };
-  }
-}
-
-std::vector<int> MyGame::get_hero_location() {
-  return hero_loc;
-}
-
-void MyGame::set_hero_image(std::string changed_image) {
-  hero_image = changed_image;
 }
 
 void MyGame::set_skeleton_loc_random() { 
@@ -92,39 +61,31 @@ void MyGame::render(GameContext& context) {
     context.draw_sprite("img/skeleton.bmp", skeleton_loc[i] * 72, skeleton_loc[i + 1] * 72);
   }
   context.draw_sprite("img/boss.bmp", boss_loc[0] * 72, boss_loc[1] * 72);
-  context.draw_sprite(hero_image, get_hero_location()[1] * 72, get_hero_location()[0] * 72);
+  context.draw_sprite(hero->get_hero_image(), hero->get_hero_location()[1] * 72, hero->get_hero_location()[0] * 72);
   if (context.was_key_pressed(ARROW_DOWN)) {
-    set_hero_loc(get_hero_location()[0] + 1, get_hero_location()[1]);
-    set_hero_image("img/hero-down.bmp");
-    context.draw_sprite(hero_image, get_hero_location()[1] * 72, get_hero_location()[0] * 72);
+    hero->set_hero_loc(area, hero->get_hero_location()[0] + 1, hero->get_hero_location()[1]);
+    hero->set_hero_image("img/hero-down.bmp");
+    context.draw_sprite(hero->get_hero_image(), hero->get_hero_location()[1] * 72, hero->get_hero_location()[0] * 72);
   }
   if (context.was_key_pressed(ARROW_UP)) {
-    set_hero_loc(get_hero_location()[0] - 1, get_hero_location()[1]);
-    set_hero_image("img/hero-up.bmp");
-    context.draw_sprite(hero_image, get_hero_location()[1] * 72, get_hero_location()[0] * 72);
+    hero->set_hero_loc(area, hero->get_hero_location()[0] - 1, hero->get_hero_location()[1]);
+    hero->set_hero_image("img/hero-up.bmp");
+    context.draw_sprite(hero->get_hero_image(), hero->get_hero_location()[1] * 72, hero->get_hero_location()[0] * 72);
   }
   if (context.was_key_pressed(ARROW_RIGHT)) {
-    set_hero_loc(get_hero_location()[0], get_hero_location()[1] + 1);
-    set_hero_image("img/hero-right.bmp");
-    context.draw_sprite(hero_image, get_hero_location()[1] * 72, get_hero_location()[0] * 72);
+    hero->set_hero_loc(area, hero->get_hero_location()[0], hero->get_hero_location()[1] + 1);
+    hero->set_hero_image("img/hero-right.bmp");
+    context.draw_sprite(hero->get_hero_image(), hero->get_hero_location()[1] * 72, hero->get_hero_location()[0] * 72);
   }
   if (context.was_key_pressed(ARROW_LEFT)) {
-    set_hero_loc(get_hero_location()[0], get_hero_location()[1] - 1);
-    set_hero_image("img/hero-left.bmp");
-    context.draw_sprite(hero_image, get_hero_location()[1] * 72, get_hero_location()[0] * 72);
+    hero->set_hero_loc(area, hero->get_hero_location()[0], hero->get_hero_location()[1] - 1);
+    hero->set_hero_image("img/hero-left.bmp");
+    context.draw_sprite(hero->get_hero_image(), hero->get_hero_location()[1] * 72, hero->get_hero_location()[0] * 72);
   }
-  context.render();
-}
-
-void MyGame::move(GameContext& context) {
-  if (context.was_key_pressed(ARROW_DOWN)) {
-
-    set_hero_loc(get_hero_location()[0], get_hero_location()[1 + 1]);
-  }
-  context.draw_sprite("img/hero-down.bmp", get_hero_location()[1] * 72, get_hero_location()[0] * 72);
   context.render();
 }
 
 MyGame::~MyGame() {
+  delete hero;
   delete area;
 }

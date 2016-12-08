@@ -1,0 +1,41 @@
+#include "Hero.h"
+#include "Area.h"
+
+Hero::Hero() {
+  hero_loc = { 0, 0 };
+  hero_image = "img/hero-down.bmp";
+}
+
+Hero::~Hero() {
+}
+
+void Hero::set_hero_loc(Area* area, int x, int y) {
+  // checking for map boundaries
+  if (x > area->get_map_width() - 1) {
+    x = area->get_map_width() - 1;
+  } else if (x < 0) {
+    x = 0;
+  }
+  if (y > area->get_map_height() - 1) {
+    y = area->get_map_height() - 1;
+  } else if (y < 0) {
+    y = 0;
+  }
+  // checking for walls
+  if (area->get_tileMap()[x][y] == 0) {
+    // empty line for "do nothing"
+  } else {
+    hero_loc = { x, y };
+  }
+}
+
+std::vector<int> Hero::get_hero_location() {
+  return hero_loc;
+}
+
+std::string Hero::get_hero_image() {
+  return hero_image;
+}
+void Hero::set_hero_image(std::string changed_image) {
+  hero_image = changed_image;
+}
