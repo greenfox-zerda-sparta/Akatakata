@@ -1,4 +1,4 @@
-#include <ctime>
+#include <vector>
 #include <cstdlib>
 #include "Skeleton.h"
 #include "Area.h"
@@ -12,16 +12,20 @@ Skeleton::~Skeleton() {
 }
 
 void Skeleton::set_skeleton_loc_random_for_map() {
-  int x_loc = rand() % 10;
-  int y_loc = rand() % 10;
-  if (area->get_tileMap()[y_loc][x_loc] == 0 || (x_loc == 0 && y_loc == 0)) {
+  loc_x = rand() % 10;
+  loc_y = rand() % 10;
+  if (area->get_tileMap()[loc_y][loc_x] == 0 || (loc_x == 0 && loc_y == 0)) {
     set_skeleton_loc_random_for_map();
-  } else if (area->get_tileMap()[y_loc][x_loc] == 1) {
-    skeleton_loc.push_back(x_loc);
-    skeleton_loc.push_back(y_loc);
-  };
+  }/* else if (area->get_tileMap()[y_loc][x_loc] == 1) {
+    loc_x = x_loc;
+    loc_y = y_loc;
+  };*/
 }
 
-std::vector<int> Skeleton::get_skeleton_loc() {
-  return skeleton_loc;
+int Skeleton::get_loc_x() {
+  return loc_x;
+}
+
+int Skeleton::get_loc_y() {
+  return loc_y;
 }

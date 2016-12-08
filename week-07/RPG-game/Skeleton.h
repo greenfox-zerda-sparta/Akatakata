@@ -1,18 +1,19 @@
 // #pragma once
 #ifndef SKELETON_H
 #define SKELETON_H
-#include <vector>
 #include "Area.h"
 
 class Skeleton {
 private:
-  std::vector<int> skeleton_loc;
+  int loc_x;
+  int loc_y;
   Area* area;
 public:
   Skeleton(Area* area);
   ~Skeleton();
   void set_skeleton_loc_random_for_map();
-  std::vector<int> get_skeleton_loc();
+  int get_loc_x();
+  int get_loc_y();
 };
 
 #endif

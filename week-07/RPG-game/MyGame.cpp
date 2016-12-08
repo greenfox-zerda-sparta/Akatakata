@@ -1,4 +1,3 @@
-#include <ctime>
 #include <cstdlib>
 #include <iostream>
 
@@ -49,7 +48,7 @@ void MyGame::render(GameContext& context) {
 
   //Skeletons
  for (int i = 0; i < 3; i++) {
-    context.draw_sprite("img/skeleton.bmp", skeletons[i]->get_skeleton_loc()[0] * 72, skeletons[i]->get_skeleton_loc()[1] * 72);
+    context.draw_sprite("img/skeleton.bmp", skeletons[i]->get_loc_y() * 72, skeletons[i]->get_loc_x() * 72);
   }
  
   //Boss
