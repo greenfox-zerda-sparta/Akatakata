@@ -3,17 +3,16 @@
 #define MYGAME_H
 #include <vector>
 #include "game-engine2.h"
+#include "Area.h"
 
 class MyGame : public Game {
 protected:
-  int map_width;
-  int map_height;
+  Area* area;
   std::vector<int> hero_loc;
   std::vector<int> skeleton_loc;
   std::vector<int> boss_loc;
   std::string hero_image;
   int skeleton_count;
-
 public:
   MyGame();
   ~MyGame();
