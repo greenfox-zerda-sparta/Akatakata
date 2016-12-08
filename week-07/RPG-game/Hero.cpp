@@ -32,14 +32,6 @@ void Hero::set_hero_loc(Area* area, int x, int y) {
   }
 }
 
-int Hero::get_loc_x() {
-  return loc_x;
-}
-
-int Hero::get_loc_y() {
-  return loc_y;
-}
-
 std::string Hero::get_hero_image() {
   return hero_image;
 }
