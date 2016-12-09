@@ -15,6 +15,7 @@ protected:
   Boss* boss;
   std::vector<Skeleton*> skeletons;
   int skeleton_count;
+  int keypress_count;
 public:
   MyGame();
   ~MyGame();

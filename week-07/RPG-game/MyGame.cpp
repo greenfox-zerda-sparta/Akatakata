@@ -10,6 +10,7 @@ MyGame::MyGame() {
   for (int i = 0; i < 3; i++) {
     skeletons.push_back(new Skeleton(area));
   }
+  keypress_count = 0;
 }
 
 void MyGame::init(GameContext& context) {
@@ -41,8 +42,14 @@ void MyGame::render(GameContext& context) {
  
   //Boss
   context.draw_sprite("img/boss.bmp", boss->get_loc_y() * 72, boss->get_loc_x() * 72);
-  SDL_Delay(2000);
-  boss->random_move();
+
+  if (keypress_count == 2 && keypress_count != 0) {
+    boss->random_move();
+    for (int i = 0; i < 3; i++) {
+      skeletons[i]->random_move();
+    }
+    keypress_count = 0;
+  }
 
   //Hero
   context.draw_sprite(hero->get_hero_image(), hero->get_loc_y() * 72, hero->get_loc_x() * 72);
@@ -51,18 +58,22 @@ void MyGame::render(GameContext& context) {
   if (context.was_key_pressed(ARROW_DOWN)) {
     hero->set_hero_loc(hero->get_loc_x() + 1, hero->get_loc_y());
     hero->set_hero_image("img/hero-down.bmp");
+    keypress_count++;
   }
   if (context.was_key_pressed(ARROW_UP)) {
     hero->set_hero_loc(hero->get_loc_x() - 1, hero->get_loc_y());
     hero->set_hero_image("img/hero-up.bmp");
+    keypress_count++;
   }
   if (context.was_key_pressed(ARROW_RIGHT)) {
     hero->set_hero_loc(hero->get_loc_x(), hero->get_loc_y() + 1);
     hero->set_hero_image("img/hero-right.bmp");
+    keypress_count++;
   }
   if (context.was_key_pressed(ARROW_LEFT)) {
     hero->set_hero_loc(hero->get_loc_x(), hero->get_loc_y() - 1);
     hero->set_hero_image("img/hero-left.bmp");
+    keypress_count++;
   }
   context.render();
 }
