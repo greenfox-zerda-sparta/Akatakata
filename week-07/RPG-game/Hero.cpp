@@ -7,6 +7,10 @@ Hero::Hero(Area* _area) {
   loc_x = 0;
   loc_y = 0;
   hero_image = "img/hero-down.bmp";
+  HP = 20 + 3 * (rand() % 6 + 1);
+  DP = 2 * (rand() % 6 + 1);
+  SP = 5 + (rand() % 6 + 1);
+  level = 1;
 }
 
 Hero::~Hero() {

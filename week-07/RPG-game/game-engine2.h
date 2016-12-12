@@ -2,7 +2,6 @@
 #ifndef GAME_ENGINE_H
 #define GAME_ENGINE_H
 #include <SDL.h>
-
 #include <map>
 #include <string>
 
@@ -29,6 +28,7 @@ public:
     renderer = SDL_CreateRenderer(screen, -1, 0);
     reset_keys();
   }
+  
   ~GameContext() {
     for (std::map<std::string, SDL_Texture*>::iterator it = sprites.begin(); it != sprites.end(); ++it) {
       SDL_DestroyTexture(it->second);

@@ -6,6 +6,10 @@
 Skeleton::Skeleton(Area* _area) {
   area = _area;
   set_skeleton_loc_random_for_map();
+  level = 1;
+  HP = 2 * level * (rand() % 6 + 1);
+  DP = (level / 2) * (rand() % 6 + 1);
+  SP = level * (rand() % 6 + 1);
 }
 
 Skeleton::~Skeleton() {

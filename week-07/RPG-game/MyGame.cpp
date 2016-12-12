@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 #include "MyGame.h"
 
 MyGame::MyGame() {
@@ -35,6 +36,7 @@ void MyGame::render(GameContext& context) {
       }
   }
 
+ // context.draw_sprite("Output.txt", 730, 30);
   //Skeletons
  for (int i = 0; i < 3; i++) {
     context.draw_sprite("img/skeleton.bmp", skeletons[i]->get_loc_y() * 72, skeletons[i]->get_loc_x() * 72);
@@ -43,9 +45,9 @@ void MyGame::render(GameContext& context) {
   //Boss
   context.draw_sprite("img/boss.bmp", boss->get_loc_y() * 72, boss->get_loc_x() * 72);
 
-  if (keypress_count == 2 && keypress_count != 0) {
+  if (keypress_count == 2) {
     boss->random_move();
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < skeleton_count; i++) {
       skeletons[i]->random_move();
     }
     keypress_count = 0;

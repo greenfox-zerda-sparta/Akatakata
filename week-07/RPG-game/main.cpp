@@ -5,7 +5,7 @@
 int main(int argc, char* argv[]) {
   std::srand(std::time(0));
   MyGame game;
-  GameEngine engine(&game, 720, 720);
+  GameEngine engine(&game, 960, 720);
   engine.run();
   return 0;
 }

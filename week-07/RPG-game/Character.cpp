@@ -34,23 +34,28 @@ void Character::random_move() {
   }
 }
 
-void Character::set_loc(int x, int y) {
+bool Character::is_valid_loc(int x, int y) {
   // checking for map boundaries
-  if (x > area->get_map_width() - 1) {
-    x = area->get_map_width() - 1;
-  } else if (x < 0) {
-    x = 0;
-  }
-  if (y > area->get_map_height() - 1) {
-    y = area->get_map_height() - 1;
-  } else if (y < 0) {
-    y = 0;
-  }
+  if (x > area->get_map_width() - 1 || x < 0) {
+    return false;
+  } 
+  if (y > area->get_map_height() - 1 || y < 0) {
+    return false;
+  } 
   // checking for walls
   if (area->get_tileMap()[x][y] == 0) {
-    // empty line for "do nothing"
-  } else {
-    loc_x = x;
-    loc_y = y;
+    return false;
   }
+  return true;
+}
+
+void Character::set_loc(int x, int y) {
+   if (is_valid_loc(x, y)) {
+     loc_x = x;
+     loc_y = y;
+  }
+}
+
+void Character::set_HP(int HP_change) {
+  HP += HP_change;
 }
