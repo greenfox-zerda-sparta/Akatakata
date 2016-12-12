@@ -1,17 +1,12 @@
-// In Your main function create an array of integers. 5 long.
-// Fill it up with random numbers.
-// For each number treat it as the radius of a circle.
-// Calculate the circumference and the area of the circle with such a radius.
-// Use preprocessor to define the MY_PI constant. Use this in th calculations.
+// Create a function like macro. The Macro should take one parameter and
+// print out the parameter to the console after printing out in which file 
+// and at which line it has been called at.
 
-#define MY_PI 3.14
 #include <iostream>
+#define print_location(a) std::cout << "In " << __FILE__ << " at line " << __LINE__ << " lies our parameter: " << a << std::endl;
 
 int main() {
-  int arr[5] = { 1, 7, 9, 4, 8 };
-  for (int i = 0; i < 5; i++) {
-    std::cout << "Circumference: " << MY_PI * 2 * arr[i] << std::endl;
-    std::cout << "Area: " << arr[i] * arr[i] * MY_PI << std::endl << std::endl;
-  }
+  int find_me = 7;
+  print_location(find_me);
   return 0;
 }
