@@ -55,3 +55,7 @@ void Color::lighten(float amount) {
     blue = blue + ((255 - blue) * amount);
   }
 }
+
+Color Color::operator+(const Color& obj) {
+  return this->blend(obj);
+}

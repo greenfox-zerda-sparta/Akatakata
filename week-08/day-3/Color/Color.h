@@ -19,6 +19,7 @@ public:
   bool is_amount_correct(float amount);
   void darken(float amount);
   void lighten(float amount);
+  Color operator+(const Color& obj);
 };
 
 #endif
