@@ -20,6 +20,8 @@ public:
   void darken(float amount);
   void lighten(float amount);
   Color operator+(const Color& obj);
+  Color& operator++();
+  Color& operator++(int);
 };
 
 #endif

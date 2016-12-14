@@ -59,3 +59,14 @@ void Color::lighten(float amount) {
 Color Color::operator+(const Color& obj) {
   return this->blend(obj);
 }
+
+Color& Color::operator++() {
+  lighten(0.1);
+  return *this;
+}
+
+Color& Color::operator++(int) {
+  Color temp(*this);
+  ++*this;
+  return temp;
+}

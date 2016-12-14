@@ -11,7 +11,7 @@ int main() {
   cout << "second: " << second.get_color_code() << endl;
   cout << endl << "COPY CONSTRUCTOR" << endl;
   Color third(second);
-  cout << "third: " << second.get_color_code() << endl << endl;
+  cout << "third: " << second.get_color_code() << endl;
   cout << endl << "BLEND" << endl;
   cout << "second blended into first:   " << first.blend(second).get_color_code() << endl;
   cout << endl << "DARKEN" << endl;
@@ -28,6 +28,13 @@ int main() {
   cout << endl << "+ FOR BLEND" << endl;
   cout << "third blended into first: " << (first + third).get_color_code() << endl;
 
+  cout << endl << "prefix ++ FOR lighten 10%" << endl;
+  ++third;
+  cout << "third lightened by 0.1: " << third.get_color_code() << endl;
+
+  cout << endl << "postfix ++ FOR lighten 10%" << endl;
+  third++;
+  cout << "third lightened by 0.1: " << third.get_color_code() << endl;
 
   return 0;
 }
