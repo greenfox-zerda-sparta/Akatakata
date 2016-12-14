@@ -70,3 +70,26 @@ Color& Color::operator++(int) {
   ++*this;
   return temp;
 }
+
+Color& Color::operator--() {
+  darken(0.1);
+  return *this;
+}
+
+Color& Color::operator--(int) {
+  Color temp(*this);
+  --*this;
+  return temp;
+}
+
+Color Color::operator*(float amount) {
+  lighten(amount);
+  Color temp(*this);
+  return temp;
+}
+
+Color Color::operator/(float amount) {
+  darken(amount);
+  Color temp(*this);
+  return temp;
+}

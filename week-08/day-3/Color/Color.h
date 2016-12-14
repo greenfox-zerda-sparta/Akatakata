@@ -22,6 +22,10 @@ public:
   Color operator+(const Color& obj);
   Color& operator++();
   Color& operator++(int);
+  Color& operator--();
+  Color& operator--(int);
+  Color operator*(float amount);
+  Color operator/(float amount);
 };
 
 #endif

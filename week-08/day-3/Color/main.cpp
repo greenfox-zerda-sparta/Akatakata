@@ -32,9 +32,14 @@ int main() {
   ++third;
   cout << "third lightened by 0.1: " << third.get_color_code() << endl;
 
-  cout << endl << "postfix ++ FOR lighten 10%" << endl;
-  third++;
-  cout << "third lightened by 0.1: " << third.get_color_code() << endl;
+  cout << endl << "postfix -- FOR darken 10%" << endl;
+  third--;
+  cout << "third darkened by 0.1: " << third.get_color_code() << endl;
 
+  cout << endl << "* FOR new color (lighter 20%)" << endl;
+  cout << "third lightened by 0.2 into new color: " << (third*0.2).get_color_code() << endl;
+
+  cout << endl << "/ FOR new color (darken 20%)" << endl;
+  cout << "third darkened by 0.2 into new color: " << (third/0.2).get_color_code() << endl;
   return 0;
 }
