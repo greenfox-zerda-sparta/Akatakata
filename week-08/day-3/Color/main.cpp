@@ -10,8 +10,14 @@ int main() {
   cout << "second: " << second.get_color_code() << endl;
 
   Color third(second);
-  cout << "third: " << second.get_color_code() << endl;
+  cout << "third: " << second.get_color_code() << endl << endl;
 
-  cout << "fourth: " << first.blend(second).get_color_code() << endl;
+  cout << "second blended into first:   " << first.blend(second).get_color_code() << endl;
+
+  second.darken(0.4);
+  cout << "second darkened by 0.4:   " << second.get_color_code() << endl;
+
+  third.lighten(0.3);
+  cout << "third lightened by 0.3:   " << third.get_color_code() << endl;
   return 0;
 }
