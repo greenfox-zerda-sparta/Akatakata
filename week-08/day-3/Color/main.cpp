@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstdint>
 #include "Color.h"
 
 using namespace std;
@@ -10,8 +9,7 @@ int main() {
   Color second(100, 0, 0);
   cout << second.get_color_code() << endl;
 
-  unsigned char a = 25;
-  unsigned char b = 30;
-  cout << (int)a;
+  Color third(second);
+  cout << second.get_color_code() << endl;
   return 0;
 }
