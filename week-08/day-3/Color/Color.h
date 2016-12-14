@@ -15,6 +15,9 @@ public:
   Color(std::string hexcode);
   Color(const Color &obj);
   std::string get_color_code();
+  Color blend(const Color& other);
+  void darken(float amount);
+  void lighten(float amount);
 };
 
 #endif

@@ -19,3 +19,19 @@ Color::Color(const Color &obj) {
 std::string Color::get_color_code() {
   return  std::to_string((int)red) + ", " + std::to_string((int)green) + ", " + std::to_string((int)blue);
 }
+
+Color Color::blend(const Color& other) {
+  Color temp(other);
+  temp.red = (red + other.red) / 2;
+  temp.green = (green + other.green) / 2;
+  temp.blue = (blue + other.blue) / 2;
+  return temp;
+}
+
+void Color::darken(float amount) {
+
+}
+
+void Color::lighten(float amount) {
+
+}

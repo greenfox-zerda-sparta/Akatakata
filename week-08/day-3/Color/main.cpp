@@ -4,12 +4,14 @@
 using namespace std;
 int main() {
   Color first;
-  cout << first.get_color_code() << endl;
+  cout << "first: " << first.get_color_code() << endl;
 
-  Color second(100, 0, 0);
-  cout << second.get_color_code() << endl;
+  Color second(100, 0, 180);
+  cout << "second: " << second.get_color_code() << endl;
 
   Color third(second);
-  cout << second.get_color_code() << endl;
+  cout << "third: " << second.get_color_code() << endl;
+
+  cout << "fourth: " << first.blend(second).get_color_code() << endl;
   return 0;
 }
