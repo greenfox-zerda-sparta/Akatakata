@@ -16,6 +16,7 @@ public:
   Color(const Color &obj);
   std::string get_color_code();
   Color blend(const Color& other);
+  bool is_amount_correct(float amount);
   void darken(float amount);
   void lighten(float amount);
 };

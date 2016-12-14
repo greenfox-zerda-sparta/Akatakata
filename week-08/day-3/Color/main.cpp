@@ -19,5 +19,7 @@ int main() {
 
   third.lighten(0.3);
   cout << "third lightened by 0.3:   " << third.get_color_code() << endl;
+  third.lighten(1.3);
+  cout << "third lightened by 1.3:   " << third.get_color_code() << endl;
   return 0;
 }

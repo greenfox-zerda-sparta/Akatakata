@@ -28,14 +28,30 @@ Color Color::blend(const Color& other) {
   return temp;
 }
 
+bool Color::is_amount_correct(float amount) {
+  try {
+    if (amount < 0 || amount > 1) {
+      throw "Amount should be between 0 and 1.";
+    }
+  } catch (const char* expr) {
+    std::cout << "Error: " << expr << std::endl;
+    return false;
+  }
+  return true;
+}
+
 void Color::darken(float amount) {
-  red = red - (red * amount);
-  green = green - (green * amount);
-  blue = blue - (blue * amount);
+  if (is_amount_correct(amount)) {
+    red = red - (red * amount);
+    green = green - (green * amount);
+    blue = blue - (blue * amount);
+  }
 }
 
 void Color::lighten(float amount) {
-  red = red + ((255 - red) * amount);
-  green = green + ((255 - green) * amount);
-  blue = blue + ((255 - blue) * amount);
+  if (is_amount_correct(amount)) {
+    red = red + ((255 - red) * amount);
+    green = green + ((255 - green) * amount);
+    blue = blue + ((255 - blue) * amount);
+  }
 }
