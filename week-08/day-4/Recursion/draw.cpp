@@ -70,27 +70,33 @@ void draw::setDirection(double direction) {
   Direction = direction;
 }
 
-void draw::draw_square(SDL_Renderer* &renderer, int line) {
-  int x_start = X;
-  int y_start = Y;
-  DrawTo(renderer, x_start + line, y_start);
-  DrawTo(renderer, x_start + line, y_start + line);
-  DrawTo(renderer, x_start, y_start + line);
-  DrawTo(renderer, x_start, y_start);
+void draw::draw_square(SDL_Renderer* &renderer, int x, int y, int line) {
+  setX(x);
+  setY(y);
+  DrawTo(renderer, x + line, y);
+  DrawTo(renderer, x + line, y + line);
+  DrawTo(renderer, x, y + line);
+  DrawTo(renderer, x, y);
 }
 
-void draw::four_squares(SDL_Renderer* &renderer, int line) {
-  draw_square(renderer, line);
-  setX(X - line);
-  setY(Y + line);
-  draw_square(renderer, line);
-  setX(X + line);
-  setY(Y + line);
-  draw_square(renderer, line);
-  setX(X + line);
-  setY(Y - line);
-  draw_square(renderer, line);
-  setX(X - line - line);
-  setY(Y - line);
+void draw::grid(SDL_Renderer* &renderer, int x, int y, int line) {
+  if (line > 8) {
+    draw_square(renderer, x, y, line);
+    MoveTo(x + line / 3, y);
+    DrawTo(renderer, x + line / 3, y + line);
+    MoveTo(x + 2 * line / 3, y);
+    DrawTo(renderer, x + 2 * line / 3, y + line);
+    MoveTo(x, y + line / 3);
+    DrawTo(renderer, x + line, y + line / 3);
+    MoveTo(x, y + 2 * line / 3);
+    DrawTo(renderer, x + line, y + 2 * line / 3);
+
+    grid(renderer, x, y + line / 3, line / 3);
+    grid(renderer, x + line / 3, y, line / 3);
+    grid(renderer, x + 2 * line / 3, y + line / 3, line / 3);
+    grid(renderer, x + line / 3, y + 2 * line / 3, line / 3);
+  } else {
+    
+  }
 }
 
