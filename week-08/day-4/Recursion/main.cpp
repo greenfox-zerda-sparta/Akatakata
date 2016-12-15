@@ -3,7 +3,7 @@
 #include "draw.h"
 
 int main(int argc, char ** argv) {
-  int line = 40;
+  int line = 8;
   bool quit = false;
   SDL_Event event;
 
@@ -24,17 +24,19 @@ int main(int argc, char ** argv) {
       break;
     }
 
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
     SDL_RenderClear(renderer);
 
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
     draw d(380, 0, 0);
-    for (int i = 0; i < 4; i++) {
-      d.DrawBy(renderer, line);
-      d.TurnBy(90);
-    }
+
+   d.four_squares(renderer, line);
     SDL_RenderPresent(renderer);
+    d.four_squares(renderer, line * 3);
+    d.four_squares(renderer, line * 3 * 3);
+    d.four_squares(renderer, line * 3 * 3 * 3);
   }
 
   SDL_DestroyRenderer(renderer);

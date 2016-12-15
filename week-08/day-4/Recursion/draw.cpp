@@ -69,3 +69,28 @@ void draw::setDirection(double direction) {
  // this->Direction += fmod(direction, 360);
   Direction = direction;
 }
+
+void draw::draw_square(SDL_Renderer* &renderer, int line) {
+  int x_start = X;
+  int y_start = Y;
+  DrawTo(renderer, x_start + line, y_start);
+  DrawTo(renderer, x_start + line, y_start + line);
+  DrawTo(renderer, x_start, y_start + line);
+  DrawTo(renderer, x_start, y_start);
+}
+
+void draw::four_squares(SDL_Renderer* &renderer, int line) {
+  draw_square(renderer, line);
+  setX(X - line);
+  setY(Y + line);
+  draw_square(renderer, line);
+  setX(X + line);
+  setY(Y + line);
+  draw_square(renderer, line);
+  setX(X + line);
+  setY(Y - line);
+  draw_square(renderer, line);
+  setX(X - line - line);
+  setY(Y - line);
+}
+

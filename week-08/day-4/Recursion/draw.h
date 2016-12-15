@@ -26,6 +26,9 @@ public:
   void setY(int y);
   int getDirection();
   void setDirection(double direction);
+  void draw_square(SDL_Renderer* &renderer, int line);
+  void four_squares(SDL_Renderer* &renderer, int line);
+  void more_squares(SDL_Renderer* &renderer, int line);
 
 private:
   int X, Y;
