@@ -15,10 +15,7 @@ int main(int argc, char ** argv) {
   SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
   SDL_SetRenderDrawColor(renderer, 19, 19, 70, 0);
   SDL_RenderClear(renderer);
-  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
   draw d(0, 0, 0);
-  d.grid(renderer, 0, 0, line);
-  // d.sierpinsky_triangle(renderer, 30, 50, 739);
   
   while (!quit) {
     SDL_WaitEvent(&event);
@@ -27,9 +24,22 @@ int main(int argc, char ** argv) {
        quit = true;
        break;
      case SDL_KEYDOWN:
-       if (event.key.keysym.sym == SDLK_ESCAPE) {
-       quit = true;
-       break;
+       switch (event.key.keysym.sym) {
+         case SDLK_ESCAPE:
+           quit = true;
+           break;
+         case SDLK_a:
+         //  SDL_SetRenderDrawColor(renderer, 19, 19, 70, 0);
+           SDL_RenderClear(renderer);
+           SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+           d.grid(renderer, 0, 0, line);
+           break;
+         case SDLK_s:
+         //  SDL_SetRenderDrawColor(renderer, 19, 19, 70, 0);
+           SDL_RenderClear(renderer);
+           SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+           d.sierpinsky_triangle(renderer, 30, 50, 739);
+           break;
        }
     }
 

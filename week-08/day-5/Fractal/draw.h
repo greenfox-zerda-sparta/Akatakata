@@ -30,7 +30,6 @@ public:
   void grid(SDL_Renderer* &renderer, int x, int y, int line);
   void draw_equal_triangle_down(SDL_Renderer* &renderer, int x, int y, int line);
   void draw_equal_triangle_up(SDL_Renderer* &renderer, int x, int y, int line);
-  void fill_sierpinsky_triangle(SDL_Renderer* &renderer, int x, int y, int line);
   void sierpinsky_triangle(SDL_Renderer* &renderer, int x, int y, int line);
 
 private:
