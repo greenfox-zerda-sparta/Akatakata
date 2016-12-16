@@ -17,15 +17,22 @@ int main(int argc, char ** argv) {
   SDL_RenderClear(renderer);
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
   draw d(0, 0, 0);
-  // d.grid(renderer, 0, 0, line);
-  d.sierpinsky_triangle(renderer, 30, 50, 739);
+  d.grid(renderer, 0, 0, line);
+  // d.sierpinsky_triangle(renderer, 30, 50, 739);
   
   while (!quit) {
     SDL_WaitEvent(&event);
-    if (event.type == SDL_QUIT) {
-      quit = true;
-      break;
+    switch (event.type) {
+     case SDL_QUIT:
+       quit = true;
+       break;
+     case SDL_KEYDOWN:
+       if (event.key.keysym.sym == SDLK_ESCAPE) {
+       quit = true;
+       break;
+       }
     }
+
     SDL_RenderPresent(renderer);
   }
   SDL_DestroyRenderer(renderer);

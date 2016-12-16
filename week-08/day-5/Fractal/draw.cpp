@@ -114,16 +114,9 @@ void draw::draw_equal_triangle_up(SDL_Renderer* &renderer, int x, int y, int lin
   DrawTo(renderer, x, y);
 }
 
-void draw::fill_sierpinsky_triangle(SDL_Renderer* &renderer, int x, int y, int line) {
-  if (line > 20) {
-    draw_equal_triangle_up(renderer, x + line / 4, y + sqrt(line * line - line / 2 * line / 2) / 2, line / 2); 
-  }
-}
-
 void draw::sierpinsky_triangle(SDL_Renderer* &renderer, int x, int y, int line) {
   draw_equal_triangle_down(renderer, x, y, line);
   if (line > 20) {
-   // fill_sierpinsky_triangle(renderer, x, y, line);
     draw_equal_triangle_up(renderer, x + line / 4, y + sqrt(line * line - line / 2 * line / 2) / 2, line / 2);
     sierpinsky_triangle(renderer, x, y, line / 2);
     sierpinsky_triangle(renderer, x + line / 2, y, line / 2);
