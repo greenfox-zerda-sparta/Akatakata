@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iterator>
+#include <iostream>
 #include "WordToolBox.h"
 
 WordToolBox::WordToolBox(std::string text) : stringHeld(text) {
@@ -13,8 +14,11 @@ void WordToolBox::setStringHeld(std::string newstring) {
   stringHeld = newstring;
 }
 
-bool WordToolBox::isAnAnagram(std::string stringToCheck) {
-  return std::string(stringToCheck.rbegin(), stringToCheck.rend()) == stringToCheck;
+bool WordToolBox::isAnnagram(std::string stringToCheck) {
+  std::string to_reverse = stringHeld;
+  std::sort(to_reverse.begin(), to_reverse.end());
+  std::sort(stringToCheck.begin(), stringToCheck.end());
+  return to_reverse == stringToCheck;
 }
 
 int WordToolBox::countHowMany(char charToFind) {

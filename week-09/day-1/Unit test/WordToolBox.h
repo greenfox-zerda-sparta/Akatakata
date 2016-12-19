@@ -11,7 +11,7 @@ public:
   WordToolBox(std::string text);
   std::string getStringHeld();
   void setStringHeld(std::string newstring);
-  bool isAnAnagram(std::string stringToCheck);
+  bool isAnnagram(std::string stringToCheck);
   int countHowMany(char charToFind);
 };
 
