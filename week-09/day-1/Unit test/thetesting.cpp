@@ -1,4 +1,4 @@
-#define TEST
+#define TEST // comment out this line in order to run main()
 #ifdef TEST
 #include "test_thetesting.cpp"
 #endif
