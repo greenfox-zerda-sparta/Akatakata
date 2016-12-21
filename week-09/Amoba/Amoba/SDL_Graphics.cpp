@@ -15,7 +15,6 @@ SDL_Graphics::~SDL_Graphics() {
     SDL_DestroyTexture(it->second);
   }
   SDL_Quit();
-  std::cout << "renderer, window, textures destroyed" << std::endl;
 }
 
 void SDL_Graphics::initalize_SDL() {
@@ -59,8 +58,6 @@ void SDL_Graphics::draw_sprite(std::string name, int x, int y) {
 void SDL_Graphics::render() {
   SDL_RenderPresent(renderer);
 }
-
-
 
 /*
 

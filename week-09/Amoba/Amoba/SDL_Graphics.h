@@ -11,7 +11,6 @@ private:
   SDL_Window* window;
   SDL_Renderer* renderer;
   std::map<std::string, SDL_Texture*> sprites;
- // GameBoard board;
 public:
   SDL_Graphics();
   ~SDL_Graphics();

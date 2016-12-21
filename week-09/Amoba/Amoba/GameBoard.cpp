@@ -21,3 +21,7 @@ std::string GameBoard::get_tile_src() {
   return tile_src;
 }
 
+void GameBoard::set_tile(int x, int y, int stone_id) {
+  tilemap[x][y] = stone_id;
+}
+

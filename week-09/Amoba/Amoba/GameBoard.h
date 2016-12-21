@@ -19,6 +19,7 @@ public:
   ~GameBoard();
   std::vector<std::vector<int>> get_tilemap();
   std::string get_tile_src();
+  void set_tile(int x, int y, int stone_id);
 };
 #endif
 

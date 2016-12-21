@@ -10,9 +10,13 @@ private:
   MainGame* game;
   SDL_Event event;
   bool quit;
+  int click_x;
+  int click_y;
 public:
   Amoba();
   ~Amoba();
   void run();
+  int get_click_x();
+  int get_click_y();
 };
 #endif
