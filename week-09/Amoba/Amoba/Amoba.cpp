@@ -1,9 +1,6 @@
 #include <iostream>
 #include "Amoba.h"
 
-#define X click_x
-#define Y click_y
-
 Amoba::Amoba() {
   environment = new SDL_Graphics();
   game = new GamePlay();
@@ -29,18 +26,11 @@ void Amoba::run() {
       case SDLK_ESCAPE:
         quit = true;
         break;
-      }
-    case SDL_MOUSEBUTTONDOWN:
-      if (event.button.button == SDL_BUTTON_LEFT) {
-      //  environment->set_click_x(event.button.x / 30);
-     //   environment->set_click_y(event.button.y / 30);
-        if (event.button.x < 570 && event.button.y < 570) {
-          click_x = event.button.x / 30;
-          click_y = event.button.y / 30;
-          game->place_stone_on_board(click_x, click_y);
-          std::cout << "amoba class click: row: " << click_y << " col: " << click_x << std::endl;
-          break;
         }
+    case SDL_MOUSEBUTTONDOWN:
+      if (event.button.x < 570 && event.button.y < 570) {
+        game->place_stone_on_board(event.button.x / 30, event.button.y / 30);
+        break;
       }
     }
     game->render(*environment);

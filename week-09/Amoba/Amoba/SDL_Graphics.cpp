@@ -9,11 +9,11 @@ SDL_Graphics::SDL_Graphics() {
 }
 
 SDL_Graphics::~SDL_Graphics() {
-  SDL_DestroyRenderer(renderer);
-  SDL_DestroyWindow(window);
   for (std::map<std::string, SDL_Texture*>::iterator it = sprites.begin(); it != sprites.end(); ++it) {
     SDL_DestroyTexture(it->second);
   }
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
   SDL_Quit();
 }
 
@@ -55,12 +55,12 @@ void SDL_Graphics::draw_sprite(std::string name, int x, int y) {
   temp.h = 30;
   SDL_RenderCopy(renderer, sprites[name], NULL, &temp);
 }
+
 void SDL_Graphics::render() {
   SDL_RenderPresent(renderer);
 }
 
 /*
-
 SDL_Texture* SDL_Graphics::create_texture(const std::string& str) {
   SDL_Surface* surface = SDL_LoadBMP(str.c_str());
   if (surface == nullptr) {
@@ -71,5 +71,4 @@ SDL_Texture* SDL_Graphics::create_texture(const std::string& str) {
   SDL_FreeSurface(surface);
   return texture;
 }
-
 */

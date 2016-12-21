@@ -3,7 +3,6 @@
 #define GAMEPLAY_H
 #include "MainGame.h"
 #include "GameBoard.h"
-#include "Amoba.h"
 
 class GamePlay : public MainGame {
 private:

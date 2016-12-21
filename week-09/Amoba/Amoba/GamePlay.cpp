@@ -1,5 +1,4 @@
 #include "GamePlay.h"
-#include <iostream>
 
 GamePlay::GamePlay() {
   board = new GameBoard;
@@ -19,14 +18,16 @@ void GamePlay::init(SDL_Graphics& environment) {
 void GamePlay::render(SDL_Graphics& environment) {
   for (unsigned int row = 0; row < 19; row++) {
     for (unsigned int col = 0; col < 19; col++) {
-      if (board->get_tilemap()[row][col] == 0) {
+      switch (board->get_tilemap()[row][col]) {
+      case 0:
         environment.draw_sprite("img/panel_beigeLight.bmp", col * 30, row * 30);
-      }
-      if (board->get_tilemap()[row][col] == 1) {
+        break;
+      case 1:
         environment.draw_sprite("img/circle.bmp", col * 30, row * 30);
-      }
-      if (board->get_tilemap()[row][col] == 2) {
+        break;
+      case 2:
         environment.draw_sprite("img/ex.bmp", col * 30, row * 30);
+        break;
       }
     }
   }
@@ -34,14 +35,16 @@ void GamePlay::render(SDL_Graphics& environment) {
 }
 
 void GamePlay::place_stone_on_board(int x, int y) {
-  if (is_red_turn == true) {
-    board->set_tile(y, x, 1);
-    std::cout << board->get_tilemap()[y][x] << std::endl;
-    is_red_turn = false;
+  if (board->get_tilemap()[y][x] != 0) { 
+    // error message ?
   } else {
-    board->set_tile(y, x, 2);
-    std::cout << board->get_tilemap()[y][x] << std::endl;
-    is_red_turn = true;
+    if (is_red_turn == true) {
+      board->set_tile(y, x, 1);
+      is_red_turn = false;
+    } else {
+      board->set_tile(y, x, 2);
+      is_red_turn = true;
+    }
   }
 }
 

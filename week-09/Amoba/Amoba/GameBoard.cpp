@@ -1,6 +1,4 @@
 #include "GameBoard.h"
-#include <iostream>
-
 
 GameBoard::GameBoard() {
   red_stone_id = 1;
