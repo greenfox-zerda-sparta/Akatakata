@@ -3,21 +3,26 @@
 #define SDL_GRAPHICS_H
 
 #include <SDL.h>
+#include <map>
+#include <string>
 
 class SDL_Graphics {
 private:
   SDL_Window* window;
   SDL_Renderer* renderer;
-  SDL_Event event;
-  bool quit;
+  std::map<std::string, SDL_Texture*> sprites;
+ // GameBoard board;
 public:
   SDL_Graphics();
   ~SDL_Graphics();
   void initalize_SDL();
-  SDL_Window* create_window();
+  SDL_Window* create_window(unsigned int screen_width, unsigned int screen_height);
   SDL_Renderer* create_renderer();
-  void update_screen();
-  void run_loop();
+  void SDL_Graphics::load_file(std::string name);
+  void draw_sprite(std::string name, int x, int y);
+  void render();
+ // SDL_Texture* create_texture(const std::string& str);
+
 };
 
 #endif

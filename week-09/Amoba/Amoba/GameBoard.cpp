@@ -1,0 +1,23 @@
+#include "GameBoard.h"
+#include <iostream>
+
+
+GameBoard::GameBoard() {
+  red_stone_id = 1;
+  blac_stone_id = 2;
+  empty_tile_id = 0;
+  tilemap = std::vector<std::vector<int>> (19, std::vector<int>(19, 0));;
+  tile_src = "img/panel_beigeLight.bmp";
+}
+
+GameBoard::~GameBoard() {
+}
+
+std::vector<std::vector<int>> GameBoard::get_tilemap() {
+  return tilemap;
+}
+
+std::string GameBoard::get_tile_src() {
+  return tile_src;
+}
+
