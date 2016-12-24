@@ -28,8 +28,8 @@ void Amoba::run() {
         break;
         }
     case SDL_MOUSEBUTTONDOWN:
-      if (event.button.x < 570 && event.button.y < 570) {
-        game->place_stone_on_board(event.button.x / 30, event.button.y / 30);
+      if (event.button.x < 570 && event.button.y < 570 && game->is_gameover() == 0) {
+        game->place_stone_on_board(*environment, event.button.x / 30, event.button.y / 30);
         break;
       }
     }

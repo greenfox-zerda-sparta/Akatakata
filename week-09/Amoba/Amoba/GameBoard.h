@@ -1,7 +1,6 @@
 // #pragma once
 #ifndef GAMEBOARD_H
 #define GAMEBOARD_H
-#include <SDL.h>
 #include <string>
 #include <vector>
 
