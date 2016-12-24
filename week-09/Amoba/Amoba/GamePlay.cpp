@@ -1,5 +1,6 @@
 #include "GamePlay.h"
 #include <iostream>
+#include <algorithm>
 
 GamePlay::GamePlay() {
   board = new GameBoard;
@@ -134,6 +135,7 @@ bool GamePlay::is_win_diagonal2(int x, int y) {
 
 bool GamePlay::is_win(int x, int y) {
   if (is_win_horizontal(x, y) || is_win_vertical(x, y) || is_win_diagonal1(x, y)) {
+ // if (is_win_h(x, y)) {
     std::cout << "WIN" << std::endl;
     gameover = 1;
     return true;
@@ -147,3 +149,17 @@ bool GamePlay::is_gameover() {
   }
   return false;
 }
+/*
+bool GamePlay::is_win_h(int x, int y) {
+  std::vector<int> sample1(5, 1);
+  for (int i = 0; i < 5; i++) {
+    if (x - i > -1 && x + i < 19) {
+      std::vector<int> to_check(board->get_tilemap()[x - i][y], )
+      return std::equal(board->get_tilemap()[x - i][y], board->get_tilemap()[x - i + 4][y], sample1.begin());
+    }
+    if (y - i > -1 && y + i < 19) {
+      return std::equal(board->get_tilemap()[x][y - i], board->get_tilemap()[x][y - i + 4], sample1.begin());
+    }
+  }
+  return false;
+}*/
