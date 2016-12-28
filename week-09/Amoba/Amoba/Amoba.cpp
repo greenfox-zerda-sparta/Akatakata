@@ -21,16 +21,25 @@ void Amoba::run() {
     case SDL_QUIT:
       quit = true;
       break;
+    case SDL_MOUSEBUTTONDOWN:
+      if (event.button.x < 570 && event.button.y < 570 && game->is_gameover() == 0) {
+        game->place_stone_on_board(*environment, event.button.x / 30, event.button.y / 30);
+        break;
+      }
     case SDL_KEYDOWN:
       switch (event.key.keysym.sym) {
       case SDLK_ESCAPE:
         quit = true;
         break;
+      case SDLK_r:
+        if (game->is_gameover()) {
+          delete game;
+          delete environment;
+          environment = new SDL_Graphics();
+          game = new GamePlay();
+          game->init(*environment);
+          break;
         }
-    case SDL_MOUSEBUTTONDOWN:
-      if (event.button.x < 570 && event.button.y < 570 && game->is_gameover() == 0) {
-        game->place_stone_on_board(*environment, event.button.x / 30, event.button.y / 30);
-        break;
       }
     }
     game->render(*environment);

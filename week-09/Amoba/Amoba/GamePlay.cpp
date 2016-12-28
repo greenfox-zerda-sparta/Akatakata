@@ -17,6 +17,9 @@ void GamePlay::init(SDL_Graphics& environment) {
   environment.load_file("img/circle.bmp");
   environment.load_file("img/ex.bmp");
   environment.create_text_texture("Current player: ", 18);
+  environment.create_text_texture("WINS", 20);
+  environment.create_text_texture("Press R to play again.", 18);
+  environment.create_text_texture("Press ESC to quit.", 18);
 }
 
 void GamePlay::render(SDL_Graphics& environment) {
@@ -35,11 +38,17 @@ void GamePlay::render(SDL_Graphics& environment) {
       }
     }
   }
-  environment.draw_text("Current player: ", 600, 40);
+  if (gameover == true) {
+    is_red_turn ? environment.draw_sprite("img/circle.bmp", 600, 100) : environment.draw_sprite("img/ex.bmp", 600, 100);
+    environment.draw_text("WINS", 635, 103);
+    environment.draw_text("Press R to play again.", 590, 150);
+    environment.draw_text("Press ESC to quit.", 590, 172);
+  } 
+  environment.draw_text("Current player: ", 590, 40);
   environment.render();
 }
 
-void GamePlay::change_current_player(SDL_Graphics& environment, std::string filename) {
+void GamePlay::show_next_player(SDL_Graphics& environment, std::string filename) {
   environment.draw_sprite(filename, 725, 36);
 }
 
@@ -49,28 +58,31 @@ void GamePlay::place_stone_on_board(SDL_Graphics& environment, int x, int y) {
   } else {
     if (is_red_turn == true) {
       board->set_tile(y, x, 1);
-      change_current_player(environment, "img/ex.bmp");
-      is_red_turn = false;
       is_win(x, y);
       is_gameover();
+      if (!gameover) {
+        show_next_player(environment, "img/ex.bmp");
+        is_red_turn = false;
+      }
     } else {
       board->set_tile(y, x, 2);
-      change_current_player(environment, "img/circle.bmp");
-      is_red_turn = true;
       is_win(x, y);
       is_gameover();
+      if (!gameover) {
+        show_next_player(environment, "img/circle.bmp");
+        is_red_turn = true;
+      }
     }
   }
 }
 
-GameBoard* GamePlay::get_board() {
-  return board;
-}
+//GameBoard* GamePlay::get_board() {
+//  return board;
+//}
 
 bool GamePlay::is_win(int x, int y) {
   if (is_winner(x, y, 1, 0) || is_winner(x, y, 0, 1) || is_winner(x, y, 1, 1) || is_winner(x, y, 1, -1)) {
-    std::cout << "WIN" << std::endl;
-    gameover = 1;
+    gameover = true;
     return true;
   } else {
     return false;
@@ -78,10 +90,7 @@ bool GamePlay::is_win(int x, int y) {
 }
 
 bool GamePlay::is_gameover() {
-  if (gameover == 1) {
-    return true;
-  }
-  return false;
+  return gameover;
 }
 
 bool GamePlay::is_winner(int x, int y, int x_step, int y_step) {

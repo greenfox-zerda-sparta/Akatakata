@@ -107,3 +107,6 @@ SDL_Texture* SDL_Graphics::create_texture(const std::string& str) {
   return texture;
 }
 */
+void SDL_Graphics::clear() {
+  SDL_RenderClear(renderer);
+}

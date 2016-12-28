@@ -27,6 +27,7 @@ public:
   void create_text_texture(const char* string, int size);
   void draw_text(const char* text, int x, int y);
   void render();
+  void clear();
  // SDL_Texture* create_texture(const std::string& str);
 
 };
