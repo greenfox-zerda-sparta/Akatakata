@@ -72,9 +72,9 @@ bool GamePlay::is_win_horizontal(int x, int y) {
     for (unsigned int row = 0; row < board->get_tilemap().size(); row++) {
       if (board->get_tilemap()[row][col] != 0) {
         if (board->get_tilemap()[row][col] == board->get_tilemap()[row][col + 1] &&
-            board->get_tilemap()[row][col] == board->get_tilemap()[row][col + 2] &&
-            board->get_tilemap()[row][col] == board->get_tilemap()[row][col + 3] &&
-            board->get_tilemap()[row][col] == board->get_tilemap()[row][col + 4]) {
+          board->get_tilemap()[row][col] == board->get_tilemap()[row][col + 2] &&
+          board->get_tilemap()[row][col] == board->get_tilemap()[row][col + 3] &&
+          board->get_tilemap()[row][col] == board->get_tilemap()[row][col + 4]) {
           return true;
         }
       }
@@ -134,13 +134,20 @@ bool GamePlay::is_win_diagonal2(int x, int y) {
 */
 
 bool GamePlay::is_win(int x, int y) {
-  if (is_win_horizontal(x, y) || is_win_vertical(x, y) || is_win_diagonal1(x, y)) {
- // if (is_win_h(x, y)) {
+  /* if (is_win_horizontal(x, y) || is_win_vertical(x, y) || is_win_diagonal1(x, y)) {
+  // if (is_win_h(x, y)) {
+     std::cout << "WIN" << std::endl;
+     gameover = 1;
+     return true;
+   }
+   return false;*/
+  if (is_winner(x, y, 1, 0) || is_winner(x, y, 0, 1) || is_winner(x, y, 1, 1) || is_winner(x, y, 1, -1)) {
     std::cout << "WIN" << std::endl;
     gameover = 1;
     return true;
+  } else {
+    return false;
   }
-  return false;
 }
 
 bool GamePlay::is_gameover() {
@@ -149,11 +156,29 @@ bool GamePlay::is_gameover() {
   }
   return false;
 }
-/*
-bool GamePlay::is_win_h(int x, int y) {
+
+bool GamePlay::is_winner(int x, int y, int x_step, int y_step) {
   std::vector<int> sample1(5, 1);
-  for (int i = 0; i < 5; i++) {
-    if (x - i > -1 && x + i < 19) {
+  int count_marks = 0;
+  for (int i = -4; i < 5; i++) {
+    int Y = y + i * y_step;
+    int X = x + i * x_step;
+    if (Y < 0 || X < 0 || Y > 18 || X > 18) {
+      continue;
+    }
+    if (board->get_tilemap()[Y][X] == board->get_tilemap()[y][x]) {
+      count_marks++;
+    } else {
+      count_marks = 0;
+    }
+    if (count_marks >= 5) {
+      return true;
+    }
+  }
+  return false;
+}
+
+   /* if (x - i > -1 && x + i < 19) {
       std::vector<int> to_check(board->get_tilemap()[x - i][y], )
       return std::equal(board->get_tilemap()[x - i][y], board->get_tilemap()[x - i + 4][y], sample1.begin());
     }
@@ -162,4 +187,5 @@ bool GamePlay::is_win_h(int x, int y) {
     }
   }
   return false;
-}*/
+}
+*/

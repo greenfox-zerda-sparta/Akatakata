@@ -21,8 +21,9 @@ public:
   bool is_win_horizontal(int x, int y);
   bool is_win_vertical(int x, int y);
   bool is_win_diagonal1(int x, int y);
-  bool is_win_diagonal2(int x, int y);
+ // bool is_win_diagonal2(int x, int y);
   virtual bool is_gameover();
-  bool is_win_h(int x, int y);
+//  bool is_win_h(int x, int y);
+  bool is_winner(int x, int y, int x_step, int y_step);
 };
 #endif
