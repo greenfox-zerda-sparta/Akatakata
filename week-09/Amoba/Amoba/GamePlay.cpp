@@ -67,80 +67,7 @@ GameBoard* GamePlay::get_board() {
   return board;
 }
 
-bool GamePlay::is_win_horizontal(int x, int y) {
-  for (unsigned int col = 0; col < board->get_tilemap().size() - 4; col++) {
-    for (unsigned int row = 0; row < board->get_tilemap().size(); row++) {
-      if (board->get_tilemap()[row][col] != 0) {
-        if (board->get_tilemap()[row][col] == board->get_tilemap()[row][col + 1] &&
-          board->get_tilemap()[row][col] == board->get_tilemap()[row][col + 2] &&
-          board->get_tilemap()[row][col] == board->get_tilemap()[row][col + 3] &&
-          board->get_tilemap()[row][col] == board->get_tilemap()[row][col + 4]) {
-          return true;
-        }
-      }
-    }
-  }
-  return false;
-}
-
-bool GamePlay::is_win_vertical(int x, int y) {
-  for (unsigned int col = 0; col < board->get_tilemap().size(); col++) {
-    for (unsigned int row = 0; row < board->get_tilemap().size() - 4; row++) {
-      if (board->get_tilemap()[row][col] != 0) {
-        if (board->get_tilemap()[row][col] == board->get_tilemap()[row + 1][col] &&
-          board->get_tilemap()[row][col] == board->get_tilemap()[row + 2][col] &&
-          board->get_tilemap()[row][col] == board->get_tilemap()[row + 3][col] &&
-          board->get_tilemap()[row][col] == board->get_tilemap()[row + 4][col]) {
-          return true;
-        }
-      }
-    }
-  }
-  return false;
-}
-
-bool GamePlay::is_win_diagonal1(int x, int y) {
-  for (unsigned int col = 0; col < board->get_tilemap().size() - 4; col++) {
-    for (unsigned int row = 0; row < board->get_tilemap().size() - 4; row++) {
-      if (board->get_tilemap()[row][col] != 0) {
-        if (board->get_tilemap()[row][col] == board->get_tilemap()[row + 1][col + 1] &&
-          board->get_tilemap()[row][col] == board->get_tilemap()[row + 2][col + 2] &&
-          board->get_tilemap()[row][col] == board->get_tilemap()[row + 3][col + 3] &&
-          board->get_tilemap()[row][col] == board->get_tilemap()[row + 4][col + 4]) {
-          return true;
-        }
-      }
-    }
-  }
-  return false;
-}
-
-/*
-bool GamePlay::is_win_diagonal2(int x, int y) {
-  for (unsigned int col = board->get_tilemap().size() - 1; col > 3; col++) {
-    for (unsigned int row = board->get_tilemap().size() - 1; row > 3; row++) {
-      if (board->get_tilemap()[row][col] != 0) {
-        if (board->get_tilemap()[row][col] == board->get_tilemap()[row - 1][col - 1] &&
-          board->get_tilemap()[row][col] == board->get_tilemap()[row - 2][col - 2] &&
-          board->get_tilemap()[row][col] == board->get_tilemap()[row - 3][col - 3] &&
-          board->get_tilemap()[row][col] == board->get_tilemap()[row - 4][col - 4]) {
-          return true;
-        }
-      }
-    }
-  }
-  return false;
-}
-*/
-
 bool GamePlay::is_win(int x, int y) {
-  /* if (is_win_horizontal(x, y) || is_win_vertical(x, y) || is_win_diagonal1(x, y)) {
-  // if (is_win_h(x, y)) {
-     std::cout << "WIN" << std::endl;
-     gameover = 1;
-     return true;
-   }
-   return false;*/
   if (is_winner(x, y, 1, 0) || is_winner(x, y, 0, 1) || is_winner(x, y, 1, 1) || is_winner(x, y, 1, -1)) {
     std::cout << "WIN" << std::endl;
     gameover = 1;
@@ -158,7 +85,6 @@ bool GamePlay::is_gameover() {
 }
 
 bool GamePlay::is_winner(int x, int y, int x_step, int y_step) {
-  std::vector<int> sample1(5, 1);
   int count_marks = 0;
   for (int i = -4; i < 5; i++) {
     int Y = y + i * y_step;
@@ -177,15 +103,3 @@ bool GamePlay::is_winner(int x, int y, int x_step, int y_step) {
   }
   return false;
 }
-
-   /* if (x - i > -1 && x + i < 19) {
-      std::vector<int> to_check(board->get_tilemap()[x - i][y], )
-      return std::equal(board->get_tilemap()[x - i][y], board->get_tilemap()[x - i + 4][y], sample1.begin());
-    }
-    if (y - i > -1 && y + i < 19) {
-      return std::equal(board->get_tilemap()[x][y - i], board->get_tilemap()[x][y - i + 4], sample1.begin());
-    }
-  }
-  return false;
-}
-*/
