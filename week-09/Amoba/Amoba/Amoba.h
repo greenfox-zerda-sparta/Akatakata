@@ -7,7 +7,7 @@
 class Amoba {
 private:
   SDL_Graphics* environment;
-  MainGame* game;
+  GamePlay* game;
   SDL_Event event;
   bool quit;
   int click_x;
