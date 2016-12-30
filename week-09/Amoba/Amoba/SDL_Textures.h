@@ -19,5 +19,6 @@ public:
   void render_sprite(std::string name, int x, int y);
   void create_text_texture(const char* string, int size);
   void render_text(const char* text, int x, int y);
+  int get_tile_size();
 };
 #endif

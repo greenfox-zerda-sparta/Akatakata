@@ -4,7 +4,8 @@ GameBoard::GameBoard() {
   red_stone_id = 1;
   blac_stone_id = 2;
   empty_tile_id = 0;
-  tilemap = std::vector<std::vector<int>> (19, std::vector<int>(19, 0));;
+ // board_size = 19;
+  tilemap = std::vector<std::vector<int>> (BOARD_SIZE, std::vector<int>(BOARD_SIZE, 0));;
   tile_src = "img/panel_beigeLight.bmp";
 }
 

@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#define BOARD_SIZE 19
+
 class GameBoard  {
   std::string tile_src;
   std::string red_stone_src;

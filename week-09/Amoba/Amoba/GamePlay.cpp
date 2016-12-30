@@ -13,8 +13,8 @@ GamePlay::~GamePlay() {
 }
 
 void GamePlay::render(SDL_Textures& textures) {
-  for (unsigned int row = 0; row < 19; row++) {
-    for (unsigned int col = 0; col < 19; col++) {
+  for (unsigned int row = 0; row < BOARD_SIZE; row++) {
+    for (unsigned int col = 0; col < BOARD_SIZE; col++) {
       switch (board->get_tilemap()[row][col]) {
       case 0:
         textures.render_sprite("img/panel_beigeLight.bmp", col * 30, row * 30);

@@ -10,6 +10,7 @@ private:
   GameBoard* board; 
   bool is_red_turn;
   bool gameover;
+  int board_size;
 public:
   GamePlay();
   ~GamePlay();

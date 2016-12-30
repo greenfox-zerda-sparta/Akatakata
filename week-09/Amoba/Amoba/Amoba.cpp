@@ -27,7 +27,8 @@ void Amoba::make_new_game() {
 }
 
 bool Amoba::is_click_on_board(int x, int y) {
-  return (x < 570 && y < 570);
+  int board_edge = BOARD_SIZE * textures->get_tile_size();
+  return (x < board_edge && y < board_edge);
 }
 
 void Amoba::run() {

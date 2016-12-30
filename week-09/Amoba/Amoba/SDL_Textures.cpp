@@ -59,3 +59,7 @@ void SDL_Textures::render_text(const char* text, int x, int y) {
   solidRect.y = y;
   SDL_RenderCopy(renderer, text_textures[text], NULL, &solidRect);
 }
+
+int SDL_Textures::get_tile_size() {
+  return tile_size;
+}
