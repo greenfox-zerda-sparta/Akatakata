@@ -27,7 +27,7 @@ void Amoba::make_new_game() {
 }
 
 bool Amoba::is_click_on_board(int x, int y) {
-  int board_edge = BOARD_SIZE * textures->get_tile_size();
+  int board_edge = BOARD_SIZE * TILE_SIZE;
   return (x < board_edge && y < board_edge);
 }
 
@@ -40,8 +40,8 @@ void Amoba::run() {
       break;
     case SDL_MOUSEBUTTONDOWN:
       if ((is_click_on_board(event.button.x, event.button.y)) && game->is_gameover() == 0) {
-        int tile_x = event.button.x / textures->get_tile_size();
-        int tile_y = event.button.y / textures->get_tile_size();
+        int tile_x = event.button.x / TILE_SIZE;
+        int tile_y = event.button.y / TILE_SIZE;
         game->place_stone_on_board(*textures, tile_x, tile_y);
         break;
       }

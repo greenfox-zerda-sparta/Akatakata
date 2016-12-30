@@ -3,8 +3,9 @@
 SDL_Textures::SDL_Textures() {
   font_color = { 0, 0, 0 };
   bg_color = { 236, 227, 206 };
-  tile_size = 30;
   basic_font = "Arial.ttf";
+  info_font_size = 18;
+  winner_font_size = 20;
 }
 
 SDL_Textures::~SDL_Textures() {
@@ -24,10 +25,10 @@ void SDL_Textures::make_textures() {
   create_sprite_from_file("img/panel_beigeLight.bmp");
   create_sprite_from_file("img/circle.bmp");
   create_sprite_from_file("img/ex.bmp");
-  create_text_texture("Current player: ", 18, basic_font);
-  create_text_texture("WINS", 20, basic_font);
-  create_text_texture("Press R to play again.", 18, basic_font);
-  create_text_texture("Press ESC to quit.", 18, basic_font);
+  create_text_texture("Current player: ", info_font_size, basic_font);
+  create_text_texture("WINS", winner_font_size, basic_font);
+  create_text_texture("Press R to play again.", info_font_size, basic_font);
+  create_text_texture("Press ESC to quit.", info_font_size, basic_font);
 }
 
 void SDL_Textures::create_sprite_from_file(std::string name) {
@@ -40,8 +41,8 @@ void SDL_Textures::render_sprite(std::string name, int x, int y) {
   SDL_Rect temp;
   temp.x = x;
   temp.y = y;
-  temp.w = tile_size;
-  temp.h = tile_size;
+  temp.w = TILE_SIZE;
+  temp.h = TILE_SIZE;
   SDL_RenderCopy(renderer, sprite_textures[name], NULL, &temp);
 }
 
@@ -59,8 +60,4 @@ void SDL_Textures::render_text(const char* text, int x, int y) {
   solidRect.x = x;
   solidRect.y = y;
   SDL_RenderCopy(renderer, text_textures[text], NULL, &solidRect);
-}
-
-int SDL_Textures::get_tile_size() {
-  return tile_size;
 }

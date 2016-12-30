@@ -17,13 +17,13 @@ void GamePlay::render(SDL_Textures& textures) {
     for (unsigned int col = 0; col < BOARD_SIZE; col++) {
       switch (board->get_tilemap()[row][col]) {
       case 0:
-        textures.render_sprite("img/panel_beigeLight.bmp", col * 30, row * 30);
+        textures.render_sprite("img/panel_beigeLight.bmp", col * TILE_SIZE, row * TILE_SIZE);
         break;
       case 1:
-        textures.render_sprite("img/circle.bmp", col * 30, row * 30);
+        textures.render_sprite("img/circle.bmp", col * TILE_SIZE, row * TILE_SIZE);
         break;
       case 2:
-        textures.render_sprite("img/ex.bmp", col * 30, row * 30);
+        textures.render_sprite("img/ex.bmp", col * TILE_SIZE, row * TILE_SIZE);
         break;
       }
     }

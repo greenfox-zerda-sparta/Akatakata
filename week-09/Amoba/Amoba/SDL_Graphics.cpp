@@ -2,23 +2,19 @@
 #include "SDL_Graphics.h"
 #include "GameBoard.h"
 
+#define W_WIDTH 785
+#define W_HEIGHT 570
+
 SDL_Graphics::SDL_Graphics() {
   initialize_SDL();
   initialize_TTF();
-  window = create_window(785, 570);
+  window = create_window(W_WIDTH, W_HEIGHT);
   renderer = create_renderer();
- // font_color = { 0, 0, 0 };
- // bg_color = { 236, 227, 206 };
- // tile_size = 30;
+  window_color = { 236, 227, 206, 0 };
+  set_window_bg(window_color);
 }
 
 SDL_Graphics::~SDL_Graphics() {
-/*  for (std::map<std::string, SDL_Texture*>::iterator it = sprite_textures.begin(); it != sprite_textures.end(); ++it) {
-    SDL_DestroyTexture(it->second);
-  }
-  for (std::map<const char*, SDL_Texture*>::iterator it = text_textures.begin(); it != text_textures.end(); ++it) {
-    SDL_DestroyTexture(it->second);
- }*/
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   TTF_Quit();
@@ -53,11 +49,10 @@ SDL_Renderer* SDL_Graphics::create_renderer() {
   if (rend == nullptr) {
     std::cerr << "Failed to create renderer : " << SDL_GetError();
   }
-  SDL_SetRenderDrawColor(rend, 236, 227, 206, 0); 
-  SDL_RenderClear(rend);
   return rend;
 }
 
-void SDL_Graphics::clear() {
+void SDL_Graphics::set_window_bg(std::vector<int> color) {
+  SDL_SetRenderDrawColor(renderer, color[0], color[1], color[2], color[3]);
   SDL_RenderClear(renderer);
 }
