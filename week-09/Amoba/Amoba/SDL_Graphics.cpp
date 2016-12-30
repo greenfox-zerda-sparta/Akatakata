@@ -7,18 +7,18 @@ SDL_Graphics::SDL_Graphics() {
   initialize_TTF();
   window = create_window(785, 570);
   renderer = create_renderer();
-  font_color = { 0, 0, 0 };
-  bg_color = { 236, 227, 206 };
-  tile_size = 30;
+ // font_color = { 0, 0, 0 };
+ // bg_color = { 236, 227, 206 };
+ // tile_size = 30;
 }
 
 SDL_Graphics::~SDL_Graphics() {
-  for (std::map<std::string, SDL_Texture*>::iterator it = sprite_textures.begin(); it != sprite_textures.end(); ++it) {
+/*  for (std::map<std::string, SDL_Texture*>::iterator it = sprite_textures.begin(); it != sprite_textures.end(); ++it) {
     SDL_DestroyTexture(it->second);
   }
   for (std::map<const char*, SDL_Texture*>::iterator it = text_textures.begin(); it != text_textures.end(); ++it) {
     SDL_DestroyTexture(it->second);
- }
+ }*/
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   TTF_Quit();
@@ -56,41 +56,6 @@ SDL_Renderer* SDL_Graphics::create_renderer() {
   SDL_SetRenderDrawColor(rend, 236, 227, 206, 0); 
   SDL_RenderClear(rend);
   return rend;
-}
-
-void SDL_Graphics::create_sprite_from_file(std::string name) {
-  SDL_Surface* result = SDL_LoadBMP(name.c_str());
-  sprite_textures[name] = SDL_CreateTextureFromSurface(renderer, result);
-  SDL_FreeSurface(result);
-}
-
-void SDL_Graphics::render_sprite(std::string name, int x, int y) {
-  SDL_Rect temp;
-  temp.x = x;
-  temp.y = y;
-  temp.w = tile_size;
-  temp.h = tile_size;
-  SDL_RenderCopy(renderer, sprite_textures[name], NULL, &temp);
-}
-
-void SDL_Graphics::render() {
-  SDL_RenderPresent(renderer);
-}
-
-void SDL_Graphics::create_text_texture(const char* text, int size) {
-  TTF_Font* font = TTF_OpenFont("Arial.ttf", size);
-  SDL_Surface* text_surface = TTF_RenderText_Shaded(font, text, font_color, bg_color);
-  text_textures[text] = SDL_CreateTextureFromSurface(renderer, text_surface);
-  SDL_FreeSurface(text_surface);
-  TTF_CloseFont(font);
-}
-
-void SDL_Graphics::render_text(const char* text, int x, int y) {
-  SDL_Rect solidRect;
-  SDL_QueryTexture(text_textures[text], NULL, NULL, &solidRect.w, &solidRect.h);
-  solidRect.x = x;
-  solidRect.y = y;
-  SDL_RenderCopy(renderer, text_textures[text], NULL, &solidRect);
 }
 
 void SDL_Graphics::clear() {

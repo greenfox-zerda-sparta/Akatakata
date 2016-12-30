@@ -12,56 +12,46 @@ GamePlay::~GamePlay() {
   delete board;
 }
 
-void GamePlay::init(SDL_Graphics& environment) { 
-  environment.create_sprite_from_file("img/panel_beigeLight.bmp");
-  environment.create_sprite_from_file("img/circle.bmp");
-  environment.create_sprite_from_file("img/ex.bmp");
-  environment.create_text_texture("Current player: ", 18);
-  environment.create_text_texture("WINS", 20);
-  environment.create_text_texture("Press R to play again.", 18);
-  environment.create_text_texture("Press ESC to quit.", 18);
-}
-
-void GamePlay::render(SDL_Graphics& environment) {
+void GamePlay::render(SDL_Textures& textures) {
   for (unsigned int row = 0; row < 19; row++) {
     for (unsigned int col = 0; col < 19; col++) {
       switch (board->get_tilemap()[row][col]) {
       case 0:
-        environment.render_sprite("img/panel_beigeLight.bmp", col * 30, row * 30);
+        textures.render_sprite("img/panel_beigeLight.bmp", col * 30, row * 30);
         break;
       case 1:
-        environment.render_sprite("img/circle.bmp", col * 30, row * 30);
+        textures.render_sprite("img/circle.bmp", col * 30, row * 30);
         break;
       case 2:
-        environment.render_sprite("img/ex.bmp", col * 30, row * 30);
+        textures.render_sprite("img/ex.bmp", col * 30, row * 30);
         break;
       }
     }
   }
   if (gameover == true) {
-    is_red_turn ? environment.render_sprite("img/circle.bmp", 600, 100) : environment.render_sprite("img/ex.bmp", 600, 100);
-    environment.render_text("WINS", 635, 103);
-    environment.render_text("Press R to play again.", 590, 150);
-    environment.render_text("Press ESC to quit.", 590, 172);
+    is_red_turn ? textures.render_sprite("img/circle.bmp", 600, 100) : textures.render_sprite("img/ex.bmp", 600, 100);
+    textures.render_text("WINS", 635, 103);
+    textures.render_text("Press R to play again.", 590, 150);
+    textures.render_text("Press ESC to quit.", 590, 172);
   } 
-  environment.render_text("Current player: ", 590, 40);
-  environment.render();
+  textures.render_text("Current player: ", 590, 40);
+  textures.render();
 }
 
-void GamePlay::show_next_player(SDL_Graphics& environment, std::string filename) {
-  environment.render_sprite(filename, 725, 36);
+void GamePlay::show_next_player(SDL_Textures& textures, std::string filename) {
+  textures.render_sprite(filename, 725, 36);
 }
 
-void GamePlay::place_stone_on_board(SDL_Graphics& environment, int x, int y) {
+void GamePlay::place_stone_on_board(SDL_Textures& textures, int x, int y) {
   if (board->get_tilemap()[y][x] != 0) { 
-    // error message ?
+    // do nothing
   } else {
     if (is_red_turn == true) {
       board->set_tile(y, x, 1);
       is_win(x, y);
       is_gameover();
       if (!gameover) {
-        show_next_player(environment, "img/ex.bmp");
+        show_next_player(textures, "img/ex.bmp");
         is_red_turn = false;
       }
     } else {
@@ -69,7 +59,7 @@ void GamePlay::place_stone_on_board(SDL_Graphics& environment, int x, int y) {
       is_win(x, y);
       is_gameover();
       if (!gameover) {
-        show_next_player(environment, "img/circle.bmp");
+        show_next_player(textures, "img/circle.bmp");
         is_red_turn = true;
       }
     }

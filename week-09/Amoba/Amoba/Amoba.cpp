@@ -2,16 +2,32 @@
 #include "Amoba.h"
 
 Amoba::Amoba() {
-  environment = new SDL_Graphics();
+  graphics = new SDL_Graphics();
   game = new GamePlay();
-  game->init(*environment);
+  textures = new SDL_Textures;
+  textures->make_textures();
   SDL_Event event;
   quit = false;
 }
 
 Amoba::~Amoba() {
   delete game;
-  delete environment;
+  delete graphics;
+  delete textures;
+}
+
+void Amoba::make_new_game() {
+  delete game;
+  delete graphics;
+  delete textures;
+  graphics = new SDL_Graphics();
+  game = new GamePlay();
+  textures = new SDL_Textures;
+  textures->make_textures();
+}
+
+bool Amoba::is_click_on_board(int x, int y) {
+  return (x < 570 && y < 570);
 }
 
 void Amoba::run() {
@@ -22,8 +38,8 @@ void Amoba::run() {
       quit = true;
       break;
     case SDL_MOUSEBUTTONDOWN:
-      if (event.button.x < 570 && event.button.y < 570 && game->is_gameover() == 0) {
-        game->place_stone_on_board(*environment, event.button.x / 30, event.button.y / 30);
+      if ((is_click_on_board(event.button.x, event.button.y)) && game->is_gameover() == 0) {
+        game->place_stone_on_board(*textures, event.button.x / 30, event.button.y / 30);
         break;
       }
     case SDL_KEYDOWN:
@@ -33,16 +49,12 @@ void Amoba::run() {
         break;
       case SDLK_r:
         if (game->is_gameover()) {
-          delete game;
-          delete environment;
-          environment = new SDL_Graphics();
-          game = new GamePlay();
-          game->init(*environment);
+          make_new_game();
           break;
         }
       }
     }
-    game->render(*environment);
+    game->render(*textures);
   }
 }
 
