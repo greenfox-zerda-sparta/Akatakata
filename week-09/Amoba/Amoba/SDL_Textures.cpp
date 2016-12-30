@@ -4,6 +4,7 @@ SDL_Textures::SDL_Textures() {
   font_color = { 0, 0, 0 };
   bg_color = { 236, 227, 206 };
   tile_size = 30;
+  basic_font = "Arial.ttf";
 }
 
 SDL_Textures::~SDL_Textures() {
@@ -23,10 +24,10 @@ void SDL_Textures::make_textures() {
   create_sprite_from_file("img/panel_beigeLight.bmp");
   create_sprite_from_file("img/circle.bmp");
   create_sprite_from_file("img/ex.bmp");
-  create_text_texture("Current player: ", 18);
-  create_text_texture("WINS", 20);
-  create_text_texture("Press R to play again.", 18);
-  create_text_texture("Press ESC to quit.", 18);
+  create_text_texture("Current player: ", 18, basic_font);
+  create_text_texture("WINS", 20, basic_font);
+  create_text_texture("Press R to play again.", 18, basic_font);
+  create_text_texture("Press ESC to quit.", 18, basic_font);
 }
 
 void SDL_Textures::create_sprite_from_file(std::string name) {
@@ -44,8 +45,8 @@ void SDL_Textures::render_sprite(std::string name, int x, int y) {
   SDL_RenderCopy(renderer, sprite_textures[name], NULL, &temp);
 }
 
-void SDL_Textures::create_text_texture(const char* text, int size) {
-  TTF_Font* font = TTF_OpenFont("Arial.ttf", size);
+void SDL_Textures::create_text_texture(const char* text, int size, const char* font_type) {
+  TTF_Font* font = TTF_OpenFont(font_type, size);
   SDL_Surface* text_surface = TTF_RenderText_Shaded(font, text, font_color, bg_color);
   text_textures[text] = SDL_CreateTextureFromSurface(renderer, text_surface);
   SDL_FreeSurface(text_surface);

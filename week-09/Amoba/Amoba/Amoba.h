@@ -20,7 +20,5 @@ public:
   void make_new_game();
   bool is_click_on_board(int x, int y);
   void run();
-  int get_click_x();
-  int get_click_y();
 };
 #endif

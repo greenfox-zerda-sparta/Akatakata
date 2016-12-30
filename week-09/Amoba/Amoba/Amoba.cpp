@@ -40,7 +40,9 @@ void Amoba::run() {
       break;
     case SDL_MOUSEBUTTONDOWN:
       if ((is_click_on_board(event.button.x, event.button.y)) && game->is_gameover() == 0) {
-        game->place_stone_on_board(*textures, event.button.x / 30, event.button.y / 30);
+        int tile_x = event.button.x / textures->get_tile_size();
+        int tile_y = event.button.y / textures->get_tile_size();
+        game->place_stone_on_board(*textures, tile_x, tile_y);
         break;
       }
     case SDL_KEYDOWN:
@@ -57,11 +59,4 @@ void Amoba::run() {
     }
     game->render(*textures);
   }
-}
-
-int Amoba::get_click_x() {
-  return click_x;
-}
-int Amoba::get_click_y() {
-  return click_y;
 }

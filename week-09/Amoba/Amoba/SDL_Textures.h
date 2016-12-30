@@ -10,6 +10,7 @@ private:
   SDL_Color font_color;
   SDL_Color bg_color;
   int tile_size;
+  const char* basic_font;
 public:
   SDL_Textures();
   ~SDL_Textures();
@@ -17,7 +18,7 @@ public:
   void make_textures();
   void create_sprite_from_file(std::string name);
   void render_sprite(std::string name, int x, int y);
-  void create_text_texture(const char* string, int size);
+  void create_text_texture(const char* string, int size, const char* font_type);
   void render_text(const char* text, int x, int y);
   int get_tile_size();
 };
