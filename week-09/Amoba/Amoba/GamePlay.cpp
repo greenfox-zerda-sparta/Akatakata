@@ -18,29 +18,31 @@ void GamePlay::render(SDL_Textures& textures) {
     for (unsigned int col = 0; col < BOARD_SIZE; col++) {
       switch (board->get_tilemap()[row][col]) {
       case 0:
-        textures.render_sprite("img/panel_beigeLight.bmp", col * TILE_SIZE, row * TILE_SIZE);
+        textures.render_sprite("img/panel_beigeLight.bmp", col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         break;
       case 1:
-        textures.render_sprite("img/circle.bmp", col * TILE_SIZE, row * TILE_SIZE);
+        textures.render_sprite("img/circle.bmp", col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         break;
       case 2:
-        textures.render_sprite("img/ex.bmp", col * TILE_SIZE, row * TILE_SIZE);
+        textures.render_sprite("img/ex.bmp", col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         break;
       }
     }
   }
   if (gameover == true) {
-    is_red_turn ? textures.render_sprite("img/circle.bmp", 600, 100) : textures.render_sprite("img/ex.bmp", 600, 100);
-    textures.render_text("WINS", 635, 103);
-    textures.render_text("Press R to play again.", 590, 150);
-    textures.render_text("Press ESC to quit.", 590, 172);
+    is_red_turn ? textures.render_sprite("img/circle.bmp", 620, 100, TILE_SIZE, TILE_SIZE) : textures.render_sprite("img/ex.bmp", 620, 100, TILE_SIZE, TILE_SIZE);
+    textures.render_text("WINS", 655, 103);
+    textures.render_sprite("img/panel_beigeLight.bmp", 615, 190, 110, 40);
+    textures.render_sprite("img/panel_beigeLight.bmp", 640, 250, 60, 40);
+    textures.render_text_button("Play again", 630, 200, 110, 40);
+    textures.render_text_button("Exit", 655, 260, 60, 40);
   } 
   textures.render_text("Current player: ", 590, 40);
   textures.render();
 }
 
 void GamePlay::show_next_player(SDL_Textures& textures, std::string filename) {
-  textures.render_sprite(filename, 725, 36);
+  textures.render_sprite(filename, 725, 36, TILE_SIZE, TILE_SIZE);
 }
 
 void GamePlay::place_stone_on_board(SDL_Textures& textures, int x, int y) {

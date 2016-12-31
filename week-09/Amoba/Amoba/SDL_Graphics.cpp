@@ -23,6 +23,7 @@ SDL_Graphics::~SDL_Graphics() {
 
 void SDL_Graphics::initialize_SDL() {
   SDL_Init(SDL_INIT_EVERYTHING);
+  std::cout << "init" << std::endl;
   if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
     std::cerr << " Failed to initialize SDL : " << SDL_GetError() << std::endl;
   }

@@ -2,7 +2,6 @@
 #include "Amoba.h"
 
 Amoba::Amoba() {
-  graphics = new SDL_Graphics();
   game = new GamePlay();
   textures = new SDL_Textures;
   textures->make_textures();
@@ -12,15 +11,12 @@ Amoba::Amoba() {
 
 Amoba::~Amoba() {
   delete game;
-  delete graphics;
   delete textures;
 }
 
 void Amoba::make_new_game() {
   delete game;
-  delete graphics;
   delete textures;
-  graphics = new SDL_Graphics();
   game = new GamePlay();
   textures = new SDL_Textures;
   textures->make_textures();

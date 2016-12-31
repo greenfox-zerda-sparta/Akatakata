@@ -1,13 +1,11 @@
 //#pragma once
 #ifndef AMOBA_H
 #define AMOBA_H
-#include "SDL_Graphics.h"
 #include "SDL_Textures.h"
 #include "GamePlay.h"
 
 class Amoba {
 private:
-  SDL_Graphics* graphics;
   SDL_Textures* textures;
   GamePlay* game;
   SDL_Event event;
