@@ -40,6 +40,16 @@ void Amoba::run() {
         int tile_y = event.button.y / TILE_SIZE;
         game->place_stone_on_board(*textures, tile_x, tile_y);
         break;
+      } else if (game->is_gameover()) {
+        int click_x = event.button.x;
+        int click_y = event.button.y;
+        if (630 < click_x && click_x < 740 && 200 < click_y && click_y < 240) {
+          make_new_game();
+          break;
+        } else if (click_x > 655 && click_x < 715 && click_y > 260 && click_y < 300) {
+          quit = true;
+          break;
+        }
       }
     case SDL_KEYDOWN:
       switch (event.key.keysym.sym) {
