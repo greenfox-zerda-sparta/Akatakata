@@ -6,6 +6,7 @@ GamePlay::GamePlay() {
   board = new GameBoard;
   is_red_turn = true;
   gameover = false;
+  marks_to_win = 5;
 }
 
 GamePlay::~GamePlay() {
@@ -47,7 +48,7 @@ void GamePlay::place_stone_on_board(SDL_Textures& textures, int x, int y) {
     // do nothing
   } else {
     if (is_red_turn == true) {
-      board->set_tile(y, x, 1);
+      board->set_tile(y, x, board->get_red_stone_id());
       is_win(x, y);
       is_gameover();
       if (!gameover) {
@@ -55,7 +56,7 @@ void GamePlay::place_stone_on_board(SDL_Textures& textures, int x, int y) {
         is_red_turn = false;
       }
     } else {
-      board->set_tile(y, x, 2);
+      board->set_tile(y, x, board->get_black_stone_id());
       is_win(x, y);
       is_gameover();
       if (!gameover) {
@@ -81,10 +82,10 @@ bool GamePlay::is_gameover() {
 
 bool GamePlay::is_winner(int x, int y, int x_step, int y_step) {
   int count_marks = 0;
-  for (int i = -4; i < 5; i++) {
+  for (int i = 0 - (marks_to_win - 1); i < marks_to_win; i++) {
     int Y = y + i * y_step;
     int X = x + i * x_step;
-    if (Y < 0 || X < 0 || Y > 18 || X > 18) {
+    if (Y < 0 || X < 0 || Y > BOARD_SIZE - 1 || X > BOARD_SIZE -1) {
       continue;
     }
     if (board->get_tilemap()[Y][X] == board->get_tilemap()[y][x]) {
@@ -92,7 +93,7 @@ bool GamePlay::is_winner(int x, int y, int x_step, int y_step) {
     } else {
       count_marks = 0;
     }
-    if (count_marks >= 5) {
+    if (count_marks >= marks_to_win) {
       return true;
     }
   }
