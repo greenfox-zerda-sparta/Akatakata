@@ -22,17 +22,17 @@ void SDL_Textures::render() {
 }
 
 void SDL_Textures::make_textures() {
-  create_sprite_from_file("img/panel_beigeLight.bmp");
-  create_sprite_from_file("img/circle.bmp");
-  create_sprite_from_file("img/ex.bmp");
-  create_text_texture("Current player: ", info_font_size, basic_font);
-  create_text_texture("WINS", winner_font_size, basic_font);
-  create_text_texture("Play again", info_font_size, basic_font);
-  create_text_texture("Exit", info_font_size, basic_font);
+  create_sprite_from_file("tile", "img/panel_beigeLight.bmp");
+  create_sprite_from_file("red stone", "img/circle.bmp");
+  create_sprite_from_file("black stone", "img/ex.bmp");
+  create_text_texture("show player", "Current player: ", info_font_size, basic_font);
+  create_text_texture("show winner", "WINS", winner_font_size, basic_font);
+  create_text_texture("button play again", "Play again", info_font_size, basic_font);
+  create_text_texture("button exit", "Exit", info_font_size, basic_font);
 }
 
-void SDL_Textures::create_sprite_from_file(std::string name) {
-  SDL_Surface* result = SDL_LoadBMP(name.c_str());
+void SDL_Textures::create_sprite_from_file(std::string name, std::string filename) {
+  SDL_Surface* result = SDL_LoadBMP(filename.c_str());
   sprite_textures[name] = SDL_CreateTextureFromSurface(renderer, result);
   SDL_FreeSurface(result);
 }
@@ -46,28 +46,28 @@ void SDL_Textures::render_sprite(std::string name, int x, int y, int w, int h) {
   SDL_RenderCopy(renderer, sprite_textures[name], NULL, &temp);
 }
 
-void SDL_Textures::create_text_texture(const char* text, int size, const char* font_type) {
+void SDL_Textures::create_text_texture(const char* name, const char* text, int size, const char* font_type) {
   TTF_Font* font = TTF_OpenFont(font_type, size);
   SDL_Surface* text_surface = TTF_RenderText_Shaded(font, text, font_color, bg_color);
-  text_textures[text] = SDL_CreateTextureFromSurface(renderer, text_surface);
+  text_textures[name] = SDL_CreateTextureFromSurface(renderer, text_surface);
   SDL_FreeSurface(text_surface);
   TTF_CloseFont(font);
 }
 
-void SDL_Textures::render_text(const char* text, int x, int y) {
+void SDL_Textures::render_text(const char* name, int x, int y) {
   SDL_Rect solidRect;
-  SDL_QueryTexture(text_textures[text], NULL, NULL, &solidRect.w, &solidRect.h);
+  SDL_QueryTexture(text_textures[name], NULL, NULL, &solidRect.w, &solidRect.h);
   solidRect.x = x;
   solidRect.y = y;
-  SDL_RenderCopy(renderer, text_textures[text], NULL, &solidRect);
+  SDL_RenderCopy(renderer, text_textures[name], NULL, &solidRect);
 }
 
-void SDL_Textures::render_text_button(const char* text, int x, int y, int w, int h) {
+void SDL_Textures::render_text_button(const char* name, int x, int y, int w, int h) {
   SDL_Rect Rect;
   Rect.w = w;
   Rect.h = h;
-  SDL_QueryTexture(text_textures[text], NULL, NULL, &Rect.w, &Rect.h);
+  SDL_QueryTexture(text_textures[name], NULL, NULL, &Rect.w, &Rect.h);
   Rect.x = x;
   Rect.y = y;
-  SDL_RenderCopy(renderer, text_textures[text], NULL, &Rect);
+  SDL_RenderCopy(renderer, text_textures[name], NULL, &Rect);
 }

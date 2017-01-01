@@ -1,6 +1,6 @@
 #include <iostream>
 #include "SDL_Graphics.h"
-#include "GameBoard.h"
+//#include "GameBoard.h"
 
 #define W_WIDTH 785
 #define W_HEIGHT 570

@@ -18,43 +18,41 @@ void GamePlay::render(SDL_Textures& textures) {
     for (unsigned int col = 0; col < BOARD_SIZE; col++) {
       switch (board->get_tilemap()[row][col]) {
       case 0:
-        textures.render_sprite("img/panel_beigeLight.bmp", col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        textures.render_sprite("tile", col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         break;
       case 1:
-        textures.render_sprite("img/circle.bmp", col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        textures.render_sprite("red stone", col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         break;
       case 2:
-        textures.render_sprite("img/ex.bmp", col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        textures.render_sprite("black stone", col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         break;
       }
     }
   }
   if (gameover == true) {
-    is_red_turn ? textures.render_sprite("img/circle.bmp", 620, 100, TILE_SIZE, TILE_SIZE) : textures.render_sprite("img/ex.bmp", 620, 100, TILE_SIZE, TILE_SIZE);
-    textures.render_text("WINS", 655, 103);
-    textures.render_sprite("img/panel_beigeLight.bmp", 615, 190, 110, 40);
-    textures.render_sprite("img/panel_beigeLight.bmp", 640, 250, 60, 40);
-    textures.render_text_button("Play again", 630, 200, 110, 40);
-    textures.render_text_button("Exit", 655, 260, 60, 40);
+    is_red_turn ? textures.render_sprite("red stone", 620, 100, TILE_SIZE, TILE_SIZE) : textures.render_sprite("black stone", 620, 100, TILE_SIZE, TILE_SIZE);
+    textures.render_text("show winner", 655, 103);
+    textures.render_sprite("tile", 615, 190, 110, 40);
+    textures.render_sprite("tile", 640, 250, 60, 40);
+    textures.render_text_button("button play again", 630, 200, 110, 40);
+    textures.render_text_button("button exit", 655, 260, 60, 40);
   } 
-  textures.render_text("Current player: ", 590, 40);
+  textures.render_text("show player", 590, 40);
   textures.render();
 }
 
-void GamePlay::show_next_player(SDL_Textures& textures, std::string filename) {
-  textures.render_sprite(filename, 725, 36, TILE_SIZE, TILE_SIZE);
+void GamePlay::show_next_player(SDL_Textures& textures, std::string name) {
+  textures.render_sprite(name, 725, 36, TILE_SIZE, TILE_SIZE);
 }
 
 void GamePlay::place_stone_on_board(SDL_Textures& textures, int x, int y) {
-  if (board->get_tilemap()[y][x] != 0) { 
-    // do nothing
-  } else {
+  if (board->get_tilemap()[y][x] == 0) {
     if (is_red_turn == true) {
       board->set_tile(y, x, board->get_red_stone_id());
       is_win(x, y);
       is_gameover();
       if (!gameover) {
-        show_next_player(textures, "img/ex.bmp");
+        show_next_player(textures, "black stone");
         is_red_turn = false;
       }
     } else {
@@ -62,7 +60,7 @@ void GamePlay::place_stone_on_board(SDL_Textures& textures, int x, int y) {
       is_win(x, y);
       is_gameover();
       if (!gameover) {
-        show_next_player(textures, "img/circle.bmp");
+        show_next_player(textures, "red stone");
         is_red_turn = true;
       }
     }

@@ -19,10 +19,10 @@ public:
   ~SDL_Textures();
   void render();
   void make_textures();
-  void create_sprite_from_file(std::string name);
+  void create_sprite_from_file(std::string name, std::string filename);
   void render_sprite(std::string name, int x, int y, int w, int h);
-  void create_text_texture(const char* string, int size, const char* font_type);
-  void render_text(const char* text, int x, int y);
-  void render_text_button(const char* text, int x, int y, int w, int h);
+  void create_text_texture(const char* name, const char* text, int size, const char* font_type);
+  void render_text(const char* name, int x, int y);
+  void render_text_button(const char* name, int x, int y, int w, int h);
 };
 #endif
