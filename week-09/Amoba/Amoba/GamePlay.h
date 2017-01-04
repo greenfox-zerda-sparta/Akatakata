@@ -11,6 +11,7 @@ private:
   bool is_red_turn;
   bool gameover;
   int marks_to_win;
+  int moves;
 public:
   GamePlay();
   ~GamePlay();
@@ -20,5 +21,7 @@ public:
   bool GamePlay::is_win(int x, int y);
   bool is_winner(int x, int y, int x_step, int y_step);
   virtual bool is_gameover();
+  bool is_tile_free(int x, int y);
+  int get_moves_count();
 };
 #endif

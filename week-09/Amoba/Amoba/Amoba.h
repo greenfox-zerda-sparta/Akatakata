@@ -3,12 +3,14 @@
 #define AMOBA_H
 #include "SDL_Textures.h"
 #include "GamePlay.h"
+#include "ClientSocket.h"
 
 class Amoba {
 private:
   SDL_Textures* textures;
   GamePlay* game;
   SDL_Event event;
+  ClientSocket* cs;
   bool quit;
   int click_x;
   int click_y;

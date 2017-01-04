@@ -1,5 +1,8 @@
 #include <iostream>
+#include <string>
+#include <SDL_net.h>
 #include "Amoba.h"
+
 
 Amoba::Amoba() {
   game = new GamePlay();
@@ -7,9 +10,25 @@ Amoba::Amoba() {
   textures->make_textures();
   SDL_Event event;
   quit = false;
+
+  if (SDLNet_Init() == -1) {
+    std::cerr << "Failed to intialise SDL_net: " << SDLNet_GetError() << std::endl;
+    exit(-1);
+  }
+
+  try {
+    cs = new ClientSocket("127.0.0.1", 1234, 512);
+  } catch (SocketException e) {
+    std::cerr << "Something went wrong creating a ClientSocket object." << std::endl;
+    std::cerr << "Error is: " << e.what() << std::endl;
+    std::cerr << "Terminating application." << std::endl;
+    exit(-1);
+  }
+  cs->connectToServer();
 }
 
 Amoba::~Amoba() {
+  SDLNet_Quit();
   delete game;
   delete textures;
 }
@@ -29,6 +48,25 @@ bool Amoba::is_click_on_board(int x, int y) {
 
 void Amoba::run() {
   while (!quit) {
+    string receivedMessage = "";
+    receivedMessage = cs->checkForIncomingMessages();
+    if (receivedMessage.length() > 1) {
+      string got_x = "";
+      string got_y = "";
+      string temp = "";
+      for (unsigned int i = 0; i < receivedMessage.length(); i++) {
+        if (receivedMessage[i] != ',') {
+          temp += receivedMessage[i];
+        }
+        if (receivedMessage[i] == ',') {
+          got_x = temp;
+          temp = "";
+        }
+      }
+      got_y = temp;
+      game->place_stone_on_board(*textures, stoi(got_x), stoi(got_y));
+    }
+    
     SDL_PollEvent(&event);
     switch (event.type) {
     case SDL_QUIT:
@@ -38,8 +76,11 @@ void Amoba::run() {
       if ((is_click_on_board(event.button.x, event.button.y)) && game->is_gameover() == 0) {
         int tile_x = event.button.x / TILE_SIZE;
         int tile_y = event.button.y / TILE_SIZE;
-        game->place_stone_on_board(*textures, tile_x, tile_y);
-        break;
+        if (game->is_tile_free(tile_x, tile_y)) {
+          string user_input = std::to_string(tile_x) + "," + std::to_string(tile_y);
+          cs->getUserInput(user_input);
+          break;
+        }
       } else if (game->is_gameover()) {
         int click_x = event.button.x;
         int click_y = event.button.y;

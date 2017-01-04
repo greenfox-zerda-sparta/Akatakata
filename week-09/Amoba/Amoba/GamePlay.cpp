@@ -7,10 +7,18 @@ GamePlay::GamePlay() {
   is_red_turn = true;
   gameover = false;
   marks_to_win = 5;
+  moves = 0;
 }
 
 GamePlay::~GamePlay() {
   delete board;
+}
+
+bool GamePlay::is_tile_free(int x, int y) {
+  if (board->get_tilemap()[y][x] == 0) {
+    return true;
+  }
+  return false;
 }
 
 void GamePlay::render(SDL_Textures& textures) {
@@ -49,6 +57,7 @@ void GamePlay::place_stone_on_board(SDL_Textures& textures, int x, int y) {
   if (board->get_tilemap()[y][x] == 0) {
     if (is_red_turn == true) {
       board->set_tile(y, x, board->get_red_stone_id());
+      moves++;
       is_win(x, y);
       is_gameover();
       if (!gameover) {
@@ -57,6 +66,7 @@ void GamePlay::place_stone_on_board(SDL_Textures& textures, int x, int y) {
       }
     } else {
       board->set_tile(y, x, board->get_black_stone_id());
+      moves++;
       is_win(x, y);
       is_gameover();
       if (!gameover) {
@@ -65,6 +75,10 @@ void GamePlay::place_stone_on_board(SDL_Textures& textures, int x, int y) {
       }
     }
   }
+}
+
+int GamePlay::get_moves_count() {
+  return moves;
 }
 
 bool GamePlay::is_win(int x, int y) {
