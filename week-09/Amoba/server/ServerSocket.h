@@ -40,7 +40,6 @@ class ServerSocket
 		bool getShutdownStatus();
 };
 
-// Template function to convert anything to a string
 template<class T>
 std::string toString(const T& t)
 {
