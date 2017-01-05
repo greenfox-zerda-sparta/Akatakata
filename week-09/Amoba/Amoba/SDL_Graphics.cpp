@@ -1,6 +1,7 @@
 #include <iostream>
 #include "SDL_Graphics.h"
 //#include "GameBoard.h"
+#include "ClientSocket.h"
 
 #define W_WIDTH 785
 #define W_HEIGHT 570

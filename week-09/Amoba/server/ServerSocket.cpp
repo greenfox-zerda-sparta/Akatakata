@@ -64,7 +64,7 @@ ServerSocket::~ServerSocket() {
 }
 
 void ServerSocket::checkForConnections() {
-	int numActiveSockets = SDLNet_CheckSockets(socketSet, 100);
+	int numActiveSockets = SDLNet_CheckSockets(socketSet, 10);
 	if (numActiveSockets != 0) {
 		if (debug) {
 			cout << "There are currently " << numActiveSockets << " socket(s) with data to be processed." << endl;

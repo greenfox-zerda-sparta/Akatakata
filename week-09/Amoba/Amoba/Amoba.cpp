@@ -3,28 +3,18 @@
 #include <SDL_net.h>
 #include "Amoba.h"
 
-
 Amoba::Amoba() {
+  if (SDLNet_Init() == -1) {
+    cerr << "Failed to intialise SDL_net: " << SDLNet_GetError() << endl;
+    exit(-1);
+  }
+  cs = new ClientSocket("10.27.99.171", 1234, 512);
+  cs->connectToServer();
   game = new GamePlay();
   textures = new SDL_Textures;
   textures->make_textures();
   SDL_Event event;
   quit = false;
-
-  if (SDLNet_Init() == -1) {
-    std::cerr << "Failed to intialise SDL_net: " << SDLNet_GetError() << std::endl;
-    exit(-1);
-  }
-
-  try {
-    cs = new ClientSocket("127.0.0.1", 1234, 512);
-  } catch (SocketException e) {
-    std::cerr << "Something went wrong creating a ClientSocket object." << std::endl;
-    std::cerr << "Error is: " << e.what() << std::endl;
-    std::cerr << "Terminating application." << std::endl;
-    exit(-1);
-  }
-  cs->connectToServer();
 }
 
 Amoba::~Amoba() {
@@ -48,17 +38,22 @@ bool Amoba::is_click_on_board(int x, int y) {
 
 void Amoba::run() {
   while (!quit) {
-    string receivedMessage = "";
-    receivedMessage = cs->checkForIncomingMessages();
-    if (receivedMessage.length() > 1) {
+ // Suvi chatjehez
+ //   string user_input;
+ //   std::getline(std::cin, user_input);
+ //   cs->getUserInput(user_input);
+
+    string receivedCoords = "";
+    receivedCoords = cs->checkForIncomingMessages();
+    if (receivedCoords.length() > 0) {
       string got_x = "";
       string got_y = "";
       string temp = "";
-      for (unsigned int i = 0; i < receivedMessage.length(); i++) {
-        if (receivedMessage[i] != ',') {
-          temp += receivedMessage[i];
+      for (unsigned int i = 0; i < receivedCoords.length(); i++) {
+        if (receivedCoords[i] != ',') {
+          temp += receivedCoords[i];
         }
-        if (receivedMessage[i] == ',') {
+        if (receivedCoords[i] == ',') {
           got_x = temp;
           temp = "";
         }

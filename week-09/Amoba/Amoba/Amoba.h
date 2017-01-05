@@ -20,5 +20,6 @@ public:
   void make_new_game();
   bool is_click_on_board(int x, int y);
   void run();
+  std::vector<int> string_to_coords(string receivedCoords);
 };
 #endif
