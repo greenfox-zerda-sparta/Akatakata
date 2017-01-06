@@ -23,7 +23,7 @@ class ClientSocket {
 		string dotQuadString;
 		TCPsocket serverSocket;
 		TCPsocket clientSocket;
-		char *pBuffer;
+		char* pBuffer;
 		string userInput;
 		int inputLength;
 		SDLNet_SocketSet socketSet;

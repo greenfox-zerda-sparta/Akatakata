@@ -26,6 +26,7 @@ void SDL_Textures::make_textures() {
   create_sprite_from_file("red stone", "img/circle.bmp");
   create_sprite_from_file("black stone", "img/ex.bmp");
   create_text_texture("show player", "Current player: ", info_font_size, basic_font);
+  create_text_texture("yours", "You are: ", info_font_size, basic_font);
   create_text_texture("show winner", "WINS", winner_font_size, basic_font);
   create_text_texture("button play again", "Play again", info_font_size, basic_font);
   create_text_texture("button exit", "Exit", info_font_size, basic_font);

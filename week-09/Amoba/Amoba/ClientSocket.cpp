@@ -39,9 +39,6 @@ ClientSocket::~ClientSocket() {
 }
 
 void ClientSocket::connectToServer() {
-//  cout << "User name: " << endl;
-//  std::cin >> user_name;
-//  cout << user_name;
 	int hostResolved = SDLNet_ResolveHost(&serverIP, serverHostname.c_str(), serverPort);
 	if (hostResolved == -1) {
 		string msg = "Error: Failed to resolve the server hostname to an IP address.";

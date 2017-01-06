@@ -10,6 +10,7 @@ class Time {
 public:
 	Time();
 	std::string GetCurrentTime();
+  std::string GetTimeFileFormat();
 };
 #endif
 

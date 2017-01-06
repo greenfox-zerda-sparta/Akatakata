@@ -7,7 +7,6 @@ GamePlay::GamePlay() {
   is_red_turn = true;
   gameover = false;
   marks_to_win = 5;
-  moves = 0;
 }
 
 GamePlay::~GamePlay() {
@@ -38,26 +37,30 @@ void GamePlay::render(SDL_Textures& textures) {
     }
   }
   if (gameover == true) {
-    is_red_turn ? textures.render_sprite("red stone", 620, 100, TILE_SIZE, TILE_SIZE) : textures.render_sprite("black stone", 620, 100, TILE_SIZE, TILE_SIZE);
-    textures.render_text("show winner", 655, 103);
-    textures.render_sprite("tile", 615, 190, 110, 40);
-    textures.render_sprite("tile", 640, 250, 60, 40);
-    textures.render_text_button("button play again", 630, 200, 110, 40);
-    textures.render_text_button("button exit", 655, 260, 60, 40);
+    is_red_turn ? textures.render_sprite("red stone", 620, 150, TILE_SIZE, TILE_SIZE) : textures.render_sprite("black stone", 620, 150, TILE_SIZE, TILE_SIZE);
+    textures.render_text("show winner", 655, 153);
+    textures.render_sprite("tile", 615, 240, 110, 40);
+    textures.render_sprite("tile", 640, 290, 60, 40);
+    textures.render_text_button("button play again", 630, 250, 110, 40);
+    textures.render_text_button("button exit", 655, 300, 60, 40);
   } 
-  textures.render_text("show player", 590, 40);
+  textures.render_text("show player", 590, 90);
   textures.render();
 }
 
+void GamePlay::show_my_stone(SDL_Textures& textures) {
+  textures.render_text("yours", 590, 40);
+  is_red_turn ? textures.render_sprite("red stone", 725, 36, TILE_SIZE, TILE_SIZE) : textures.render_sprite("black stone", 725, 36, TILE_SIZE, TILE_SIZE);
+}
+
 void GamePlay::show_next_player(SDL_Textures& textures, std::string name) {
-  textures.render_sprite(name, 725, 36, TILE_SIZE, TILE_SIZE);
+  textures.render_sprite(name, 725, 86, TILE_SIZE, TILE_SIZE);
 }
 
 void GamePlay::place_stone_on_board(SDL_Textures& textures, int x, int y) {
   if (board->get_tilemap()[y][x] == 0) {
     if (is_red_turn == true) {
       board->set_tile(y, x, board->get_red_stone_id());
-      moves++;
       is_win(x, y);
       is_gameover();
       if (!gameover) {
@@ -66,7 +69,6 @@ void GamePlay::place_stone_on_board(SDL_Textures& textures, int x, int y) {
       }
     } else {
       board->set_tile(y, x, board->get_black_stone_id());
-      moves++;
       is_win(x, y);
       is_gameover();
       if (!gameover) {
@@ -75,10 +77,6 @@ void GamePlay::place_stone_on_board(SDL_Textures& textures, int x, int y) {
       }
     }
   }
-}
-
-int GamePlay::get_moves_count() {
-  return moves;
 }
 
 bool GamePlay::is_win(int x, int y) {

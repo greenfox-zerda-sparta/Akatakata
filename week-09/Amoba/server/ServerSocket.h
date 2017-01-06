@@ -31,8 +31,11 @@ class ServerSocket
 		unsigned int clientCount;
 		bool shutdownServer;
     string logbuffer;
+    string logfilename;
     std::ofstream logfile;
     Time* LocalTimer;
+    void log_buffer();
+    void print_and_log();
 	public:
 		static const string SERVER_NOT_FULL;
 		static const string SERVER_FULL;
@@ -43,7 +46,6 @@ class ServerSocket
 		int checkForActivity();     // -1 if no clients with activity to process
 		void dealWithActivity(unsigned int clientNumber);
 		bool getShutdownStatus();
-    void log(string text);
 };
 
 template<class T>

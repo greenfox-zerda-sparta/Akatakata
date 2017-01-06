@@ -15,6 +15,7 @@ Amoba::Amoba() {
   textures->make_textures();
   SDL_Event event;
   quit = false;
+  my_moves = 0;
 }
 
 Amoba::~Amoba() {
@@ -58,7 +59,11 @@ void Amoba::run() {
         }
       }
       got_y = temp;
+      my_moves++;
       game->place_stone_on_board(*textures, stoi(got_x), stoi(got_y));
+      if (my_moves == 1) {
+        game->show_my_stone(*textures);
+      }
     }
     
     SDL_PollEvent(&event);
@@ -73,15 +78,19 @@ void Amoba::run() {
         if (game->is_tile_free(tile_x, tile_y)) {
           string user_input = std::to_string(tile_x) + "," + std::to_string(tile_y);
           cs->getUserInput(user_input);
+          my_moves++;
+          if (my_moves == 1) {
+            game->show_my_stone(*textures);
+          }
           break;
         }
       } else if (game->is_gameover()) {
         int click_x = event.button.x;
         int click_y = event.button.y;
-        if (630 < click_x && click_x < 740 && 200 < click_y && click_y < 240) {
+        if (630 < click_x && click_x < 740 && 250 < click_y && click_y < 290) {
           make_new_game();
           break;
-        } else if (click_x > 655 && click_x < 715 && click_y > 260 && click_y < 300) {
+        } else if (click_x > 655 && click_x < 715 && click_y > 300 && click_y < 340) {
           quit = true;
           break;
         }

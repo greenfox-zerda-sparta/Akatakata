@@ -14,6 +14,7 @@ private:
   bool quit;
   int click_x;
   int click_y;
+  int my_moves;
 public:
   Amoba();
   ~Amoba();
