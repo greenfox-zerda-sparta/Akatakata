@@ -3,8 +3,10 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include "SDL_net.h"
 #include "SocketException.h" 
+#include "Time.h"
 
 using std::string;
 using std::cout;
@@ -28,6 +30,9 @@ class ServerSocket
 		SDLNet_SocketSet socketSet;
 		unsigned int clientCount;
 		bool shutdownServer;
+    string logbuffer;
+    std::ofstream logfile;
+    Time* LocalTimer;
 	public:
 		static const string SERVER_NOT_FULL;
 		static const string SERVER_FULL;
@@ -38,6 +43,7 @@ class ServerSocket
 		int checkForActivity();     // -1 if no clients with activity to process
 		void dealWithActivity(unsigned int clientNumber);
 		bool getShutdownStatus();
+    void log(string text);
 };
 
 template<class T>

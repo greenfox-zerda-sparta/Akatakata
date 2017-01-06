@@ -8,7 +8,7 @@ Amoba::Amoba() {
     cerr << "Failed to intialise SDL_net: " << SDLNet_GetError() << endl;
     exit(-1);
   }
-  cs = new ClientSocket("10.27.99.171"; , 1234, 512);
+  cs = new ClientSocket("10.27.6.104", 1234, 512);
   cs->connectToServer();
   game = new GamePlay();
   textures = new SDL_Textures;
@@ -38,11 +38,10 @@ bool Amoba::is_click_on_board(int x, int y) {
 
 void Amoba::run() {
   while (!quit) {
- // Suvi chatjehez
+ // Suvi chatjehez 3 sor
  //   string user_input;
- //   std::getline(std::cin, user_input);
+//    std::getline(std::cin, user_input);
  //   cs->getUserInput(user_input);
-
     string receivedCoords = "";
     receivedCoords = cs->checkForIncomingMessages();
     if (receivedCoords.length() > 0) {

@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
 
   ServerSocket *ss;
   try {
-    ss = new ServerSocket(1234, 512, 5);
+    ss = new ServerSocket(1234, 512, 10);
   } catch (SocketException e) {
     std::cerr << "Error in creating server socket: " << e.what() << std::endl;
     std::cerr << "Terminating application." << std::endl;
