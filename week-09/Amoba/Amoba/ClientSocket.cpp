@@ -9,7 +9,7 @@ const unsigned int ClientSocket::CONNECTION_TIMEOUT_PERIOD = 5000;
 const unsigned int ClientSocket::SOCKET_SET_POLL_PERIOD = 10;
 
 ClientSocket::ClientSocket(string theServerAddress, unsigned int theServerPort, unsigned int theBufferSize) {
-	debug = false;
+	debug = true;
 	shutdownClient = false;
 	serverHostname = theServerAddress;
 	serverPort = theServerPort;
@@ -147,7 +147,7 @@ void ClientSocket::getUserInput(string user_input) {
 	strcpy( pBuffer, user_input.c_str() );
 	inputLength = strlen(pBuffer) + 1;
 	if (user_input != ClientSocket::QUIT_SIGNAL) {
-		if (SDLNet_TCP_Send(clientSocket, (void *)pBuffer, inputLength) < inputLength) {
+		if (SDLNet_TCP_Send(clientSocket, (void*)pBuffer, inputLength) < inputLength) {
 			string msg  = "Error: Failed to send message: ";
 			       msg += SDLNet_GetError();
 			SocketException e(msg);

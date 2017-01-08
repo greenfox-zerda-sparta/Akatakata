@@ -96,7 +96,16 @@ void ServerSocket::checkForConnections() {
 			strcpy(pBuffer, SERVER_NOT_FULL.c_str()); // message to the client saying "OK" to indicate the incoming connection has been accepted
 			int msgLength = strlen(pBuffer) + 1;
 			SDLNet_TCP_Send(pClientSocket[freeSpot], (void *)pBuffer, msgLength);
-      logbuffer = LocalTimer->GetCurrentTime() + "Client connected. There are now " + toString(clientCount) + " client(s) connected.";
+
+      IPaddress* remote = SDLNet_TCP_GetPeerAddress(pClientSocket[freeSpot]);
+      Uint8 bytevalue[4];
+      for (int i = 0; i < 4; i++) {
+        bytevalue[i] = remote->host >> (i * 8);
+      }
+      string clientIP = toString((int)bytevalue[0]) + "." + toString((int)bytevalue[1]) + "." +
+        toString((int)bytevalue[2]) + "." + toString((int)bytevalue[3]);
+      logbuffer = LocalTimer->GetCurrentTime() + "Client connected from : " + clientIP + ", port : " + toString(SDLNet_Read16(&remote->port)) +
+        " There are now " + toString(clientCount) + " client(s) connected.";
       print_and_log();
 
 		} else {

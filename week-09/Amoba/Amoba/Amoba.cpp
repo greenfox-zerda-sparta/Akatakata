@@ -8,7 +8,7 @@ Amoba::Amoba() {
     cerr << "Failed to intialise SDL_net: " << SDLNet_GetError() << endl;
     exit(-1);
   }
-  cs = new ClientSocket("10.27.6.104", 1234, 512);
+  cs = new ClientSocket("127.0.0.1", 1234, 512);
   cs->connectToServer();
   game = new GamePlay();
   textures = new SDL_Textures;

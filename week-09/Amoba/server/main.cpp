@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     std::cerr << "Terminating application." << std::endl;
     exit(-1);
   }
-
+  
   try {
     int activeClient = -1;    // Which client is active, -1 means "no client is active"
     do {
@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
       do {
         activeClient = ss->checkForActivity();     
         if (activeClient != -1 && current_player % 2 == activeClient) {               // If there's a client with unprocessed activity...
-          ss->dealWithActivity(activeClient);   // ...then process that client!
+          ss->dealWithActivity(activeClient);                                         // ...then process that client!
           current_player++;
         }             
       } while (activeClient != -1);             // When there are no more clients with activity to process, continue...
