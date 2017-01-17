@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <vector>
 #include <conio.h> // Needed for kbhit and getch
 #include "SDL_net.h"
 #include "SocketException.h"

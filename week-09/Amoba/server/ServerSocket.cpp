@@ -107,7 +107,7 @@ void ServerSocket::checkForConnections() {
       logbuffer = LocalTimer->GetCurrentTime() + "Client connected from : " + clientIP + ", port : " + toString(SDLNet_Read16(&remote->port)) +
         " There are now " + toString(clientCount) + " client(s) connected.";
       print_and_log();
-
+ 
 		} else {
 			logbuffer = LocalTimer->GetCurrentTime() + "Max client count reached - rejecting client connection" ;
       print_and_log();
@@ -121,30 +121,42 @@ void ServerSocket::checkForConnections() {
 } 
 
 void ServerSocket::dealWithActivity(unsigned int clientNumber) {
-	string bufferContents = pBuffer;
-	if (debug) {
-		cout << LocalTimer->GetCurrentTime() << "Received: >>>> " << bufferContents << " from client number: " << clientNumber << endl;
-	}
-
+  string bufferContents = pBuffer;
+  if (debug) {
+    cout << LocalTimer->GetCurrentTime() << "Received: >>>> " << bufferContents << " from client number: " << clientNumber << endl;
+  	}   
   logbuffer = LocalTimer->GetCurrentTime() + "Client " + toString(clientNumber) + " placed on: " + toString(bufferContents);
   print_and_log();
-
-	for (unsigned int loop = 0; loop < maxClients; loop++) {
-		unsigned int msgLength = strlen(pBuffer) + 1;
-		if ((msgLength > 1) /*&& (loop != clientNumber)*/ && (pSocketIsFree[loop] == false))	{
-			if (debug) {
-				cout << LocalTimer->GetCurrentTime() << "Retransmitting: " << bufferContents << " (" << msgLength << " bytes) to client " << loop << endl;
-			}
-      SDLNet_TCP_Send(pClientSocket[loop], (void *)pBuffer, msgLength);
-		}
-	}
-	if (bufferContents.compare(SHUTDOWN_SIGNAL) == 0)	{
-		shutdownServer = true;
-		if (debug) { cout << LocalTimer->GetCurrentTime() << "Disconnecting all clients and shutting down the server..." << endl; }
-	}
+  if (clientNumber == 0 || clientNumber == 1) {
+    for (unsigned int loop = 0; loop < 2; loop++) {
+      unsigned int msgLength = strlen(pBuffer) + 1;
+      if ((msgLength > 1) && (pSocketIsFree[loop] == false)) {
+        if (debug) {
+          cout << LocalTimer->GetCurrentTime() << "Retransmitting: " << bufferContents << " (" << msgLength << " bytes) to client " << loop << endl;
+        }
+        SDLNet_TCP_Send(pClientSocket[loop], (void*)pBuffer, msgLength);
+      }
+    }
+  }
+  if (clientNumber == 2 || clientNumber == 3) {
+    for (unsigned int i = 2; i < 4; i++) {
+      unsigned int msgLength = strlen(pBuffer) + 1;
+      if ((msgLength > 1) && (pSocketIsFree[i] == false)) {
+        if (debug) {
+          cout << LocalTimer->GetCurrentTime() << "Retransmitting: " << bufferContents << " (" << msgLength << " bytes) to client " << i << endl;
+        }
+        SDLNet_TCP_Send(pClientSocket[i], (void *)pBuffer, msgLength);
+      }
+    }
+  }
+  	if (bufferContents.compare(SHUTDOWN_SIGNAL) == 0)	{
+  		shutdownServer = true;
+  		if (debug) { cout << LocalTimer->GetCurrentTime() << "Disconnecting all clients and shutting down the server..." << endl; }
+  	}
 }
 
 int ServerSocket::checkForActivity() {
+
 	for (unsigned int clientNumber = 0; clientNumber < maxClients; clientNumber++)	{
 		int clientSocketActivity = SDLNet_SocketReady(pClientSocket[clientNumber]);
 		
@@ -162,11 +174,11 @@ int ServerSocket::checkForActivity() {
 				if (debug) { cout << LocalTimer->GetCurrentTime() << "Server is now connected to: " << clientCount << " client(s)." << endl; }
 
 			} else {
-				return clientNumber;
+        return clientNumber;
 			}
 		} 
 	}
-	return -1; 	// If we got here then there are no more clients with activity to process!
+  return -1;
 } 
 
 bool ServerSocket::getShutdownStatus() {
@@ -183,3 +195,4 @@ void ServerSocket::print_and_log() {
   cout << logbuffer << endl;
   log_buffer();
 }
+

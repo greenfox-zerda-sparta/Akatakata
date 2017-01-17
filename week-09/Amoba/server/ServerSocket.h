@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <vector>
 #include "SDL_net.h"
 #include "SocketException.h" 
 #include "Time.h"
@@ -13,8 +14,7 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-class ServerSocket
-{
+class ServerSocket {
 	private:
 		bool debug;                 // Flag to control whether the ServerSocket should display debug info
 		unsigned int port;

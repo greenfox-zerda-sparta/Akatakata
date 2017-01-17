@@ -6,15 +6,16 @@
 #include "ServerSocket.h"
 
 int main(int argc, char *argv[]) {
-  int current_player = 0;
+  int FirstTablePlayer = 0;
+  int SecondTablePlayer = 2;
   if (SDLNet_Init() == -1) {
     std::cerr << "Failed to intialise SDL_net: " << SDLNet_GetError() << std::endl;
     exit(-1);
   }
 
-  ServerSocket *ss;
+  ServerSocket *server;
   try {
-    ss = new ServerSocket(1234, 512, 10);
+    server = new ServerSocket(1234, 512, 15);
   } catch (SocketException e) {
     std::cerr << "Error in creating server socket: " << e.what() << std::endl;
     std::cerr << "Terminating application." << std::endl;
@@ -24,15 +25,20 @@ int main(int argc, char *argv[]) {
   try {
     int activeClient = -1;    // Which client is active, -1 means "no client is active"
     do {
-      ss->checkForConnections();
+      server->checkForConnections();
       do {
-        activeClient = ss->checkForActivity();     
-        if (activeClient != -1 && current_player % 2 == activeClient) {               // If there's a client with unprocessed activity...
-          ss->dealWithActivity(activeClient);                                         // ...then process that client!
-          current_player++;
+        activeClient = server->checkForActivity();     
+          if (activeClient != -1) {
+            if (FirstTablePlayer == activeClient) {
+              server->dealWithActivity(activeClient);
+              FirstTablePlayer == 0 ? FirstTablePlayer = 1 : FirstTablePlayer = 0;
+            } else if (SecondTablePlayer == activeClient) {
+              server->dealWithActivity(activeClient);
+              SecondTablePlayer == 2 ? SecondTablePlayer = 3 : SecondTablePlayer = 2;
+            }
         }             
-      } while (activeClient != -1);             // When there are no more clients with activity to process, continue...
-    } while (ss->getShutdownStatus() == false);
+      } while (activeClient != -1);             
+    } while (server->getShutdownStatus() == false);
   } catch (SocketException e) {
     cerr << "Caught an exception in the main loop..." << e.what() << endl;
     cerr << "Terminating application." << endl;

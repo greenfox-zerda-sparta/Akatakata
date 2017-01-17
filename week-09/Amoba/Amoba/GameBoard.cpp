@@ -4,7 +4,7 @@ GameBoard::GameBoard() {
   red_stone_id = 1;
   black_stone_id = 2;
   empty_tile_id = 0;
-  tilemap = std::vector<std::vector<int>> (BOARD_SIZE, std::vector<int>(BOARD_SIZE, 0));;
+  tilemap = std::vector<std::vector<int>> (BOARD_SIZE, std::vector<int>(BOARD_SIZE, 0));
 }
 
 GameBoard::~GameBoard() {
