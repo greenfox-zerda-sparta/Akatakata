@@ -18,6 +18,7 @@ errorlist.txt
 *.exe
 *.h.gch
 *.txt
+Properties/AssemlyInfo.cs
 */AssemblyInfo.cs
 
 # User-specific files (MonoDevelop/Xamarin Studio)
