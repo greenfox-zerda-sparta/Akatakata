@@ -13,32 +13,59 @@ namespace ToDoApp {
     private List<string> todolist = new List<string>();
 
     public void ReadFromFile() {
-      int counter = 0;
       string line;
       StreamReader file = new StreamReader(filepath);
-      while ((line = file.ReadLine()) != null) {
-        string task = "[ ] " + (counter + 1).ToString() + " - " + line;
-        todolist.Add(task);
-        counter++;
+      
+      if (!string.IsNullOrEmpty(filepath)) {
+        while ((line = file.ReadLine()) != null) {
+          todolist.Add(line);
+        }
       }
       file.Close();
     }
 
     public void PrintList() {
       ReadFromFile();
-      if (todolist.Count() == 0) {
+      if (todolist.Count == 0) {
         Console.WriteLine("No todos for today! :)");
       } else {
         foreach (string task in todolist) {
-          Console.WriteLine(task);
+          Console.WriteLine((todolist.IndexOf(task) + 1) + " " + task);
         }
       }
     }
 
     public void AddTask(string taskToAdd) {
+      string task = "[ ] " + taskToAdd;
       using (StreamWriter file = File.AppendText(filepath)) {
-        file.WriteLine(taskToAdd);
+        file.WriteLine(task);
       }
+    }
+
+    public void RemoveTask(int number) {
+      if (number > todolist.Count) {
+        Console.WriteLine("Error: there is no element number " + number + " in the list.");
+      } else {
+        todolist.RemoveAt(number - 1);
+        ListToFile();
+      }
+    }
+
+    public void CompleteTask(int number) {
+      char[] array = todolist[number - 1].ToCharArray();
+      if (array[1] == 'x') {
+        array[1] = ' ';
+      } else if (array[1] == ' ') {
+        array[1] = 'x';
+      }
+      todolist[number - 1] = new string(array);
+      ListToFile();
+    }
+
+    public void ListToFile() {
+      StreamWriter file = new StreamWriter(filepath);
+      todolist.ForEach(file.WriteLine);
+      file.Close();
     }
   }
 }
