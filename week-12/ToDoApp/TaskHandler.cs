@@ -46,6 +46,7 @@ namespace ToDoApp {
     }
 
     public void RemoveTask(int number) {
+      ReadFromFile();
       if (number > todolist.Count || number < 1) {
         Console.WriteLine("Error: there is no element number " + number + " in the list.");
       } else {
@@ -56,6 +57,7 @@ namespace ToDoApp {
     }
 
     public void CompleteTask(int number) {
+      ReadFromFile();
       if (number > todolist.Count || number < 1) {
         Console.WriteLine("Error: there is no element number " + number + " in the list.");
       } else {
@@ -68,6 +70,7 @@ namespace ToDoApp {
         todolist[number - 1] = new string(array);
         ListToFile();
       }
+      PrintList();
     }
 
     public void ListToFile() {
