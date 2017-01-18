@@ -7,14 +7,14 @@ using System.IO;
 
 namespace ToDoApp {
   class TaskHandler {
-    private string filepath = @"C:\\greenfox/Akatakata/week-12/ToDoApp/todolist.txt";
+    private string filepath = "todolist.txt";
     public string Filepath { get; set; }
 
     private List<string> todolist = new List<string>();
 
     public void ReadFromFile() {
       string line;
-      StreamReader file = new StreamReader(filepath);
+      StreamReader file = new StreamReader(File.Open(filepath, FileMode.OpenOrCreate));
       if (todolist.Count != 0) {
         todolist.Clear();
       }
@@ -69,8 +69,8 @@ namespace ToDoApp {
         }
         todolist[number - 1] = new string(array);
         ListToFile();
+        PrintList();
       }
-      PrintList();
     }
 
     public void ListToFile() {

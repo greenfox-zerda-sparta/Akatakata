@@ -32,7 +32,7 @@ namespace ToDoApp {
         Console.WriteLine("Unsupported argument.");
         Console.WriteLine();
       }
-      Console.WriteLine("Printing Usage...");
+      PrintUsage();
     }
 
     private string GetFirstArgument() {
@@ -44,7 +44,14 @@ namespace ToDoApp {
     }
 
     private void PrintUsage() {
-      Console.WriteLine("Printing Usage...");
+      Console.WriteLine("   CLI Todo application");
+      Console.WriteLine("   ====================");
+      Console.WriteLine();
+      Console.WriteLine("   Command line arguments:");
+      Console.WriteLine("    -l   Lists all the tasks");
+      Console.WriteLine("    -a   Adds a new task");
+      Console.WriteLine("    -r   Removes a task");
+      Console.WriteLine("    -c   Completes a task");
     }
 
     private void List() {
