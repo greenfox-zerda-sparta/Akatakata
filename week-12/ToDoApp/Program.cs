@@ -12,7 +12,9 @@ namespace ToDoApp {
       Console.WriteLine();
       Console.WriteLine("Type the task to add: ");
       string toAdd = Console.ReadLine();
-      tasks.AddTask(toAdd);
+      if (toAdd != "") {
+        tasks.AddTask(toAdd);
+      }
       Console.ReadLine();
     }
   }
