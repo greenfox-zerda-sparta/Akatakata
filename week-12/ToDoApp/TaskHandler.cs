@@ -46,7 +46,7 @@ namespace ToDoApp {
     }
 
     public void RemoveTask(int number) {
-      if (number > todolist.Count) {
+      if (number > todolist.Count || number < 1) {
         Console.WriteLine("Error: there is no element number " + number + " in the list.");
       } else {
         todolist.RemoveAt(number - 1);
@@ -56,7 +56,7 @@ namespace ToDoApp {
     }
 
     public void CompleteTask(int number) {
-      if (number > todolist.Count) {
+      if (number > todolist.Count || number < 1) {
         Console.WriteLine("Error: there is no element number " + number + " in the list.");
       } else {
         char[] array = todolist[number - 1].ToCharArray();
