@@ -26,14 +26,17 @@ namespace ToDoApp {
 
     public void PrintList() {
       ReadFromFile();
-      foreach (string task in todolist) {
-        Console.WriteLine(task);
+      if (todolist.Count() == 0) {
+        Console.WriteLine("No todos for today! :)");
+      } else {
+        foreach (string task in todolist) {
+          Console.WriteLine(task);
+        }
       }
     }
 
     public void AddTask(string taskToAdd) {
       using (StreamWriter file = File.AppendText(filepath)) {
-        Console.WriteLine();
         file.WriteLine(taskToAdd);
       }
     }
