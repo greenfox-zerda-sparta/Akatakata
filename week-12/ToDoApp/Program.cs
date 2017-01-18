@@ -15,6 +15,8 @@ namespace ToDoApp {
       if (toAdd != "") {
         tasks.AddTask(toAdd);
       }
+      tasks.RemoveTask(29);
+      tasks.CompleteTask(1);
       Console.ReadLine();
     }
   }

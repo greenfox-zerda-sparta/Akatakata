@@ -15,7 +15,9 @@ namespace ToDoApp {
     public void ReadFromFile() {
       string line;
       StreamReader file = new StreamReader(filepath);
-      
+      if (todolist.Count != 0) {
+        todolist.Clear();
+      }
       if (!string.IsNullOrEmpty(filepath)) {
         while ((line = file.ReadLine()) != null) {
           todolist.Add(line);
@@ -40,6 +42,7 @@ namespace ToDoApp {
       using (StreamWriter file = File.AppendText(filepath)) {
         file.WriteLine(task);
       }
+      PrintList();
     }
 
     public void RemoveTask(int number) {
@@ -48,18 +51,23 @@ namespace ToDoApp {
       } else {
         todolist.RemoveAt(number - 1);
         ListToFile();
+        PrintList();
       }
     }
 
     public void CompleteTask(int number) {
-      char[] array = todolist[number - 1].ToCharArray();
-      if (array[1] == 'x') {
-        array[1] = ' ';
-      } else if (array[1] == ' ') {
-        array[1] = 'x';
+      if (number > todolist.Count) {
+        Console.WriteLine("Error: there is no element number " + number + " in the list.");
+      } else {
+        char[] array = todolist[number - 1].ToCharArray();
+        if (array[1] == 'x') {
+          array[1] = ' ';
+        } else if (array[1] == ' ') {
+          array[1] = 'x';
+        }
+        todolist[number - 1] = new string(array);
+        ListToFile();
       }
-      todolist[number - 1] = new string(array);
-      ListToFile();
     }
 
     public void ListToFile() {
