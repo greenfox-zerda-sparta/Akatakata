@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.Collections;
 
 namespace Santa {
   class Program {
 
     public class Names {
-      private List<string> nameList = new List<string>();
-      public List<string> NameList { get { return nameList; } }
-      private int nameCount;
-      public int NameCount { get { return nameCount; } }
-
+      private ArrayList nameList = new ArrayList();
+      public ArrayList NameList { get { return nameList; } }
+      
       public Names() { 
         this.GetNames();
         this.ShuffleNames();
@@ -22,23 +17,22 @@ namespace Santa {
       public void GetNames() {
         string input = "";
         Console.WriteLine("Please add a name to the Secret Santa Maker! Type /stop if you finished adding names. ");
-        while (input != "/stop") {
+        while (input != "/q") {
           input = Console.ReadLine();
-          if (input == "/stop" && (nameCount % 2 == 1)) {
-            Console.WriteLine("The number of names given is odd, I can't make pairs. Please add one more name.");
+          if (input == "/q" && (NameList.Count % 2 == 1)) {
+            Console.WriteLine("The number of names given is odd, I can't make pairs. Please add one more name, then type /q if you finished.");
             input = "";
             continue;
-          } else if (input == "/stop") {
+          } else if (input == "/q") {
             break;
           }
           nameList.Add(input);
-          nameCount++;
         }
       }
 
       public void ShuffleNames() {
         Random random = new Random();
-        List<string> temp = new List<string>();
+        ArrayList temp = new ArrayList();
         while (nameList.Count > 0) {
           int index = random.Next(0, nameList.Count);
           temp.Add(nameList[index]); 
@@ -49,29 +43,28 @@ namespace Santa {
     }
 
     public class SecretSantaMaker {
-      Names names = new Names();
-      private List<string> buysTo = new List<string>();
-      public List<string> BuysTo { get { return buysTo; } }
-
+      private Names names = new Names();
+      private Dictionary<object, object> namePairs = new Dictionary<object, object>();
+     
       public void Run() {
-        GenerateBuysTo();
-        PushList(ref buysTo);
+        MakePairs();
         PrintPairs();
       }
-
-      public void GenerateBuysTo() {
-        buysTo = names.NameList;
-
-      }
-
-      public void PushList(ref List<string> s) {
-        buysTo.Add(buysTo[0]);
+      
+      private void MakePairs() {
+        for (int i = 0; i < names.NameList.Count; i++) {
+          if (i == names.NameList.Count - 1) {
+            namePairs.Add(names.NameList[i], names.NameList[0]);
+          } else {
+            namePairs.Add(names.NameList[i], names.NameList[i + 1]);
+          }
+        }
       }
 
       public void PrintPairs() {
-        Console.WriteLine("darab: " + names.NameCount);
-        for (int i = 0; i < names.NameCount; i++) {
-          Console.WriteLine(names.NameList[i] + " buys to " + buysTo[i + 1]);
+        Console.WriteLine("Name - Santa:");
+        foreach (KeyValuePair<object, object> entry in namePairs) {
+          Console.WriteLine(entry);
         }
       }
     }
