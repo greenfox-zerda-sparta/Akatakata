@@ -13,7 +13,7 @@ public class SynchronousSocketServer {
     byte[] bytes = new Byte[1024];
 
     // Establish the local endpoint for the socket.
-    IPHostEntry ipHostInfo = Dns.Resolve("10.27.6.82");
+    IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
     IPAddress ipAddress = ipHostInfo.AddressList[0];
     IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
 
@@ -39,7 +39,7 @@ public class SynchronousSocketServer {
           int bytesRec = handler.Receive(bytes);
           data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
           if (data.Length > 0) {
-            break;
+          break;
           }
         }
 

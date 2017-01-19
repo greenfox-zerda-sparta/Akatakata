@@ -6,6 +6,7 @@ using System.Text;
 public class SynchronousSocketClient {
 
   public static void StartClient() {
+    bool shutdown = false;
     // Data buffer for incoming data.
     byte[] bytes = new byte[1024];
 
@@ -23,14 +24,25 @@ public class SynchronousSocketClient {
         client.Connect(remoteEndpoint);
         Console.WriteLine("Socket connected to {0}", client.RemoteEndPoint.ToString());
 
-        // Send: Encode the data string into a byte array and Send
-        byte[] msg = Encoding.ASCII.GetBytes("SUBIDUBIDUUUU");
-        int bytesSent = client.Send(msg);
+        do {
 
-        // Receive
-        int bytesRec = client.Receive(bytes);
-        Console.WriteLine("Echoed test = {0}", Encoding.ASCII.GetString(bytes, 0, bytesRec));
+          // Receive
+          if (client.Poll(100, SelectMode.SelectRead)) {
+            bytes = new byte[1024];
+            int bytesRec = client.Receive(bytes);
+            if (bytesRec > 0) {
+              Console.WriteLine("Echoed test = {0}", Encoding.ASCII.GetString(bytes, 0, bytesRec));
+            }
+          }
 
+          // Send: Encode the data string into a byte array and Send
+          string message = Console.ReadLine();
+          byte[] msg = Encoding.ASCII.GetBytes(message);
+          int bytesSent = client.Send(msg);
+
+
+
+        } while (shutdown == false);
         // Release and close the socket.
         client.Shutdown(SocketShutdown.Both);
         client.Close();
