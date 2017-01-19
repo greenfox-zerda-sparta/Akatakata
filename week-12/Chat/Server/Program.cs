@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Collections.Generic;
 
 public class SynchronousSocketServer {
 
@@ -9,50 +10,50 @@ public class SynchronousSocketServer {
   public static string data = null;
 
   public static void StartListening() {
-    // Data buffer for incoming data.
+
     byte[] bytes = new Byte[1024];
 
-    // Establish the local endpoint for the socket.
     IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
     IPAddress ipAddress = ipHostInfo.AddressList[0];
     IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
 
-    // Create a TCP/IP socket.
     Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+    List<Socket> SocketList = new List<Socket>();
 
-    // Bind the socket to the local endpoint and listen for incoming connections.
     try {
       listener.Bind(localEndPoint);
       listener.Listen(10);
 
-      // Start listening for connections and remains running
+      Console.WriteLine("Waiting for a connection...");
       while (true) {
+      //  if (listener.Available > 0) {
+          SocketList.Add(listener.Accept());
+          Console.WriteLine("Connected!");
+        Console.WriteLine(SocketList.Count);
+        //     listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        //   }
 
-        Console.WriteLine("Waiting for a connection...");
-        // Program is suspended while waiting for an incoming connection.
-        Socket handler = listener.Accept();
-        data = null;
+        //while (true) {
+        //  data = null;
+        //  for (int i = 0; i < SocketList.Count; i++) {
+        //    if (SocketList[i].Available > 0) {
+        //      bytes = new byte[1024];
+        //      int bytesRec = SocketList[i].Receive(bytes);
+        //      data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+        //      if (data.Length > 0) {
+        //        break;
+        //      }
+        //    }
+        //  }
+        //}
 
-        // An incoming connection needs to be processed.
-        while (true) {
-          bytes = new byte[1024];
-          int bytesRec = handler.Receive(bytes);
-          data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-          if (data.Length > 0) {
-          break;
-          }
-        }
+        //Console.WriteLine("Text received : {0}", data);
+        //byte[] msg = Encoding.ASCII.GetBytes(data);
 
-        // Show the data on the console.
-        Console.WriteLine("Text received : {0}", data);
-
-        // Echo the data back to the client.
-        byte[] msg = Encoding.ASCII.GetBytes(data);
-
-        handler.Send(msg);
-        handler.Shutdown(SocketShutdown.Both);
-        handler.Close();
+        //SocketList[0].Send(msg); // HA TOBB SOCKET VAN, VEGIG KELL NEZNI
       }
+     // handler.Shutdown(SocketShutdown.Both);
+     // handler.Close();
 
     } catch (Exception e) {
       Console.WriteLine(e.ToString());

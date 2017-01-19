@@ -27,7 +27,7 @@ public class SynchronousSocketClient {
         do {
 
           // Receive
-          if (client.Poll(100, SelectMode.SelectRead)) {
+           if (client.Poll(100, SelectMode.SelectRead)) {
             bytes = new byte[1024];
             int bytesRec = client.Receive(bytes);
             if (bytesRec > 0) {
@@ -36,10 +36,9 @@ public class SynchronousSocketClient {
           }
 
           // Send: Encode the data string into a byte array and Send
-          string message = Console.ReadLine();
-          byte[] msg = Encoding.ASCII.GetBytes(message);
-          int bytesSent = client.Send(msg);
-
+            string message = Console.ReadLine();
+            byte[] msg = Encoding.ASCII.GetBytes(message);
+            int bytesSent = client.Send(msg);
 
 
         } while (shutdown == false);
