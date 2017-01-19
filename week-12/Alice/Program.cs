@@ -16,15 +16,6 @@ using System.Text.RegularExpressions;
 
 namespace Alice {
   class Program {
-    static bool IsStringContain(string myString, char myChar) {
-      char[] array = myString.ToCharArray();
-      for (int i = 0; i < array.Length - 1; i++) {
-        if (array[i] == myChar) {
-          return true;
-        }
-      }
-      return false;
-    }
     
     static void wordCleaner(ref string word) {
       if (word.Length > 0) {
@@ -69,7 +60,7 @@ namespace Alice {
       }
       Console.WriteLine();
       Console.WriteLine("Alice occurs: " + words["Alice"]);
-      Console.WriteLine("Number of words: " + words.Count);
+      Console.WriteLine("Number of different words: " + words.Count);
       Console.WriteLine("The longest word: " + longestWord);
       Console.ReadLine();
     }
