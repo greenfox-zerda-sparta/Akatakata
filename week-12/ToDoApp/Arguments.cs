@@ -3,9 +3,10 @@
 namespace ToDoApp {
   class Arguments {
     private string[] _args;
-    private TaskHandler tasks = new TaskHandler();
+    private TaskHandler tasks;
 
     public Arguments(string[] args) {
+      tasks = new TaskHandler();
       _args = args;
       string FirstArgument = GetFirstArgument();
       if (FirstArgument == "") {
