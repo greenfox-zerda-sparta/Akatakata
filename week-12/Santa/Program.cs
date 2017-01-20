@@ -6,8 +6,8 @@ namespace Santa {
   class Program {
 
     public class Names {
-      private ArrayList nameList = new ArrayList();
-      public ArrayList NameList { get { return nameList; } }
+      private List<string> nameList = new List<string>();
+      public List<string> NameList { get { return nameList; } }
       
       public Names() { 
         this.GetNames();
@@ -16,7 +16,7 @@ namespace Santa {
 
       public void GetNames() {
         string input = "";
-        Console.WriteLine("Please add a name to the Secret Santa Maker! Type /stop if you finished adding names. ");
+        Console.WriteLine("Please add a name to the Secret Santa Maker! Type /q if you finished adding names. ");
         while (input != "/q") {
           input = Console.ReadLine();
           if (input == "/q" && (NameList.Count % 2 == 1)) {
@@ -32,7 +32,7 @@ namespace Santa {
 
       public void ShuffleNames() {
         Random random = new Random();
-        ArrayList temp = new ArrayList();
+        List<string> temp = new List<string>();
         while (nameList.Count > 0) {
           int index = random.Next(0, nameList.Count);
           temp.Add(nameList[index]); 
@@ -44,7 +44,7 @@ namespace Santa {
 
     public class SecretSantaMaker {
       private Names names = new Names();
-      private Dictionary<object, object> namePairs = new Dictionary<object, object>();
+      private Dictionary<string, string> namePairs = new Dictionary<string, string>();
      
       public void Run() {
         MakePairs();
@@ -63,7 +63,7 @@ namespace Santa {
 
       public void PrintPairs() {
         Console.WriteLine("Name - Santa:");
-        foreach (KeyValuePair<object, object> entry in namePairs) {
+        foreach (KeyValuePair<string, string> entry in namePairs) {
           Console.WriteLine(entry);
         }
       }
