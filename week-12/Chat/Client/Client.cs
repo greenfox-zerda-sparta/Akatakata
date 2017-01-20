@@ -10,7 +10,7 @@ namespace Chatclient {
     private byte[] bytes;
     private string _nameOfUser;
     private bool connected;
-    private string serverIP = "10.27.6.82";
+    private string serverIP = "10.27.6.69";
 
     public Client() {
       bytes = new byte[1024];
@@ -62,7 +62,7 @@ namespace Chatclient {
       while (true) {
         Receive();
         if (Console.KeyAvailable) {
-          message = _nameOfUser + " -> " + Console.ReadLine();
+          message = Console.ReadLine();
           Send(message);
           if (message == "quit!") {
             break;
