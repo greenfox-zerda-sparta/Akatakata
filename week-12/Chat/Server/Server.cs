@@ -7,57 +7,83 @@ using System.Text;
 namespace Chatserver {
   class Server {
     public static string data;
-
     Socket listener;
-    List<Socket> SocketSet;
+    Dictionary<Socket, string> SocketSet;
+    List<Socket> ToRemove;
     byte[] bytes;
 
     public Server() {
+
       IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
       IPAddress ipAddress = ipHostInfo.AddressList[0];
       IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
-      SocketSet = new List<Socket>();
+      SocketSet = new Dictionary<Socket, string>();
       listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
       listener.Blocking = false;
+      ToRemove = new List<Socket>();
       try {
         listener.Bind(localEndPoint);
         listener.Listen(10);
       } catch (Exception e) {
         Console.WriteLine(e.ToString());
       }
-
-    }
-
-    private void ReceiveConnections() {
-      try {
-        SocketSet.Add(listener.Accept());
-        Console.WriteLine("Connected client number {0}", SocketSet.Count);
-      } catch { }
     }
 
     public void Run() {
       Console.WriteLine("Server is running...");
       while (true) {
         ReceiveConnections();
-        for (int i = 0; i < SocketSet.Count; ++i) {
-          Receive(SocketSet[i]); 
-          if (data != null) {
-            for (int k = 0; k < SocketSet.Count; ++k) {
-              if (i == k) 
-              {
-                continue;
-              }
-              Send(SocketSet[k]);
+        Messaging();
+        RemoveDisconnectedClients();
+      }
+    }
+
+    private void ReceiveConnections() {
+      try {
+        Socket tempSocket = listener.Accept();
+        Console.WriteLine("Connected client number {0}", SocketSet.Count + 1);
+        data = "Enter your name > ";
+        Send(tempSocket);
+        data = null;
+        while (data == null) {
+          Receive(tempSocket);
+        }
+        data = data.Remove(data.Length - 1, 1);
+        SocketSet.Add(tempSocket, data);
+        data = null;
+      } catch { }
+    }
+
+    private void Messaging() {
+      foreach (KeyValuePair<Socket, string> Socket in SocketSet) {
+        Receive(Socket.Key);
+        if (data != null) {
+          data = Socket.Value + "> " + data;
+          foreach (KeyValuePair<Socket, string> Handler in SocketSet) {
+            if (Socket.Key == Handler.Key) {
+              continue;
             }
+            Send(Handler.Key);
           }
         }
       }
     }
 
-    private void Send(Socket handler) {
-      byte[] msg = Encoding.ASCII.GetBytes(data);
+    private void RemoveDisconnectedClients() {
+      for (int i = 0; i < ToRemove.Count; ++i) {
+        SocketSet.Remove(ToRemove[i]);
+      }
+      ToRemove.Clear();
+    }
 
-      handler.Send(msg);
+    private void Send(Socket handler) {
+      try {
+        byte[] msg = Encoding.ASCII.GetBytes(data);
+        handler.Send(msg);
+      } catch {
+        Console.WriteLine("Client {0} is disconnected", SocketSet[handler]);
+        ToRemove.Add(handler);
+      }
     }
 
     private void Receive(Socket handler) {
@@ -67,16 +93,21 @@ namespace Chatserver {
         int bytesRec = handler.Receive(bytes);
         data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
         if (data.IndexOf("\n") > -1) {
-          Console.Write(data);
+          string name = "";
+          if (SocketSet.ContainsKey(handler)) {
+            name = SocketSet[handler];
+          }
+          Console.Write("{0}> {1}", name, data);
         }
       }
     }
 
     ~Server() {
-      foreach (Socket handler in SocketSet) {
-        handler.Shutdown(SocketShutdown.Both);
-        handler.Close();
+      foreach (KeyValuePair<Socket, string> handler in SocketSet) {
+        handler.Key.Shutdown(SocketShutdown.Both);
+        handler.Key.Close();
       }
+      SocketSet.Clear();
     }
   }
 }
