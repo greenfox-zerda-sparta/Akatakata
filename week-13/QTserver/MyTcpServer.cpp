@@ -2,24 +2,20 @@
 #include "MyTcpServer.h"
 
 MyTcpServer::MyTcpServer(QObject *parent) :
-  QObject(parent) {
-  server = new QTcpServer(this);
-  connect(server, SIGNAL(newConnection()), this, SLOT(newConnection()));
-
-  if (!server->listen(QHostAddress::Any, 1234)) {
-    qDebug() << "Server could not start";
-  } else {
-    qDebug() << "Server started!";
-  }
-  
+  QTcpServer(parent) {
 }
 
-void MyTcpServer::newConnection() {
-  QTcpSocket *socket = server->nextPendingConnection();
-  std::cout << "Valai connectelt" << std::endl;
+void MyTcpServer::StartServer() {
+  if (!this->listen(QHostAddress::Any, 1234)) {
+    qDebug() << "Could not start server";
+  } else {
+    qDebug() << "Listening.";
+  }
+}
 
-  socket->write("Hello client\r\n");
-  socket->flush();
-
- // socket->close();
+void MyTcpServer::incomingConnection(qintptr socketDescriptor) {
+  qDebug() << socketDescriptor << " Connecting.";
+  MyThread* thread = new MyThread(socketDescriptor, this);
+  connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+  thread->start();
 }
