@@ -41,11 +41,13 @@ public:
   }
 
   void getGroups() {
+    // make groups:
     std::map<int, std::vector<int>> groups;
     for (int i = 0; i < length; i++) {
-      groups[numbers[i]].push_back(i);
+      groups[root(numbers[i])].push_back(i);
     }
 
+    // printing
     std::cout << " Parent: ";
     for (auto i : numbers) { std::cout << i << " "; }
 
@@ -57,9 +59,7 @@ public:
     }
     std::cout << std::endl;
   }
-  
-
-
+ 
 private:
   std::vector<int> numbers;
   std::vector<int> siblings;
