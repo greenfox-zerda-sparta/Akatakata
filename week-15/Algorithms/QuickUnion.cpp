@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <iostream>
+#include <map>
 
 class Union {
 public:
@@ -25,15 +26,13 @@ public:
     return i;
   }
 
-  void unite(int index1, int index2) {
+  void unite(int index1, int index2) { 
     if (siblings[root(index1)] >= siblings[root(index2)]) {
       siblings[root(index1)] += siblings[root(index2)];
       numbers[root(index2)] = root(index1);
-     
     } else {
       siblings[root(index2)] += siblings[root(index1)];
       numbers[root(index1)] = root(index2);
-      
     }
   }
 
@@ -42,23 +41,24 @@ public:
   }
 
   void getGroups() {
-   /* std::cout << "0";
-    for (int i = 1; i < length; i++) {
-      if (numbers[i] == numbers[i - 1]) {
-        std::cout << ", " << i;
-      } else {
-        std::cout << " | " << i;
-      }
+    std::map<int, std::vector<int>> groups;
+    for (int i = 0; i < length; i++) {
+      groups[numbers[i]].push_back(i);
+    }
+
+    std::cout << " Parent: ";
+    for (auto i : numbers) { std::cout << i << " "; }
+
+    std::cout << " GROUPS: ";
+    for (auto pair : groups) {
+      std::cout << "[  ";
+      for (int i : pair.second) std::cout << i << "  ";
+      std::cout << "] ";
     }
     std::cout << std::endl;
-    for*/
-    std::cout << "SIBLINGS" << std::endl;
-    for (auto i : siblings) { std::cout << i << " "; }
-    std::cout << std::endl;
-    std::cout << "NUMBERS" << std::endl;
-    for (auto i : numbers) { std::cout << i << " "; }
-    std::cout << std::endl;
   }
+  
+
 
 private:
   std::vector<int> numbers;
@@ -71,7 +71,7 @@ int main() {
   std::vector<std::vector<int>> connections = { {3, 4}, {4, 9}, {8, 0}, {2, 3}, {5, 6}, {5, 9}, {7, 3}, {4, 8}, {6, 1} };
   for (std::vector<int> nodes : connections) {
     uni.unite(nodes[0], nodes[1]);
-    std::cout << "connect: " << nodes[0] << "-" << nodes[1] << " ---> "; 
+    std::cout << "connect: " << nodes[0] << "-" << nodes[1]; 
     uni.getGroups();
   }
   return 0;
