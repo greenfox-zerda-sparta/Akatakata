@@ -27,11 +27,13 @@ public:
 
   void unite(int index1, int index2) {
     if (siblings[root(index1)] >= siblings[root(index2)]) {
-      numbers[root(index2)] = root(index1);
       siblings[root(index1)] += siblings[root(index2)];
+      numbers[root(index2)] = root(index1);
+     
     } else {
-      numbers[root(index1)] = root(index2);
       siblings[root(index2)] += siblings[root(index1)];
+      numbers[root(index1)] = root(index2);
+      
     }
   }
 
@@ -50,10 +52,10 @@ public:
     }
     std::cout << std::endl;
     for*/
-    //std::cout << "SIBLINGS" << std::endl;
-    //for (auto i : siblings) { std::cout << i << " "; }
-    //std::cout << std::endl;
-    // std::cout << "NUMBERS" << std::endl;
+    std::cout << "SIBLINGS" << std::endl;
+    for (auto i : siblings) { std::cout << i << " "; }
+    std::cout << std::endl;
+    std::cout << "NUMBERS" << std::endl;
     for (auto i : numbers) { std::cout << i << " "; }
     std::cout << std::endl;
   }
