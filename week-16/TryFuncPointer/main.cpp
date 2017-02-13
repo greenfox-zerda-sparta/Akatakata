@@ -2,19 +2,19 @@
 #include <map>
 
 void print_one() {
-  std::cout << 1 << std::endl;
+  std::cout << "This function writes: " << 1 << std::endl;
 }
 
 void print_two() {
-  std::cout << 2 << std::endl;
+  std::cout << "This function writes: " << 2 << std::endl;
 }
 
 void print_three() {
-  std::cout << 3 << std::endl;
+  std::cout << "This function writes: " << 3 << std::endl;
 }
 
 void print_four() {
-  std::cout << 4 << std::endl;
+  std::cout << "This function writes: " << 4 << std::endl;
 }
 
 
