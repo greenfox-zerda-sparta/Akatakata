@@ -1,5 +1,12 @@
 #include <iostream>
 #include <map>
+#include <vector>
+
+struct IDs {
+  int first;
+  int second;
+  int third;
+};
 
 void print_one() {
   std::cout << "This function writes: " << 1 << std::endl;
@@ -48,6 +55,9 @@ int main() {
   function_map_with_arg[5](9);
   function_map_with_arg[5](11);
   
+  std::vector<IDs> vec;
+  vec.push_back({ 1, 2, 3 });
+  std::cout << vec[0].first << " " << vec[0].third << std::endl;
   system("pause");
   return 0;
 }
